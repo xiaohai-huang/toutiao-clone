@@ -4,7 +4,6 @@ import Grid from "@material-ui/core/Grid";
 import { Box, makeStyles } from "@material-ui/core";
 
 import Channel from "../features/channel/Channel";
-import SearchBar from "../features/company/SearchBar";
 import Feed from "../features/feed/Feed";
 import Company from "../features/company/Company";
 
