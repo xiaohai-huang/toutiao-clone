@@ -11,8 +11,8 @@ import Company from "../features/company/Company";
 const useStyles = makeStyles((theme) => ({
   root: {
     [theme.breakpoints.down("md")]: {
-      paddingLeft: "5px",
-      paddingRight: "5px",
+      paddingLeft: "0px",
+      paddingRight: "0px",
     },
   },
   channelContainer: {
@@ -31,7 +31,7 @@ export default function MainPage() {
           <Channel />
         </Grid>
         {/* Feed */}
-        <Grid item xs={12} sm={9} md>
+        <Grid item className={classes.feedContainer} xs={12} sm={9} md>
           <Feed />
         </Grid>
         {/* Links */}

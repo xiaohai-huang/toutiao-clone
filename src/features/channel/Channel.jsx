@@ -17,6 +17,7 @@ const useStyles = makeStyles((theme) => ({
   },
   [theme.breakpoints.down("xs")]: {
     root: {
+      position: "static",
       flexDirection: "row",
       flexWrap: "wrap",
       justifyContent: "center",
@@ -35,8 +36,10 @@ const useStyles = makeStyles((theme) => ({
       background: "#d43d3d",
       height: "2.8rem",
     },
-    "&:hover": {
-      cursor: "pointer",
+    [theme.breakpoints.up("sm")]: {
+      "&:hover": {
+        cursor: "pointer",
+      },
     },
   },
   listItem: {

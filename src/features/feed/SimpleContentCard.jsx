@@ -31,7 +31,7 @@ const useStyles = makeStyles((theme) => ({
   },
   title: {
     fontWeight: "700",
-    marginBottom: "3px",
+    marginBottom: "6px",
     fontSize: "1.2rem",
   },
   link: {
@@ -46,6 +46,7 @@ const useStyles = makeStyles((theme) => ({
       marginRight: "7px",
       fontSize: "0.83rem",
     },
+    marginBottom: "-1px",
   },
 }));
 function SimpleContentCard({
