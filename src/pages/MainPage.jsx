@@ -1,37 +1,44 @@
 import React from "react";
 import Container from "@material-ui/core/Container";
 import Grid from "@material-ui/core/Grid";
+import { Box, makeStyles } from "@material-ui/core";
+
 import Channel from "../features/channel/Channel";
-import { Box, makeStyles, Paper, Typography } from "@material-ui/core";
-const useStyles = makeStyles((theme) => ({}));
+import SearchBar from "../features/company/SearchBar";
+import Feed from "../features/feed/Feed";
+import Company from "../features/company/Company";
+
+const useStyles = makeStyles((theme) => ({
+  root: {
+    [theme.breakpoints.down("md")]: {
+      paddingLeft: "5px",
+      paddingRight: "5px",
+    },
+  },
+  channelContainer: {
+    paddingLeft: "0!important",
+  },
+}));
+
 export default function MainPage() {
   const classes = useStyles();
-  let arr = Array.apply(null, Array(20));
+
   return (
-    <Container>
-      <Grid container spacing={3}>
-        <Grid item xs={12} sm={3} md={2}>
+    <Container className={classes.root}>
+      <Grid container spacing={1}>
+        {/* Channel */}
+        <Grid item className={classes.channelContainer} xs={12} sm={3} md={2}>
           <Channel />
         </Grid>
+        {/* Feed */}
         <Grid item xs={12} sm={9} md>
-          <Grid container>
-            <Grid item xs>
-              {arr.map((e, i) => (
-                <Typography>
-                  {i}. Lorem, ipsum dolor sit amet consectetur adipisicing elit.
-                  Facilis vel iste quod sed consectetur omnis! Odit, consequatur
-                  deserunt minus alias ducimus explicabo animi culpa magni
-                  laborum voluptatibus, odio pariatur facilis.
-                </Typography>
-              ))}
-            </Grid>
-          </Grid>
+          <Feed />
         </Grid>
-
-        <Grid item md={3}>
+        {/* Links */}
+        <Grid item md={4}>
           <span></span>
           <Box display={{ xs: "none", md: "block" }}>
-            <Paper>Links</Paper>
+            <Company />
           </Box>
         </Grid>
       </Grid>

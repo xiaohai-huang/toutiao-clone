@@ -1,22 +1,27 @@
-import { Box, Paper, Typography } from "@material-ui/core";
 import React from "react";
-
+import { Box, Paper, Typography } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemText from "@material-ui/core/ListItemText";
 import ListItemAvatar from "@material-ui/core/ListItemAvatar";
 import Avatar from "@material-ui/core/Avatar";
-import BeachAccessIcon from "@material-ui/icons/BeachAccess";
+import WbSunnyOutlinedIcon from "@material-ui/icons/WbSunnyOutlined";
+import WbCloudyOutlinedIcon from "@material-ui/icons/WbCloudyOutlined";
+import WeatherBadge from "./WeatherBadge";
 
 const useStyles = makeStyles((theme) => ({
   root: {
     display: "flex",
     flexDirection: "column",
-    padding: theme.spacing(1),
+    padding: "3px",
+    width: "100%",
   },
   weatherHeader: {
     marginLeft: "0.8rem",
+    "& > *": {
+      marginRight: "3px",
+    },
   },
   weatherDetails: {
     display: "flex",
@@ -26,17 +31,19 @@ const useStyles = makeStyles((theme) => ({
   weatherIcon: {
     display: "flex",
     justifyContent: "center",
+    marginBottom: theme.spacing(1),
   },
 }));
 
-export default function Weather() {
+export default function WeatherPopover() {
   const classes = useStyles();
-
   return (
     <Paper className={classes.root} elevation={0}>
-      <Typography className={classes.weatherHeader} variant="subtitle2">
-        北京 西南风2级 <span>良 72</span>
-      </Typography>
+      <Box className={classes.weatherHeader} display="flex" alignItems="center">
+        <Typography variant="subtitle2">北京 西南风2级</Typography>
+        <WeatherBadge level="良" levelDigit="72" />
+      </Box>
+
       <List className={classes.weatherDetails}>
         <ListItem>
           <Box
@@ -49,10 +56,18 @@ export default function Weather() {
             <ListItemText secondary="今天" />
             <ListItemAvatar className={classes.weatherIcon}>
               <Avatar>
-                <BeachAccessIcon />
+                <WbSunnyOutlinedIcon />
               </Avatar>
             </ListItemAvatar>
-            <ListItemText primary="Vacation" />
+
+            <ListItemText
+              primaryTypographyProps={{
+                variant: "body2",
+                display: "block",
+                noWrap: true,
+              }}
+              primary={<>13℃ / 16℃</>}
+            />
           </Box>
         </ListItem>
         <ListItem>
@@ -66,10 +81,17 @@ export default function Weather() {
             <ListItemText secondary="今天" />
             <ListItemAvatar className={classes.weatherIcon}>
               <Avatar>
-                <BeachAccessIcon />
+                <WbSunnyOutlinedIcon />
               </Avatar>
             </ListItemAvatar>
-            <ListItemText primary="Vacation" />
+            <ListItemText
+              primaryTypographyProps={{
+                variant: "body2",
+                display: "block",
+                noWrap: true,
+              }}
+              primary={<>-3℃ / 12℃</>}
+            />
           </Box>
         </ListItem>
         <ListItem>
@@ -80,13 +102,20 @@ export default function Weather() {
             alignItems="center"
             justifyContent="center"
           >
-            <ListItemText secondary="今天" />
+            <ListItemText secondary="后天" />
             <ListItemAvatar className={classes.weatherIcon}>
               <Avatar>
-                <BeachAccessIcon />
+                <WbCloudyOutlinedIcon />
               </Avatar>
             </ListItemAvatar>
-            <ListItemText primary="Vacation" />
+            <ListItemText
+              primaryTypographyProps={{
+                variant: "body2",
+                display: "block",
+                noWrap: true,
+              }}
+              primary={<>0℃ / 13℃</>}
+            />
           </Box>
         </ListItem>
       </List>

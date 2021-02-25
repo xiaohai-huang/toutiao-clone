@@ -1,6 +1,5 @@
-import { Route, Switch } from "react-router-dom";
+import { Redirect, Route, Switch } from "react-router-dom";
 import Header from "./features/header/Header";
-import HotBoard from "./features/hotboard/HotBoard";
 import MainPage from "./pages/MainPage";
 
 function App() {
@@ -8,10 +7,10 @@ function App() {
     <div className="App">
       <Header />
       <Switch>
-        <Route exact path="/">
+        <Route exact path="/:category">
           <MainPage />
         </Route>
-        <HotBoard />
+        <Redirect to="/all" />
       </Switch>
     </div>
   );

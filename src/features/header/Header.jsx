@@ -1,7 +1,10 @@
 import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
-import { AppBar, Box, Popover, Typography } from "@material-ui/core";
-import Weather from "./Weather";
+import { AppBar, Box, Typography } from "@material-ui/core";
+
+import WeatherPopover from "./WeatherPopover";
+import useMouseOverPopover from "../../utility/useMouseOverPopover";
+import PropductsPopover from "./PropductsPopover";
 
 const useStyles = makeStyles((theme) => ({
   appBar: {
@@ -27,65 +30,45 @@ const useStyles = makeStyles((theme) => ({
     pointerEvents: "none",
     marginTop: "0.4rem",
   },
-  paper: {
-    border: "none",
-  },
 }));
 
 function WeatherTool() {
   const classes = useStyles();
-  const [anchorEl, setAnchorEl] = React.useState(null);
-
-  const handlePopoverOpen = (event) => {
-    setAnchorEl(event.currentTarget);
-  };
-
-  const handlePopoverClose = () => {
-    setAnchorEl(null);
-  };
-
-  const open = Boolean(anchorEl);
-  return (
-    <Box
-      className={classes.weather}
-      display="flex"
-      aria-owns={open ? "mouse-over-popover" : undefined}
-      aria-haspopup="true"
-      onClick={() => console.log("click")}
-      onMouseEnter={handlePopoverOpen}
-      onMouseLeave={handlePopoverClose}
-    >
+  const Main = () => (
+    <Box display="flex" className={classes.weather}>
       <Typography variant="subtitle2">北京</Typography>
       <Typography variant="subtitle2">多云</Typography>
       <Typography variant="subtitle2">
         <b>-3</b>℃ &nbsp;/&nbsp; <b>6</b>℃
       </Typography>
-      <Popover
-        id="mouse-over-popover"
-        open={open}
-        anchorEl={anchorEl}
-        className={classes.popover}
-        classes={{ paper: classes.paper }}
-        anchorOrigin={{
-          vertical: "bottom",
-          horizontal: "left",
-        }}
-        transformOrigin={{
-          vertical: "top",
-          horizontal: "left",
-        }}
-        onClose={handlePopoverClose}
-        disableRestoreFocus
-      >
-        <Weather />
-      </Popover>
     </Box>
   );
+
+  return useMouseOverPopover(Main, WeatherPopover);
 }
 
 function Header() {
   const classes = useStyles();
 
+  const RightNav = () => {
+    const Products = () => {
+      const Text = () => (
+        <Typography className="toolBar_Link" variant="subtitle2">
+          头条产品
+        </Typography>
+      );
+
+      return useMouseOverPopover(Text, PropductsPopover);
+    };
+    return (
+      <Box className={classes.rightNav} display="flex">
+        <Typography className="toolBar_Link" variant="subtitle2">
+          侵权投诉
+        </Typography>
+        <Products />
+      </Box>
+    );
+  };
   return (
     <Box display={{ xs: "none", sm: "block", md: "block" }}>
       <AppBar className={classes.appBar} position="static" elevation={0}>
@@ -101,17 +84,10 @@ function Header() {
             <Typography className="toolBar_Link" variant="subtitle2">
               注册头条号
             </Typography>
-
             <WeatherTool />
+            {/* <WeatherTool /> */}
           </Box>
-          <Box className={classes.rightNav} display="flex">
-            <Typography className="toolBar_Link" variant="subtitle2">
-              侵权投诉
-            </Typography>
-            <Typography className="toolBar_Link" variant="subtitle2">
-              头条产品
-            </Typography>
-          </Box>
+          <RightNav />
         </Box>
       </AppBar>
     </Box>

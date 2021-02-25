@@ -6,6 +6,10 @@
 
 - more news: https://www.toutiao.com/api/pc/feed/?max_behot_time=__TIME__&category=__CATEGORY__&utm_source=toutiao&widen=1&tadrequire=true&_signature=_02B4Z6wo00d01cNbrMQAAIDAttWA7LkcgDnDfqhAABDkU0kheQXjzR1D2fdZCYu4auin7wL9RbfrsY8LPRymCVCfZDkQnaUS9CAdr6JpJWtrF8y1f8J9zzQ1j5YYteIN8OG2DTyxYFkIMjr5f2 (**TIME** is obtained by the next attribute of each news response which is at the bottom)
 
+- news details:
+  UI: https://m.toutiaoimg.cn/__{newsItem.source_url}__
+  JSON:https://m.toutiaoimg.cn/{newsItem.source_url}/info/v2/?_signature=_02B4Z6wo00f01WJav3gAAIDDxFv75u.KQlliT7vAADil6foNRGdv-p.FzkAO6IiBEdniarpKheKe3inoSh5NbH1ZubEI62CXVYUjai.FWOyspWiqCa3Dzw2zEUo0LURAbhCxmK7w5r4KgpGM46
+
 # Notes
 
 1. Popover is so annoying, the pointerEvent should set to none.
