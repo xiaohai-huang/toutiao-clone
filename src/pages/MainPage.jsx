@@ -8,14 +8,9 @@ import Feed from "../features/feed/Feed";
 import Company from "../features/company/Company";
 
 const useStyles = makeStyles((theme) => ({
-  root: {
-    [theme.breakpoints.down("md")]: {
-      paddingLeft: "0px",
-      paddingRight: "0px",
-    },
-  },
+  root: {},
   channelContainer: {
-    paddingLeft: "0!important",
+    padding: "0!important",
   },
 }));
 

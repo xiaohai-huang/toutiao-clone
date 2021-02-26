@@ -5,6 +5,10 @@ import RefreshIcon from "@material-ui/icons/Refresh";
 import SearchIcon from "@material-ui/icons/Search";
 
 const useStyles = makeStyles((theme) => ({
+  root: {
+    background: "#d43d3d",
+    height: "2.8rem",
+  },
   logoContainer: {
     position: "relative",
     "& > .refreshButton": {
@@ -17,6 +21,7 @@ function MobileHeader() {
   const classes = useStyles();
   return (
     <Box
+      className={classes.root}
       display="flex"
       flexDirection="row"
       alignItems="center"

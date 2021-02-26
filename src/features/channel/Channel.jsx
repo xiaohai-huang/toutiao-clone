@@ -5,7 +5,7 @@ import ListItem from "@material-ui/core/ListItem";
 import { Box, Button, Hidden, Typography } from "@material-ui/core";
 import { useHistory } from "react-router-dom";
 
-import MobileHeader from "../header/MobileHeader";
+import useCategories from "../../utility/useCategories";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -32,10 +32,7 @@ const useStyles = makeStyles((theme) => ({
   },
   logo: {
     marginBottom: "0.5rem",
-    [theme.breakpoints.down("xs")]: {
-      background: "#d43d3d",
-      height: "2.8rem",
-    },
+
     [theme.breakpoints.up("sm")]: {
       "&:hover": {
         cursor: "pointer",
@@ -64,7 +61,7 @@ const useStyles = makeStyles((theme) => ({
     },
   },
 }));
-const NavButton = ({ label, active, ...props }) => {
+const NavButton = ({ label, active, onClick }) => {
   const classes = useStyles();
   if (active) {
     return (
@@ -73,14 +70,21 @@ const NavButton = ({ label, active, ...props }) => {
         variant="contained"
         color="secondary"
         fullWidth
-        {...props}
+        disableElevation
+        onClick={onClick}
       >
         <Typography>{label}</Typography>
       </Button>
     );
   }
   return (
-    <Button className={classes.button} variant="text" fullWidth {...props}>
+    <Button
+      className={classes.button}
+      variant="text"
+      fullWidth
+      disableElevation
+      onClick={onClick}
+    >
       <Typography>{label}</Typography>
     </Button>
   );
@@ -88,34 +92,36 @@ const NavButton = ({ label, active, ...props }) => {
 // const categories = "推荐，西瓜视频，热点，直播，图片，科技，娱乐，游戏，体育，懂车帝，财经，数码，更多".split(
 //   "，"
 // );
-const categories = {
-  __all__: "推荐",
-  news_hot: "热点",
-  news_society: "社会",
-  news_entertainment: "娱乐",
-  news_tech: "科技",
-  // news_military: "军事",
-  // news_sports: "体育",
-  // news_car: "汽车",
-  // news_finance: "财经",
-  news_world: "国际",
-  // news_fashion: "时尚",
-  news_travel: "旅游",
-  // news_discovery: "探索",
-  // news_baby: "育儿",
-  // news_regimen: "养生",
-  // news_story: "故事",
-  // news_essay: "美文",
-  news_game: "游戏",
-  news_history: "历史",
-  news_food: "美食",
-  software: "软件",
-  internet: "互联网",
-  // smart_home: "智能家居",
-};
+// const categories = {
+//   __all__: "推荐",
+//   news_hot: "热点",
+//   news_society: "社会",
+//   news_entertainment: "娱乐",
+//   news_tech: "科技",
+//   news_military: "军事",
+//   news_sports: "体育",
+//   news_car: "汽车",
+//   news_finance: "财经",
+//   news_world: "国际",
+//   news_fashion: "时尚",
+//   news_travel: "旅游",
+//   news_discovery: "探索",
+//   news_baby: "育儿",
+//   news_regimen: "养生",
+//   news_story: "故事",
+//   news_essay: "美文",
+//   news_game: "游戏",
+//   news_history: "历史",
+//   news_food: "美食",
+//   software: "软件",
+//   internet: "互联网",
+//   smart_home: "智能家居",
+// };
 export default function Channel() {
   const history = useHistory();
   const classes = useStyles();
+  const categories = useCategories();
+
   const [currentCategoryCode, setCurrentCategoryCode] = React.useState(
     "__all__"
   );
@@ -134,6 +140,7 @@ export default function Channel() {
         className={classes.logo}
         classes={{ root: classes.textRoot, gutters: classes.gutters }}
       >
+        {/* PC logo */}
         <Hidden xsDown>
           <Box onClick={() => history.push("/")}>
             <img
@@ -142,11 +149,6 @@ export default function Channel() {
               style={{ width: "108px", height: "27px" }}
             />
           </Box>
-        </Hidden>
-
-        {/* Mobile Header */}
-        <Hidden smUp>
-          <MobileHeader />
         </Hidden>
       </ListItem>
       {/* Nav Buttons */}

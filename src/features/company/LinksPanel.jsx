@@ -44,7 +44,11 @@ function LinksPanel({ title, links }) {
       </Typography>
       <Box display="flex" justifyContent="flex-start" flexWrap="wrap" mt={1}>
         {links.map((link) => (
-          <Typography className={classes.link} variant="subtitle1">
+          <Typography
+            key={link.name}
+            className={classes.link}
+            variant="subtitle1"
+          >
             {link.name}
           </Typography>
         ))}

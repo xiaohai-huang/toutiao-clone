@@ -1,14 +1,17 @@
 import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import { AppBar, Box, Typography } from "@material-ui/core";
+import useMediaQuery from "@material-ui/core/useMediaQuery";
 
 import WeatherPopover from "./WeatherPopover";
 import useMouseOverPopover from "../../utility/useMouseOverPopover";
 import PropductsPopover from "./PropductsPopover";
+import MobileHeader from "./MobileHeader";
 
 const useStyles = makeStyles((theme) => ({
   appBar: {
     background: "#222",
+    width: "100vw",
     lineHeight: "20px",
     height: "34px",
     marginBottom: theme.spacing(1),
@@ -47,30 +50,34 @@ function WeatherTool() {
   return useMouseOverPopover(Main, WeatherPopover);
 }
 
-function Header() {
+const RightNav = () => {
   const classes = useStyles();
-
-  const RightNav = () => {
-    const Products = () => {
-      const Text = () => (
-        <Typography className="toolBar_Link" variant="subtitle2">
-          头条产品
-        </Typography>
-      );
-
-      return useMouseOverPopover(Text, PropductsPopover);
-    };
-    return (
-      <Box className={classes.rightNav} display="flex">
-        <Typography className="toolBar_Link" variant="subtitle2">
-          侵权投诉
-        </Typography>
-        <Products />
-      </Box>
+  const Products = () => {
+    const Text = () => (
+      <Typography className="toolBar_Link" variant="subtitle2">
+        头条产品
+      </Typography>
     );
+
+    return useMouseOverPopover(Text, PropductsPopover);
   };
   return (
-    <Box display={{ xs: "none", sm: "block", md: "block" }}>
+    <Box className={classes.rightNav} display="flex">
+      <Typography className="toolBar_Link" variant="subtitle2">
+        侵权投诉
+      </Typography>
+      <Products />
+    </Box>
+  );
+};
+
+function Header() {
+  const classes = useStyles();
+  const mobile = useMediaQuery((theme) => theme.breakpoints.only("xs"));
+  return mobile ? (
+    <MobileHeader />
+  ) : (
+    <Box>
       <AppBar className={classes.appBar} position="static" elevation={0}>
         <Box
           className={classes.toolBar}
