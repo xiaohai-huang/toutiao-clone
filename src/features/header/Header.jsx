@@ -78,7 +78,9 @@ function Header() {
 
   const xs = useMediaQuery((theme) => theme.breakpoints.down("xs"));
   const mobile = useMediaQuery((theme) => theme.breakpoints.down("sm"));
-  dispatch(deviceUpdated(mobile ? "mobile" : "PC"));
+  setTimeout(() => {
+    dispatch(deviceUpdated(mobile ? "mobile" : "PC"));
+  }, 1000);
   return xs ? (
     <MobileHeader />
   ) : (

@@ -12,5 +12,10 @@ export function timeAgo(publishTime) {
 
   timeAgo = timeAgo.split(" ");
   timeAgo = timeAgo.join("");
+  if (timeAgo) {
+    if (timeAgo.startsWith("大约")) {
+      timeAgo = timeAgo.split("大约")[1];
+    }
+  }
   return timeAgo;
 }

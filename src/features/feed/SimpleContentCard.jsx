@@ -48,9 +48,15 @@ function SimpleContentCard({
         justifyContent="space-between"
         m={1}
       >
-        <Typography className={clsx(classes.title, classes.link)} variant="h6">
-          {title}
-        </Typography>
+        <Box mb={0.5}>
+          <Typography
+            className={clsx(classes.title, classes.link)}
+            variant="h6"
+            display="inline"
+          >
+            {title}
+          </Typography>
+        </Box>
         {/* Card Footer */}
         <CardFooter
           name={name}

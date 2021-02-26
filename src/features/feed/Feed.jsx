@@ -1,8 +1,9 @@
-import { Collapse, Divider, Grid, makeStyles } from "@material-ui/core";
+import { Collapse, Grid, makeStyles } from "@material-ui/core";
 import React from "react";
 
 import newsApi from "../../Api/newsApi";
 import useAlert from "../../utility/useAlert";
+import CardWrapper from "./CardWrapper";
 import MediaCard from "./MediaCard";
 import SimpleContentCard from "./SimpleContentCard";
 
@@ -35,17 +36,15 @@ function Feed() {
         {news.map((newsArticle) => {
           if (newsArticle.single_mode) {
             return (
-              <React.Fragment key={newsArticle.item_id}>
+              <CardWrapper key={newsArticle.item_id}>
                 <MediaCard {...newsArticle} />
-                <Divider />
-              </React.Fragment>
+              </CardWrapper>
             );
           }
           return (
-            <React.Fragment key={newsArticle.item_id}>
+            <CardWrapper key={newsArticle.item_id}>
               <SimpleContentCard key={newsArticle.item_id} {...newsArticle} />
-              <Divider />
-            </React.Fragment>
+            </CardWrapper>
           );
         })}
       </Grid>
