@@ -49,7 +49,7 @@ function CardFooter({ name, avatar_url, comments_count, publish_time }) {
       </Typography>
       <Typography className={classes.link} variant="subtitle2">
         {" "}
-        ⋅ {comments_count}评论
+        ⋅ {comments_count ? comments_count : 0}评论
       </Typography>
       {device === "PC" ? (
         <Typography variant="subtitle2"> ⋅ {timeAgo(publish_time)}</Typography>
