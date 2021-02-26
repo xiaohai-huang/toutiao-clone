@@ -1,6 +1,7 @@
 import { Avatar, Box, makeStyles, Typography } from "@material-ui/core";
 import clsx from "clsx";
 import React from "react";
+import { useSelector } from "react-redux";
 import { timeAgo } from "../../utility/utility";
 
 const useStyles = makeStyles((theme) => ({
@@ -32,13 +33,17 @@ const useStyles = makeStyles((theme) => ({
 
 function CardFooter({ name, avatar_url, comments_count, publish_time }) {
   const classes = useStyles();
+  const device = useSelector((state) => state.app.device);
+
   return (
     <Box className={classes.footer} display="flex" alignItems="center">
-      <Avatar
-        className={clsx(classes.smallAvatar, classes.link)}
-        alt={name}
-        src={avatar_url}
-      />
+      {device === "PC" ? (
+        <Avatar
+          className={clsx(classes.smallAvatar, classes.link)}
+          alt={name}
+          src={avatar_url}
+        />
+      ) : undefined}
       <Typography className={classes.link} variant="subtitle2">
         {name}
       </Typography>
@@ -46,7 +51,9 @@ function CardFooter({ name, avatar_url, comments_count, publish_time }) {
         {" "}
         ⋅ {comments_count}评论
       </Typography>
-      <Typography variant="subtitle2"> ⋅ {timeAgo(publish_time)}</Typography>
+      {device === "PC" ? (
+        <Typography variant="subtitle2"> ⋅ {timeAgo(publish_time)}</Typography>
+      ) : undefined}
     </Box>
   );
 }
