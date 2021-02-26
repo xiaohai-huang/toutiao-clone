@@ -30,9 +30,10 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   title: {
-    fontWeight: "700",
     marginBottom: "6px",
-    fontSize: "1.2rem",
+    [theme.breakpoints.down("xs")]: {
+      color: "#222",
+    },
   },
   link: {
     "&:hover": {
@@ -42,11 +43,18 @@ const useStyles = makeStyles((theme) => ({
   },
   footer: {
     color: theme.palette.grey[600],
+
     "& > *": {
       marginRight: "7px",
       fontSize: "0.83rem",
     },
     marginBottom: "-1px",
+    [theme.breakpoints.down("xs")]: {
+      "& > *": {
+        color: "#999",
+        fontSize: "0.75rem",
+      },
+    },
   },
 }));
 function SimpleContentCard({

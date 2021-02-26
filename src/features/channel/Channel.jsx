@@ -31,9 +31,8 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: "center",
   },
   logo: {
-    marginBottom: "0.5rem",
-
     [theme.breakpoints.up("sm")]: {
+      marginBottom: "0.5rem",
       "&:hover": {
         cursor: "pointer",
       },

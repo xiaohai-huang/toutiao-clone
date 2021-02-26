@@ -1,33 +1,20 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import "./index.css";
+import { BrowserRouter as Router } from "react-router-dom";
+import { Provider } from "react-redux";
+
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
-import { BrowserRouter as Router } from "react-router-dom";
-import { createMuiTheme, ThemeProvider } from "@material-ui/core/styles";
-
-let theme = createMuiTheme({
-  palette: {
-    primary: {
-      main: "#208eda",
-      light: "#406599",
-    },
-    secondary: {
-      main: "#ed4040",
-    },
-    background: {
-      secondary: "#f4f5f6",
-    },
-  },
-});
+import "./index.css";
+import store from "./app/store";
 
 ReactDOM.render(
   <React.StrictMode>
-    <Router>
-      <ThemeProvider theme={theme}>
+    <Provider store={store}>
+      <Router>
         <App />
-      </ThemeProvider>
-    </Router>
+      </Router>
+    </Provider>
   </React.StrictMode>,
   document.getElementById("root")
 );

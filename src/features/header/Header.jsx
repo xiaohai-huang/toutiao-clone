@@ -2,12 +2,13 @@ import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import { AppBar, Box, Typography } from "@material-ui/core";
 import useMediaQuery from "@material-ui/core/useMediaQuery";
+import { useDispatch } from "react-redux";
 
 import WeatherPopover from "./WeatherPopover";
 import useMouseOverPopover from "../../utility/useMouseOverPopover";
 import PropductsPopover from "./PropductsPopover";
 import MobileHeader from "./MobileHeader";
-
+import { deviceUpdated } from "../../app/appSlice";
 const useStyles = makeStyles((theme) => ({
   appBar: {
     background: "#222",
@@ -73,8 +74,12 @@ const RightNav = () => {
 
 function Header() {
   const classes = useStyles();
-  const mobile = useMediaQuery((theme) => theme.breakpoints.only("xs"));
-  return mobile ? (
+  const dispatch = useDispatch();
+
+  const xs = useMediaQuery((theme) => theme.breakpoints.down("xs"));
+  const mobile = useMediaQuery((theme) => theme.breakpoints.down("sm"));
+  dispatch(deviceUpdated(mobile ? "mobile" : "PC"));
+  return xs ? (
     <MobileHeader />
   ) : (
     <Box>
