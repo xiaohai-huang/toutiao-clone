@@ -1,9 +1,10 @@
 let newsApi = {};
 
-newsApi.getNews = (time) => {
-  return fetch(
-    `https://toutiao-proxy.herokuapp.com/tt/news/__all__?max_behot_time=${time}`
-  )
+newsApi.getNews = (time, category = "__all__") => {
+  // const test = "MockData/news.json";
+  // const test = `http://localhost:4500/tt/news/${category}?max_behot_time=${time}`;
+  const production = `https://toutiao-proxy.herokuapp.com/tt/news/${category}?max_behot_time=${time}`;
+  return fetch(production)
     .then((res) => res.json())
     .then((json) => json.data);
 };

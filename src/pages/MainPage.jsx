@@ -1,11 +1,14 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Container from "@material-ui/core/Container";
 import Grid from "@material-ui/core/Grid";
 import { Box, makeStyles } from "@material-ui/core";
+import { useParams } from "react-router-dom";
 
 import Channel from "../features/channel/Channel";
 import Feed from "../features/feed/Feed";
 import Company from "../features/company/Company";
+import { categoryUpdated } from "../features/feed/feedSlice";
+import { useDispatch } from "react-redux";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -19,6 +22,11 @@ const useStyles = makeStyles((theme) => ({
 
 export default function MainPage() {
   const classes = useStyles();
+  const { category } = useParams();
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(categoryUpdated(category));
+  }, [dispatch, category]);
 
   return (
     <Container className={classes.root}>

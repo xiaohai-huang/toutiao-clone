@@ -16,6 +16,7 @@ const useStyles = makeStyles((theme) => ({
     flexDirection: "column",
     padding: "3px",
     width: "100%",
+    zIndex: theme.zIndex.snackbar,
   },
   weatherHeader: {
     marginLeft: "0.8rem",

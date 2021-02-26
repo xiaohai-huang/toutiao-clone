@@ -6,6 +6,8 @@ import { Box, Button, Hidden, Typography } from "@material-ui/core";
 import { useHistory } from "react-router-dom";
 
 import useCategories from "../../utility/useCategories";
+import { useDispatch, useSelector } from "react-redux";
+import { categoryUpdated } from "../feed/feedSlice";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -120,14 +122,13 @@ export default function Channel() {
   const history = useHistory();
   const classes = useStyles();
   const categories = useCategories();
+  const dispatch = useDispatch();
 
-  const [currentCategoryCode, setCurrentCategoryCode] = React.useState(
-    "__all__"
-  );
+  const currentCategoryCode = useSelector((state) => state.feed.category);
 
   const handleClick = (category) => {
     return () => {
-      setCurrentCategoryCode(category);
+      dispatch(categoryUpdated(category));
       history.push("/" + category);
     };
   };

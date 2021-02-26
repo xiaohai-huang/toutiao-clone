@@ -5,10 +5,10 @@ import {
   Collapse,
   Grid,
   makeStyles,
+  Typography,
 } from "@material-ui/core";
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import throttle from "lodash.throttle";
 
 import { fetchNews } from "./feedSlice";
 import useAlert from "../../utility/useAlert";
@@ -20,31 +20,65 @@ const useStyles = makeStyles((theme) => ({
   alertContainer: {
     position: "sticky",
     top: 0,
-    zIndex: theme.zIndex.snackbar,
+    zIndex: theme.zIndex.mobileStepper,
   },
 }));
+
 function Feed() {
   const classes = useStyles();
   // const [news, setNews] = React.useState([]);
-  const news = useSelector((state) => state.feed.news);
+  const category = useSelector((state) => state.feed.category);
+  const news = useSelector((state) => state.feed.news[category]);
   const status = useSelector((state) => state.feed.status);
   const dispatch = useDispatch();
 
   const [open, setOpen] = React.useState(true);
+  const [failCount, setFailCount] = React.useState(0);
   const Alert = useAlert("您有未读新闻，点击查看", setOpen);
+  const onScroll = () => {
+    // copied from css tricks
+    let scrollTop = window.scrollY;
+    let docHeight = document.body.offsetHeight;
+    let winHeight = window.innerHeight;
+    let scrollPercent = scrollTop / (docHeight - winHeight);
+    let scrollPercentRounded = Math.round(scrollPercent * 100);
+    if (scrollPercentRounded > 80) {
+      // fetch new news
+      // dispatch(fetchNews(category));
+    }
+  };
+  // initial fetch
+  React.useEffect(() => {
+    dispatch(fetchNews(category));
+    window.addEventListener("scroll", onScroll);
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [dispatch]);
   // fetch when category changes
   React.useEffect(() => {
-    if (status === "idle" || status === "failed") {
-      throttle(() => {
-        dispatch(fetchNews());
-      }, 4000)();
+    dispatch(fetchNews(category));
+  }, [dispatch, category]);
+  // re-fetch when no new content fetched
+  React.useEffect(() => {
+    if (status === "failded" && failCount <= 2) {
+      dispatch(fetchNews(category));
     }
+    if (status === "successed") {
+      setFailCount(0);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dispatch, status]);
 
   const handleClick = () => {
-    dispatch(fetchNews());
+    dispatch(fetchNews(category));
+    if (status === "failed") {
+      setFailCount(failCount + 1);
+    }
     // dispatch(fetchNews(nextTime));
   };
+
   return (
     <Grid container direction="column">
       <Grid item xs className={classes.alertContainer}>
@@ -75,6 +109,7 @@ function Feed() {
             更多
           </Button>
           <Box mb={2} />
+          {failCount >= 1 && <Typography>Already up to date...</Typography>}
           {status === "loading" && <CircularProgress color="secondary" />}
         </Box>
       </Grid>
