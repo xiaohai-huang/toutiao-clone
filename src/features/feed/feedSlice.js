@@ -56,7 +56,7 @@ const feedSlice = createSlice({
         });
       }
 
-      if (newNews?.length === 0) {
+      if (!newNews || newNews?.length === 0) {
         state.status = "failed";
         return;
       }
