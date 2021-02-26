@@ -31,7 +31,7 @@ const useStyles = makeStyles((theme) => ({
   },
   title: {
     marginBottom: "6px",
-    [theme.breakpoints.down("xs")]: {
+    [theme.breakpoints.down("sm")]: {
       color: "#222",
     },
   },

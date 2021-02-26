@@ -63,7 +63,7 @@ const RightNav = () => {
     return useMouseOverPopover(Text, PropductsPopover);
   };
   return (
-    <Box className={classes.rightNav} display="flex">
+    <Box className={classes.rightNav} display="flex" pr={2}>
       <Typography className="toolBar_Link" variant="subtitle2">
         侵权投诉
       </Typography>

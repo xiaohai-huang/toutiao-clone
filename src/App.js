@@ -61,21 +61,16 @@ function App() {
 
         <Header />
         <Switch>
-          <Routes />
+          <Route exact path="/nice">
+            <p>nice</p>
+          </Route>
+          <Route exact path="/:category">
+            <MainPage />
+          </Route>
+          <Redirect to="/__all__" />
         </Switch>
       </div>
     </ThemeProvider>
-  );
-}
-
-function Routes() {
-  return (
-    <>
-      <Route exact path="/:category">
-        <MainPage />
-      </Route>
-      <Redirect to="/__all__" />
-    </>
   );
 }
 

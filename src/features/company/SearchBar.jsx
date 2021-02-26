@@ -10,6 +10,9 @@ const useStyles = makeStyles((theme) => ({
     padding: "3px 10px",
     paddingRight: "0px",
     border: "1px solid #e8e8e8",
+    [theme.breakpoints.only("md")]: {
+      fontSize: "0.93rem",
+    },
   },
 }));
 
