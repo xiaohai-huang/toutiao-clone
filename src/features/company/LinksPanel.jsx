@@ -5,8 +5,9 @@ const useStyles = makeStyles((theme) => ({
   root: {
     background: theme.palette.background.secondary,
     borderTop: "2px solid #ed4040",
-    [theme.breakpoints.down("md")]: {
+    [theme.breakpoints.only("md")]: {
       paddingLeft: "2.8rem",
+      paddingRight: "0.6rem",
     },
   },
   title: {
@@ -22,9 +23,10 @@ const useStyles = makeStyles((theme) => ({
       color: theme.palette.primary.light,
       cursor: "pointer",
     },
-    [theme.breakpoints.down("md")]: {
+    [theme.breakpoints.only("md")]: {
       padding: "0.55rem",
       paddingLeft: "0px",
+      paddingRight: "0.2rem",
     },
   },
 }));
