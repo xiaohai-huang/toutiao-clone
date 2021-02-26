@@ -10,6 +10,13 @@ const useStyles = makeStyles((theme) => ({
     borderRadius: "10px",
     paddingLeft: "5px",
     paddingRight: "8px",
+    position: "absolute",
+    right: "0.35rem",
+    bottom: "0.8rem",
+    [theme.breakpoints.down("md")]: {
+      right: "0.6rem",
+      fontSize: "0.7rem",
+    },
   },
 }));
 export const DurationBadage = ({ duration }) => {
@@ -19,12 +26,12 @@ export const DurationBadage = ({ duration }) => {
       className={classes.root}
       display="flex"
       alignItems="center"
-      position="absolute"
-      right="0.35rem"
-      bottom="0.8rem"
+      justifyContent="center"
     >
       <PlayArrowIcon fontSize="small" />
-      <span>{duration}</span>
+      <Box component="span" pt={0.15}>
+        {duration}
+      </Box>
     </Box>
   );
 };

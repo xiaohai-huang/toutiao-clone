@@ -47,6 +47,7 @@ function MediaCard({ image_url, video_duration_str, ...rest }) {
     <Box
       display="flex"
       alignItems="center"
+      justifyContent="space-between"
       pt={1}
       pb={1}
       flexDirection={device === "PC" ? "row" : "row-reverse"}
