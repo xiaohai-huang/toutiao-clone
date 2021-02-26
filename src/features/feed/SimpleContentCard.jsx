@@ -1,15 +1,8 @@
 import React from "react";
-import {
-  Avatar,
-  Box,
-  Paper,
-  Divider,
-  makeStyles,
-  Typography,
-} from "@material-ui/core";
+import { Box, Paper, makeStyles, Typography } from "@material-ui/core";
 
-import { timeAgo } from "../../utility/utility";
 import clsx from "clsx";
+import CardFooter from "./CardFooter";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -20,15 +13,7 @@ const useStyles = makeStyles((theme) => ({
       },
     },
   },
-  smallAvatar: {
-    width: "18px",
-    height: "18px",
-  },
-  container: {
-    "& > *": {
-      margin: "0.1rem",
-    },
-  },
+
   title: {
     marginBottom: "6px",
     [theme.breakpoints.down("sm")]: {
@@ -39,21 +24,6 @@ const useStyles = makeStyles((theme) => ({
     "&:hover": {
       color: theme.palette.primary.light,
       cursor: "pointer",
-    },
-  },
-  footer: {
-    color: theme.palette.grey[600],
-
-    "& > *": {
-      marginRight: "7px",
-      fontSize: "0.83rem",
-    },
-    marginBottom: "-1px",
-    [theme.breakpoints.down("xs")]: {
-      "& > *": {
-        color: "#999",
-        fontSize: "0.75rem",
-      },
     },
   },
 }));
@@ -82,26 +52,13 @@ function SimpleContentCard({
           {title}
         </Typography>
         {/* Card Footer */}
-        <Box className={classes.footer} display="flex" alignItems="center">
-          <Avatar
-            className={clsx(classes.smallAvatar, classes.link)}
-            alt={name}
-            src={avatar_url}
-          />
-          <Typography className={classes.link} variant="subtitle2">
-            {name}
-          </Typography>
-          <Typography className={classes.link} variant="subtitle2">
-            {" "}
-            ⋅ {comments_count}评论
-          </Typography>
-          <Typography variant="subtitle2">
-            {" "}
-            ⋅ {timeAgo(publish_time)}
-          </Typography>
-        </Box>
+        <CardFooter
+          name={name}
+          avatar_url={avatar_url}
+          comments_count={comments_count}
+          publish_time={publish_time}
+        />
       </Box>
-      <Divider />
     </Paper>
   );
 }
