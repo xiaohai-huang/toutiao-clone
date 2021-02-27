@@ -47,6 +47,7 @@ function SimpleContentCard({
         flexDirection="column"
         justifyContent="space-between"
         m={1}
+        ml={0}
       >
         <Box mb={0.5}>
           <Typography

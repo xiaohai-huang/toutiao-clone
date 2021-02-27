@@ -5,6 +5,7 @@ import { createMuiTheme, ThemeProvider } from "@material-ui/core/styles";
 import Header from "./features/header/Header";
 import MainPage from "./pages/MainPage";
 import { useSelector } from "react-redux";
+import UGCCard from "./features/feed/UGCCard";
 
 function App() {
   let theme;
@@ -63,6 +64,9 @@ function App() {
         <Switch>
           <Route exact path="/nice">
             <p>nice</p>
+          </Route>
+          <Route exact path="/test">
+            <UGCCard />
           </Route>
           <Route exact path="/:category">
             <MainPage />

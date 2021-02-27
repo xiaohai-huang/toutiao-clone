@@ -6,6 +6,7 @@ import {
   Grid,
   makeStyles,
   Typography,
+  useMediaQuery,
 } from "@material-ui/core";
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -15,6 +16,7 @@ import useAlert from "../../utility/useAlert";
 import CardWrapper from "./CardWrapper";
 import MediaCard from "./MediaCard";
 import SimpleContentCard from "./SimpleContentCard";
+import UGCCard from "./UGCCard";
 
 const useStyles = makeStyles((theme) => ({
   alertContainer: {
@@ -26,6 +28,7 @@ const useStyles = makeStyles((theme) => ({
 
 function Feed() {
   const classes = useStyles();
+  const xs = useMediaQuery((theme) => theme.breakpoints.down("xs"));
   // const [news, setNews] = React.useState([]);
   const category = useSelector((state) => state.feed.category);
   const news = useSelector((state) => state.feed.news[category]);
@@ -88,6 +91,21 @@ function Feed() {
       </Grid>
       <Grid item xs>
         {news.map((newsArticle) => {
+          // console.log(newsArticle.more_mode);
+          // console.log(newsArticle.title);
+
+          // don't display more mode news on xs screen
+          if (newsArticle.article_genre === "ugc" && xs) {
+            // console.log("articles hidden: " + newsArticle.title);
+            return undefined;
+          }
+          if (newsArticle.article_genre === "ugc") {
+            return (
+              <CardWrapper key={newsArticle.item_id}>
+                <UGCCard {...newsArticle} />
+              </CardWrapper>
+            );
+          }
           if (newsArticle.single_mode) {
             return (
               <CardWrapper key={newsArticle.item_id}>
