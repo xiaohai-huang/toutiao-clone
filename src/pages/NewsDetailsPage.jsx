@@ -212,13 +212,13 @@ function NewsDetailsPage() {
             </Grid>
           )}
           {/* Main Content */}
-          <Grid item lg sm={10}>
+          <Grid item lg sm={10} md={8}>
             <Typography variant="h1" className={classes.title}>
               {title}
             </Typography>
             {/* Author */}
 
-            <Box mt={1} />
+            <Box mt={1} md />
             <Box display="flex">
               <Typography variant="subtitle2">{author_name}</Typography>
               <Box mr={1} />
