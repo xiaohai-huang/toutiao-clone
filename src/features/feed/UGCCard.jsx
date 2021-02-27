@@ -1,4 +1,5 @@
 import { Avatar, Box, makeStyles, Typography } from "@material-ui/core";
+import clsx from "clsx";
 import React from "react";
 import { timeAgo } from "../../utility/utility";
 
@@ -51,6 +52,13 @@ const useStyles = makeStyles((theme) => ({
   show_count: {
     [theme.breakpoints.down("sm")]: {
       display: "none",
+    },
+  },
+  link: {
+    color: "#222",
+    "&:hover": {
+      color: theme.palette.primary.light,
+      cursor: "pointer",
     },
   },
 }));
@@ -129,7 +137,10 @@ function UGCCard({ title, ugc_data, behot_time, comments_count }) {
           overflow="hidden"
           maxHeight="57px"
         >
-          <Typography variant="body2" className={classes.title}>
+          <Typography
+            variant="body2"
+            className={clsx(classes.title, classes.link)}
+          >
             {title}
           </Typography>
         </Box>

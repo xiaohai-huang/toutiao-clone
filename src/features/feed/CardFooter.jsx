@@ -12,15 +12,15 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   footer: {
-    color: theme.palette.grey[600],
+    color: "#777",
 
     "& > *": {
-      marginRight: "7px",
+      marginRight: "4.3px",
       fontSize: "0.89rem",
     },
     [theme.breakpoints.down("xs")]: {
       "& > *": {
-        color: "#999",
+        // color: "#999",
         fontSize: "0.64rem",
       },
     },
@@ -48,7 +48,6 @@ function CardFooter({ name, avatar_url, comments_count, publish_time }) {
         {name}
       </Typography>
       <Typography className={classes.link} variant="subtitle2">
-        {" "}
         ⋅ {comments_count ? comments_count : 0}评论
       </Typography>
       {device === "PC" ? (
