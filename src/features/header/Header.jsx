@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import { AppBar, Box, Typography } from "@material-ui/core";
 import useMediaQuery from "@material-ui/core/useMediaQuery";
@@ -9,6 +9,7 @@ import useMouseOverPopover from "../../utility/useMouseOverPopover";
 import PropductsPopover from "./PropductsPopover";
 import MobileHeader from "./MobileHeader";
 import { deviceUpdated } from "../../app/appSlice";
+import newsApi from "../../Api/newsApi";
 const useStyles = makeStyles((theme) => ({
   appBar: {
     background: "#222",
@@ -38,17 +39,29 @@ const useStyles = makeStyles((theme) => ({
 
 function WeatherTool() {
   const classes = useStyles();
+  const [weather, setWeather] = useState({});
+  useEffect(() => {
+    newsApi.getWeather().then((wea) => setWeather(wea));
+  }, []);
+  const {
+    city_name,
+    current_condition,
+    dat_low_temperature,
+    dat_high_temperature,
+  } = weather;
   const Main = () => (
     <Box display="flex" className={classes.weather}>
-      <Typography variant="subtitle2">北京</Typography>
-      <Typography variant="subtitle2">多云</Typography>
+      <Typography variant="subtitle2">{city_name}</Typography>
+      <Typography variant="subtitle2">{current_condition}</Typography>
       <Typography variant="subtitle2">
-        <b>-3</b>℃ &nbsp;/&nbsp; <b>6</b>℃
+        <b>{dat_low_temperature}</b>℃ &nbsp;/&nbsp;{" "}
+        <b>{dat_high_temperature}</b>℃
       </Typography>
     </Box>
   );
+  const Pop = () => <WeatherPopover {...weather} />;
 
-  return useMouseOverPopover(Main, WeatherPopover);
+  return useMouseOverPopover(Main, Pop);
 }
 
 const RightNav = () => {

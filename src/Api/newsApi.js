@@ -11,6 +11,16 @@ newsApi.getNews = (time, category = "__all__") => {
     .then((json) => json.data);
 };
 
+newsApi.getWeather = () => {
+  const test = "MockData/weather.json";
+  const production = "https://toutiao-proxy.herokuapp.com/tt/weather";
+
+  const url = false ? test : production;
+  return fetch(url)
+    .then((res) => res.json())
+    .then((json) => json.weather);
+};
+
 newsApi.getCategories = () => {
   return fetch("MockData/categories.json")
     .then((res) => res.json())

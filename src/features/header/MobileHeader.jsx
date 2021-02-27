@@ -1,4 +1,4 @@
-import { Box, IconButton, makeStyles } from "@material-ui/core";
+import { Badge, Box, IconButton, makeStyles } from "@material-ui/core";
 import React from "react";
 import MailOutlineIcon from "@material-ui/icons/MailOutline";
 import RefreshIcon from "@material-ui/icons/Refresh";
@@ -8,6 +8,12 @@ const useStyles = makeStyles((theme) => ({
   root: {
     background: "#d43d3d",
     height: "2.8rem",
+    position: "sticky",
+    top: 0,
+    zIndex: theme.zIndex.appBar,
+  },
+  badage: {
+    background: "#fff",
   },
   logoContainer: {
     position: "relative",
@@ -32,7 +38,15 @@ function MobileHeader() {
       pr={2}
     >
       <IconButton color="inherit" size="small">
-        <MailOutlineIcon />
+        <Badge
+          classes={{ colorPrimary: classes.badage }}
+          variant="dot"
+          color="primary"
+          overlap="circle"
+          badgeContent=" "
+        >
+          <MailOutlineIcon />
+        </Badge>
       </IconButton>
       <Box
         className={classes.logoContainer}
