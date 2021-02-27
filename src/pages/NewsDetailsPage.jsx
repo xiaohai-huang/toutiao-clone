@@ -22,7 +22,6 @@ import TwitterIcon from "@material-ui/icons/Twitter";
 import parse from "html-react-parser";
 
 import SearchBar from "../features/company/SearchBar";
-import AuthoInfoPanel from "../features/feed/AuthorInfoPanel";
 import { formatDate } from "../utility/utility";
 
 const useStyles = makeStyles((theme) => ({
@@ -145,9 +144,12 @@ function NewsDetailsPage() {
     newsApi.getNewsById(news_id).then((n) => setNews(n));
     newsApi.getCommentsById(news_id, offset).then((json) => {
       const newComments = json.data;
+      if (comments === newComments) {
+      }
       setComments((prev) => [...prev, ...newComments]);
       setOffset(Number(json.offset));
     });
+    // eslint-disable-next-line
   }, [news_id]);
   // fetch extra comments
   // if the user press the more comments button
@@ -168,6 +170,7 @@ function NewsDetailsPage() {
     { label: "Qzone", icon: <InstagramIcon /> },
     { label: "微信", icon: <TwitterIcon /> },
   ];
+
   return (
     <>
       <FakeAppBar />
@@ -228,12 +231,14 @@ function NewsDetailsPage() {
             {content && parse(content)}
 
             {/* Comments */}
+            <Button onClick={handleCommentsUpdate}>More Comments</Button>
           </Grid>
           {/* Author Info */}
           {!(sm || xs) && (
             <Grid item lg={3}>
               {/* <AuthoInfoPanel /> */}
               <Box style={{ background: "lightblue" }}>author work lists</Box>
+              <img alt={author_name} src={avatar_url} />
             </Grid>
           )}
         </Grid>

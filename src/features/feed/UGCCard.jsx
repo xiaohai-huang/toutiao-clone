@@ -1,6 +1,7 @@
 import { Avatar, Box, makeStyles, Typography } from "@material-ui/core";
 import clsx from "clsx";
 import React from "react";
+// import { useHistory } from "react-router-dom";
 import { timeAgo } from "../../utility/utility";
 
 // const author = {
@@ -112,7 +113,8 @@ function UGCAuthor({
   );
 }
 
-function UGCCard({ title, ugc_data, behot_time, comments_count }) {
+function UGCCard({ title, ugc_data, behot_time, comments_count, item_id }) {
+  // const history = useHistory();
   const classes = useStyles();
   const { ugc_images, digg_count, show_count } = ugc_data;
   return (
@@ -140,6 +142,7 @@ function UGCCard({ title, ugc_data, behot_time, comments_count }) {
           <Typography
             variant="body2"
             className={clsx(classes.title, classes.link)}
+            // onClick={() => history.push(`/news/${item_id}`)}
           >
             {title}
           </Typography>
