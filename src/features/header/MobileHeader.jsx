@@ -3,6 +3,7 @@ import React from "react";
 import MailOutlineIcon from "@material-ui/icons/MailOutline";
 import RefreshIcon from "@material-ui/icons/Refresh";
 import SearchIcon from "@material-ui/icons/Search";
+import { useHistory } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -16,6 +17,9 @@ const useStyles = makeStyles((theme) => ({
     background: "#fff",
   },
   logoContainer: {
+    "&:hover": {
+      cursor: "pointer",
+    },
     position: "relative",
     "& > .refreshButton": {
       position: "absolute",
@@ -25,6 +29,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 function MobileHeader() {
   const classes = useStyles();
+  const history = useHistory();
   return (
     <Box
       className={classes.root}
@@ -53,6 +58,7 @@ function MobileHeader() {
         display="flex"
         flexDirection="row"
         alignItems="center"
+        onClick={() => history.push("/")}
       >
         <img
           src="https://sf1-scmcdn2-tos.pstatp.com/mobile_list/image/wap_logo@3x_581de69e.png"

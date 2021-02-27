@@ -16,8 +16,8 @@ single_mode:false == no video or image.
 single_mode:true == one video or image on the left.
 
 - news details:
-  UI: https://m.toutiaoimg.cn/__{newsItem.source_url}__
-  JSON:https://m.toutiaoimg.cn/{newsItem.source_url}/info/v2/?_signature=_02B4Z6wo00f01WJav3gAAIDDxFv75u.KQlliT7vAADil6foNRGdv-p.FzkAO6IiBEdniarpKheKe3inoSh5NbH1ZubEI62CXVYUjai.FWOyspWiqCa3Dzw2zEUo0LURAbhCxmK7w5r4KgpGM46
+  UI: https://m.toutiaoimg.cn/__{newsItem.item_id}__
+  JSON:https://m.toutiaoimg.cn/{newsItem.item_id}/info/v2/?_signature=_02B4Z6wo00f01WJav3gAAIDDxFv75u.KQlliT7vAADil6foNRGdv-p.FzkAO6IiBEdniarpKheKe3inoSh5NbH1ZubEI62CXVYUjai.FWOyspWiqCa3Dzw2zEUo0LURAbhCxmK7w5r4KgpGM46
 
 # Notes
 

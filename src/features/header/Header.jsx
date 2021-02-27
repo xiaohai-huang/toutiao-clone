@@ -16,7 +16,6 @@ const useStyles = makeStyles((theme) => ({
     width: "100vw",
     lineHeight: "20px",
     height: "34px",
-    marginBottom: theme.spacing(1),
     display: "flex",
     justifyContent: "center",
     "& .toolBar_Link": {

@@ -1,384 +1,382 @@
 {
-  "data": {
-    "city": "泉州",
-    "ip": "112.47.201.96",
-    "weather": {
-      "alert": null,
-      "aqi": 50,
-      "city_name": "泉州",
-      "current_condition": "多云",
-      "current_temperature": 18,
-      "current_time": 1614132330,
-      "dat_condition": "多云",
-      "dat_high_temperature": 27,
-      "dat_low_temperature": 15,
-      "dat_weather_icon_id": "1",
-      "day_condition": "多云",
-      "forecast_list": [
-        {
-          "condition": "晴",
-          "date": "2021-02-23",
-          "high_temperature": "24",
-          "low_temperature": "14",
-          "weather_icon_id": "0",
-          "wind_direction": "东北风",
-          "wind_level": "4-5"
-        },
-        {
-          "condition": "多云",
-          "date": "2021-02-24",
-          "high_temperature": "25",
-          "low_temperature": "16",
-          "weather_icon_id": "1",
-          "wind_direction": "东风",
-          "wind_level": "4-5"
-        },
-        {
-          "condition": "多云",
-          "date": "2021-02-25",
-          "high_temperature": "25",
-          "low_temperature": "16",
-          "weather_icon_id": "1",
-          "wind_direction": "东南风",
-          "wind_level": "3-4"
-        },
-        {
-          "condition": "多云转小雨",
-          "date": "2021-02-26",
-          "high_temperature": "27",
-          "low_temperature": "15",
-          "weather_icon_id": "1",
-          "wind_direction": "西南风",
-          "wind_level": "4-5"
-        },
-        {
-          "condition": "多云转晴",
-          "date": "2021-02-27",
-          "high_temperature": "21",
-          "low_temperature": "13",
-          "weather_icon_id": "1",
-          "wind_direction": "东北风",
-          "wind_level": "5-6"
-        },
-        {
-          "condition": "晴",
-          "date": "2021-02-28",
-          "high_temperature": "21",
-          "low_temperature": "13",
-          "weather_icon_id": "0",
-          "wind_direction": "东北风",
-          "wind_level": "3-4"
-        },
-        {
-          "condition": "晴",
-          "date": "2021-03-01",
-          "high_temperature": "24",
-          "low_temperature": "15",
-          "weather_icon_id": "0",
-          "wind_direction": "微风",
-          "wind_level": "1"
-        },
-        {
-          "condition": "多云",
-          "date": "2021-03-02",
-          "high_temperature": "16",
-          "low_temperature": "11",
-          "weather_icon_id": "1",
-          "wind_direction": "东北风",
-          "wind_level": "4-5"
-        },
-        {
-          "condition": "晴转阴",
-          "date": "2021-03-03",
-          "high_temperature": "17",
-          "low_temperature": "11",
-          "weather_icon_id": "0",
-          "wind_direction": "东北风",
-          "wind_level": "3-4"
-        },
-        {
-          "condition": "晴转阴",
-          "date": "2021-03-04",
-          "high_temperature": "19",
-          "low_temperature": "14",
-          "weather_icon_id": "0",
-          "wind_direction": "东风",
-          "wind_level": "1"
-        },
-        {
-          "condition": "晴转阴",
-          "date": "2021-03-05",
-          "high_temperature": "24",
-          "low_temperature": "15",
-          "weather_icon_id": "0",
-          "wind_direction": "南风",
-          "wind_level": "1"
-        },
-        {
-          "condition": "多云转阴",
-          "date": "2021-03-06",
-          "high_temperature": "19",
-          "low_temperature": "15",
-          "weather_icon_id": "1",
-          "wind_direction": "东北风",
-          "wind_level": "1"
-        },
-        {
-          "condition": "多云",
-          "date": "2021-03-07",
-          "high_temperature": "20",
-          "low_temperature": "15",
-          "weather_icon_id": "1",
-          "wind_direction": "东风",
-          "wind_level": "2"
-        },
-        {
-          "condition": "小雨转阴",
-          "date": "2021-03-08",
-          "high_temperature": "23",
-          "low_temperature": "17",
-          "weather_icon_id": "7",
-          "wind_direction": "西风",
-          "wind_level": "2"
-        },
-        {
-          "condition": "多云",
-          "date": "2021-03-09",
-          "high_temperature": "20",
-          "low_temperature": "16",
-          "weather_icon_id": "1",
-          "wind_direction": "东北风",
-          "wind_level": "3-4"
-        },
-        {
-          "condition": "晴转多云",
-          "date": "2021-03-10",
-          "high_temperature": "19",
-          "low_temperature": "16",
-          "weather_icon_id": "0",
-          "wind_direction": "东北风",
-          "wind_level": "1"
-        }
-      ],
-      "high_temperature": 25,
-      "hourly_forecast": [
-        {
-          "condition": "多云",
-          "hour": "9",
-          "temperature": "18",
-          "weather_icon_id": "1",
-          "wind_direction": "N",
-          "wind_level": "9.00"
-        },
-        {
-          "condition": "多云",
-          "hour": "10",
-          "temperature": "19",
-          "weather_icon_id": "1",
-          "wind_direction": "NNE",
-          "wind_level": "28.80"
-        },
-        {
-          "condition": "多云",
-          "hour": "11",
-          "temperature": "20",
-          "weather_icon_id": "1",
-          "wind_direction": "NNE",
-          "wind_level": "32.40"
-        },
-        {
-          "condition": "多云",
-          "hour": "12",
-          "temperature": "22",
-          "weather_icon_id": "1",
-          "wind_direction": "NNE",
-          "wind_level": "32.40"
-        },
-        {
-          "condition": "晴",
-          "hour": "13",
-          "temperature": "23",
-          "weather_icon_id": "0",
-          "wind_direction": "E",
-          "wind_level": "36.00"
-        },
-        {
-          "condition": "晴",
-          "hour": "14",
-          "temperature": "25",
-          "weather_icon_id": "0",
-          "wind_direction": "E",
-          "wind_level": "36.00"
-        },
-        {
-          "condition": "晴",
-          "hour": "15",
-          "temperature": "24",
-          "weather_icon_id": "0",
-          "wind_direction": "E",
-          "wind_level": "39.60"
-        },
-        {
-          "condition": "晴",
-          "hour": "16",
-          "temperature": "23",
-          "weather_icon_id": "0",
-          "wind_direction": "E",
-          "wind_level": "39.60"
-        },
-        {
-          "condition": "晴",
-          "hour": "17",
-          "temperature": "22",
-          "weather_icon_id": "0",
-          "wind_direction": "E",
-          "wind_level": "36.00"
-        },
-        {
-          "condition": "晴",
-          "hour": "18",
-          "temperature": "20",
-          "weather_icon_id": "0",
-          "wind_direction": "E",
-          "wind_level": "36.00"
-        },
-        {
-          "condition": "晴",
-          "hour": "19",
-          "temperature": "18",
-          "weather_icon_id": "0",
-          "wind_direction": "ESE",
-          "wind_level": "32.40"
-        },
-        {
-          "condition": "晴",
-          "hour": "20",
-          "temperature": "16",
-          "weather_icon_id": "0",
-          "wind_direction": "ESE",
-          "wind_level": "28.80"
-        },
-        {
-          "condition": "晴",
-          "hour": "21",
-          "temperature": "16",
-          "weather_icon_id": "0",
-          "wind_direction": "ESE",
-          "wind_level": "25.20"
-        },
-        {
-          "condition": "晴",
-          "hour": "22",
-          "temperature": "16",
-          "weather_icon_id": "0",
-          "wind_direction": "E",
-          "wind_level": "21.60"
-        },
-        {
-          "condition": "晴",
-          "hour": "23",
-          "temperature": "16",
-          "weather_icon_id": "0",
-          "wind_direction": "NNE",
-          "wind_level": "21.60"
-        },
-        {
-          "condition": "晴",
-          "hour": "0",
-          "temperature": "16",
-          "weather_icon_id": "0",
-          "wind_direction": "NNE",
-          "wind_level": "21.60"
-        },
-        {
-          "condition": "晴",
-          "hour": "1",
-          "temperature": "16",
-          "weather_icon_id": "0",
-          "wind_direction": "NNE",
-          "wind_level": "21.60"
-        },
-        {
-          "condition": "晴",
-          "hour": "2",
-          "temperature": "16",
-          "weather_icon_id": "0",
-          "wind_direction": "NNE",
-          "wind_level": "18.00"
-        },
-        {
-          "condition": "晴",
-          "hour": "3",
-          "temperature": "16",
-          "weather_icon_id": "0",
-          "wind_direction": "NNE",
-          "wind_level": "18.00"
-        },
-        {
-          "condition": "多云",
-          "hour": "4",
-          "temperature": "16",
-          "weather_icon_id": "1",
-          "wind_direction": "NNE",
-          "wind_level": "14.40"
-        },
-        {
-          "condition": "多云",
-          "hour": "5",
-          "temperature": "16",
-          "weather_icon_id": "1",
-          "wind_direction": "NNE",
-          "wind_level": "10.80"
-        },
-        {
-          "condition": "多云",
-          "hour": "6",
-          "temperature": "17",
-          "weather_icon_id": "1",
-          "wind_direction": "NNE",
-          "wind_level": "10.80"
-        },
-        {
-          "condition": "晴",
-          "hour": "7",
-          "temperature": "17",
-          "weather_icon_id": "0",
-          "wind_direction": "N",
-          "wind_level": "6.12"
-        },
-        {
-          "condition": "晴",
-          "hour": "8",
-          "temperature": "17",
-          "weather_icon_id": "0",
-          "wind_direction": "N",
-          "wind_level": "5.76"
-        },
-        {
-          "condition": "晴",
-          "hour": "9",
-          "temperature": "19",
-          "weather_icon_id": "0",
-          "wind_direction": "NNE",
-          "wind_level": "4.68"
-        }
-      ],
-      "low_temperature": 16,
-      "moji_city_id": 1677,
-      "night_condition": "多云",
-      "origin_data": {},
-      "quality_level": "优",
-      "tips": "略微偏凉，还是蛮舒适的。",
-      "tomorrow_aqi": 60,
-      "tomorrow_condition": "多云",
-      "tomorrow_high_temperature": 25,
-      "tomorrow_low_temperature": 16,
-      "tomorrow_quality_level": "良",
-      "tomorrow_weather_icon_id": "1",
-      "update_time": "2021-02-24 10:00:08",
-      "weather_icon_id": "1",
-      "wind_direction": "北风",
-      "wind_level": 2
-    }
+  "city": "北京",
+  "ip": "3.81.113.187",
+  "weather": {
+    "alert": null,
+    "aqi": 120,
+    "city_name": "北京",
+    "current_condition": "晴",
+    "current_temperature": 11,
+    "current_time": 1614415303,
+    "dat_condition": "多云",
+    "dat_high_temperature": 5,
+    "dat_low_temperature": -3,
+    "dat_weather_icon_id": "1",
+    "day_condition": "多云",
+    "forecast_list": [
+      {
+        "condition": "晴",
+        "date": "2021-02-26",
+        "high_temperature": "11",
+        "low_temperature": "-3",
+        "weather_icon_id": "0",
+        "wind_direction": "南风",
+        "wind_level": "1"
+      },
+      {
+        "condition": "多云转小雨",
+        "date": "2021-02-27",
+        "high_temperature": "13",
+        "low_temperature": "-1",
+        "weather_icon_id": "1",
+        "wind_direction": "南风",
+        "wind_level": "1"
+      },
+      {
+        "condition": "小雨转小雪",
+        "date": "2021-02-28",
+        "high_temperature": "5",
+        "low_temperature": "0",
+        "weather_icon_id": "7",
+        "wind_direction": "东北风",
+        "wind_level": "1"
+      },
+      {
+        "condition": "多云",
+        "date": "2021-03-01",
+        "high_temperature": "5",
+        "low_temperature": "-3",
+        "weather_icon_id": "1",
+        "wind_direction": "西南风",
+        "wind_level": "1"
+      },
+      {
+        "condition": "晴",
+        "date": "2021-03-02",
+        "high_temperature": "8",
+        "low_temperature": "-3",
+        "weather_icon_id": "0",
+        "wind_direction": "南风",
+        "wind_level": "1"
+      },
+      {
+        "condition": "晴",
+        "date": "2021-03-03",
+        "high_temperature": "11",
+        "low_temperature": "-2",
+        "weather_icon_id": "0",
+        "wind_direction": "南风",
+        "wind_level": "1"
+      },
+      {
+        "condition": "晴",
+        "date": "2021-03-04",
+        "high_temperature": "14",
+        "low_temperature": "0",
+        "weather_icon_id": "0",
+        "wind_direction": "西南风",
+        "wind_level": "1"
+      },
+      {
+        "condition": "晴转多云",
+        "date": "2021-03-05",
+        "high_temperature": "17",
+        "low_temperature": "0",
+        "weather_icon_id": "0",
+        "wind_direction": "东北风",
+        "wind_level": "3-4"
+      },
+      {
+        "condition": "阴转晴",
+        "date": "2021-03-06",
+        "high_temperature": "7",
+        "low_temperature": "-3",
+        "weather_icon_id": "2",
+        "wind_direction": "南风",
+        "wind_level": "1"
+      },
+      {
+        "condition": "晴转阴",
+        "date": "2021-03-07",
+        "high_temperature": "6",
+        "low_temperature": "-3",
+        "weather_icon_id": "0",
+        "wind_direction": "南风",
+        "wind_level": "2"
+      },
+      {
+        "condition": "阴转晴",
+        "date": "2021-03-08",
+        "high_temperature": "9",
+        "low_temperature": "-4",
+        "weather_icon_id": "2",
+        "wind_direction": "西南风",
+        "wind_level": "1"
+      },
+      {
+        "condition": "阴转晴",
+        "date": "2021-03-09",
+        "high_temperature": "5",
+        "low_temperature": "-3",
+        "weather_icon_id": "2",
+        "wind_direction": "南风",
+        "wind_level": "1"
+      },
+      {
+        "condition": "晴",
+        "date": "2021-03-10",
+        "high_temperature": "8",
+        "low_temperature": "1",
+        "weather_icon_id": "0",
+        "wind_direction": "南风",
+        "wind_level": "1"
+      },
+      {
+        "condition": "晴",
+        "date": "2021-03-11",
+        "high_temperature": "11",
+        "low_temperature": "3",
+        "weather_icon_id": "0",
+        "wind_direction": "南风",
+        "wind_level": "1"
+      },
+      {
+        "condition": "晴转多云",
+        "date": "2021-03-12",
+        "high_temperature": "13",
+        "low_temperature": "6",
+        "weather_icon_id": "0",
+        "wind_direction": "南风",
+        "wind_level": "1"
+      },
+      {
+        "condition": "晴转多云",
+        "date": "2021-03-13",
+        "high_temperature": "15",
+        "low_temperature": "7",
+        "weather_icon_id": "0",
+        "wind_direction": "南风",
+        "wind_level": "1"
+      }
+    ],
+    "high_temperature": 13,
+    "hourly_forecast": [
+      {
+        "condition": "晴",
+        "hour": "16",
+        "temperature": "11",
+        "weather_icon_id": "0",
+        "wind_direction": "S",
+        "wind_level": "18.00"
+      },
+      {
+        "condition": "晴",
+        "hour": "17",
+        "temperature": "12",
+        "weather_icon_id": "0",
+        "wind_direction": "S",
+        "wind_level": "12.60"
+      },
+      {
+        "condition": "晴",
+        "hour": "18",
+        "temperature": "10",
+        "weather_icon_id": "0",
+        "wind_direction": "S",
+        "wind_level": "10.08"
+      },
+      {
+        "condition": "晴",
+        "hour": "19",
+        "temperature": "8",
+        "weather_icon_id": "0",
+        "wind_direction": "S",
+        "wind_level": "9.00"
+      },
+      {
+        "condition": "晴",
+        "hour": "20",
+        "temperature": "6",
+        "weather_icon_id": "0",
+        "wind_direction": "S",
+        "wind_level": "7.92"
+      },
+      {
+        "condition": "晴",
+        "hour": "21",
+        "temperature": "5",
+        "weather_icon_id": "0",
+        "wind_direction": "SSE",
+        "wind_level": "8.28"
+      },
+      {
+        "condition": "晴",
+        "hour": "22",
+        "temperature": "5",
+        "weather_icon_id": "0",
+        "wind_direction": "SSE",
+        "wind_level": "7.56"
+      },
+      {
+        "condition": "晴",
+        "hour": "23",
+        "temperature": "4",
+        "weather_icon_id": "0",
+        "wind_direction": "SSE",
+        "wind_level": "6.84"
+      },
+      {
+        "condition": "晴",
+        "hour": "0",
+        "temperature": "4",
+        "weather_icon_id": "0",
+        "wind_direction": "SE",
+        "wind_level": "5.04"
+      },
+      {
+        "condition": "阴",
+        "hour": "1",
+        "temperature": "3",
+        "weather_icon_id": "2",
+        "wind_direction": "E",
+        "wind_level": "5.04"
+      },
+      {
+        "condition": "阴",
+        "hour": "2",
+        "temperature": "2",
+        "weather_icon_id": "2",
+        "wind_direction": "ENE",
+        "wind_level": "5.76"
+      },
+      {
+        "condition": "阴",
+        "hour": "3",
+        "temperature": "2",
+        "weather_icon_id": "2",
+        "wind_direction": "NE",
+        "wind_level": "5.04"
+      },
+      {
+        "condition": "阴",
+        "hour": "4",
+        "temperature": "1",
+        "weather_icon_id": "2",
+        "wind_direction": "NE",
+        "wind_level": "5.40"
+      },
+      {
+        "condition": "阴",
+        "hour": "5",
+        "temperature": "0",
+        "weather_icon_id": "2",
+        "wind_direction": "NNE",
+        "wind_level": "6.84"
+      },
+      {
+        "condition": "雪",
+        "hour": "6",
+        "temperature": "0",
+        "weather_icon_id": "15",
+        "wind_direction": "NNE",
+        "wind_level": "6.48"
+      },
+      {
+        "condition": "雪",
+        "hour": "7",
+        "temperature": "0",
+        "weather_icon_id": "15",
+        "wind_direction": "NNE",
+        "wind_level": "6.48"
+      },
+      {
+        "condition": "雪",
+        "hour": "8",
+        "temperature": "0",
+        "weather_icon_id": "15",
+        "wind_direction": "NNE",
+        "wind_level": "6.12"
+      },
+      {
+        "condition": "雪",
+        "hour": "9",
+        "temperature": "0",
+        "weather_icon_id": "15",
+        "wind_direction": "NNE",
+        "wind_level": "6.12"
+      },
+      {
+        "condition": "雪",
+        "hour": "10",
+        "temperature": "0",
+        "weather_icon_id": "15",
+        "wind_direction": "NNE",
+        "wind_level": "6.84"
+      },
+      {
+        "condition": "雪",
+        "hour": "11",
+        "temperature": "1",
+        "weather_icon_id": "15",
+        "wind_direction": "NNE",
+        "wind_level": "7.56"
+      },
+      {
+        "condition": "阴",
+        "hour": "12",
+        "temperature": "3",
+        "weather_icon_id": "2",
+        "wind_direction": "NE",
+        "wind_level": "7.20"
+      },
+      {
+        "condition": "阴",
+        "hour": "13",
+        "temperature": "4",
+        "weather_icon_id": "2",
+        "wind_direction": "NE",
+        "wind_level": "7.20"
+      },
+      {
+        "condition": "阴",
+        "hour": "14",
+        "temperature": "5",
+        "weather_icon_id": "2",
+        "wind_direction": "NE",
+        "wind_level": "6.84"
+      },
+      {
+        "condition": "阴",
+        "hour": "15",
+        "temperature": "5",
+        "weather_icon_id": "2",
+        "wind_direction": "ENE",
+        "wind_level": "6.48"
+      },
+      {
+        "condition": "阴",
+        "hour": "16",
+        "temperature": "5",
+        "weather_icon_id": "2",
+        "wind_direction": "ENE",
+        "wind_level": "7.20"
+      }
+    ],
+    "low_temperature": -1,
+    "moji_city_id": 2,
+    "night_condition": "小雨",
+    "origin_data": {},
+    "quality_level": "轻度",
+    "tips": "天冷了，该加衣服了！",
+    "tomorrow_aqi": 200,
+    "tomorrow_condition": "小雨转小雪",
+    "tomorrow_high_temperature": 5,
+    "tomorrow_low_temperature": 0,
+    "tomorrow_quality_level": "中度",
+    "tomorrow_weather_icon_id": "7",
+    "update_time": "2021-02-27 16:35:08",
+    "weather_icon_id": "0",
+    "wind_direction": "南风",
+    "wind_level": 3
   }
 }

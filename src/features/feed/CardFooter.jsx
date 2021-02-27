@@ -18,7 +18,7 @@ const useStyles = makeStyles((theme) => ({
       marginRight: "4.3px",
       fontSize: "0.89rem",
     },
-    [theme.breakpoints.down("xs")]: {
+    [theme.breakpoints.down("sm")]: {
       "& > *": {
         // color: "#999",
         fontSize: "0.64rem",

@@ -23,7 +23,7 @@ const useStyles = makeStyles((theme) => ({
 function LoginCard() {
   const classes = useStyles();
   return (
-    <Box className={classes.root} p={2}>
+    <Box className={classes.root} p={2.5} pb={2}>
       <Paper className={classes.paper} elevation={1}>
         <Box
           p={2}

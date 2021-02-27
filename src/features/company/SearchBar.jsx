@@ -2,9 +2,7 @@ import React from "react";
 import { Box, Button, InputBase, makeStyles } from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
-  SearchBar: {
-    paddingTop: theme.spacing(1),
-  },
+  SearchBar: {},
   input: {
     background: theme.palette.background.secondary,
     padding: "3px 10px",

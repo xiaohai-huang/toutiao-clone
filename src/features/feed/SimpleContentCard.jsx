@@ -3,6 +3,7 @@ import { Box, Paper, makeStyles, Typography } from "@material-ui/core";
 
 import clsx from "clsx";
 import CardFooter from "./CardFooter";
+import { useHistory } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -36,6 +37,7 @@ function SimpleContentCard({
   item_id,
 }) {
   const classes = useStyles();
+  const history = useHistory();
   const publish_time = behot_time;
   const avatar_url = media_avatar_url;
   const name = source;
@@ -49,7 +51,7 @@ function SimpleContentCard({
         m={1}
         ml={0}
       >
-        <Box mb={0.5}>
+        <Box mb={0.5} onClick={() => history.push(`/news/${item_id}`)}>
           <Typography
             className={clsx(classes.title, classes.link)}
             variant="h6"

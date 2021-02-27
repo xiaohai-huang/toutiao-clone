@@ -19,6 +19,13 @@ import SimpleContentCard from "./SimpleContentCard";
 import UGCCard from "./UGCCard";
 
 const useStyles = makeStyles((theme) => ({
+  feedContainer: {
+    [theme.breakpoints.down("xs")]: {
+      marginTop: theme.spacing(2),
+      paddingLeft: "0.2rem",
+      paddingRight: "0.15rem",
+    },
+  },
   alertContainer: {
     position: "sticky",
     top: 0,
@@ -83,7 +90,7 @@ function Feed() {
   };
 
   return (
-    <Grid container direction="column">
+    <Grid container direction="column" className={classes.feedContainer}>
       <Grid item xs className={classes.alertContainer}>
         <Collapse in={open}>
           <Alert />

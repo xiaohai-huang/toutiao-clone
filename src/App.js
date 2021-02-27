@@ -6,6 +6,7 @@ import Header from "./features/header/Header";
 import MainPage from "./pages/MainPage";
 import { useSelector } from "react-redux";
 import UGCCard from "./features/feed/UGCCard";
+import NewsDetailsPage from "./pages/NewsDetailsPage";
 
 function App() {
   let theme;
@@ -33,6 +34,10 @@ function App() {
   // sm xs
   let mobileTheme = createMuiTheme({
     palette: {
+      primary: {
+        main: "#208eda",
+        light: "#406599",
+      },
       secondary: {
         main: "#ed4040",
       },
@@ -70,6 +75,9 @@ function App() {
           </Route>
           <Route exact path="/:category">
             <MainPage />
+          </Route>
+          <Route exact path="/news/:news_id">
+            <NewsDetailsPage />
           </Route>
           <Redirect to="/__all__" />
         </Switch>

@@ -1,4 +1,4 @@
-import { formatDistance } from "date-fns";
+import { formatDistance, format } from "date-fns";
 import zhlocale from "date-fns/locale/zh-CN";
 
 // publish time precision is 1000 ms level = 1s
@@ -18,4 +18,14 @@ export function timeAgo(publishTime) {
     }
   }
   return timeAgo;
+}
+
+export function formatDate(publishTime) {
+  if (!publishTime) {
+    return "2012";
+  }
+  let temp = publishTime * 10 ** 3;
+  return format(new Date(temp), "PPpp", {
+    locale: zhlocale,
+  });
 }

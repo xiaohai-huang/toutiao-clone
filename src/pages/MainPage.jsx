@@ -14,6 +14,7 @@ const useStyles = makeStyles((theme) => ({
   root: {
     paddingLeft: "10px",
     paddingRight: "6px",
+    marginTop: theme.spacing(2),
   },
   channelContainer: {
     padding: "0!important",

@@ -1,5 +1,5 @@
 import React from "react";
-import { Box, makeStyles, Typography } from "@material-ui/core";
+import { Box, makeStyles } from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -31,7 +31,7 @@ const useStyles = makeStyles((theme) => ({
     },
   },
 }));
-function LinksPanel({ title, links }) {
+export function AuthoInfoPanel({ name }) {
   const classes = useStyles();
   return (
     <Box
@@ -42,22 +42,13 @@ function LinksPanel({ title, links }) {
       flexDirection="column"
       alignItems="flex-start"
     >
-      <Typography className={classes.title} variant="h6">
-        {title}
-      </Typography>
+      {/* <Title className={classes.title} /> */}
+
       <Box display="flex" justifyContent="flex-start" flexWrap="wrap" mt={1}>
-        {links.map((link) => (
-          <Typography
-            key={link.name}
-            className={classes.link}
-            variant="subtitle1"
-          >
-            {link.name}
-          </Typography>
-        ))}
+        {/* <Body /> */}
       </Box>
     </Box>
   );
 }
 
-export default LinksPanel;
+export default AuthoInfoPanel;
