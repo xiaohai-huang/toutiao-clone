@@ -15,7 +15,7 @@ export const fetchNews = createAsyncThunk(
 let initialNews = {
   __all__: [],
   news_hot: [],
-  news_society: [],
+  xiaohai: [],
   news_entertainment: [],
   news_tech: [],
   news_military: [],

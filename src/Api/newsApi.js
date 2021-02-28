@@ -1,6 +1,21 @@
 let newsApi = {};
 const BASE_URL = "https://toutiao-proxy.herokuapp.com/tt";
+
+const handleMyOwnNews = () => {
+  return fetch("MockData/xiaohai/xiaohai_news.json")
+    .then((res) => res.json())
+    .then((js) => js.data);
+};
+const handleMyOwnDetails = (item_id) => {
+  return fetch(`/MockData/xiaohai/${item_id}.json`)
+    .then((res) => res.json())
+    .then((js) => js.data);
+};
+
 newsApi.getNews = async (time, category = "__all__") => {
+  if (category === "xiaohai") {
+    return handleMyOwnNews();
+  }
   const test = "MockData/news.json";
   // const production = `http://localhost:4500/tt/news/findByCategory?category=${category}&max_behot_time=${time}`;
   const production = `${BASE_URL}/news/findByCategory?category=${category}&max_behot_time=${time}`;
@@ -25,6 +40,9 @@ newsApi.getNews = async (time, category = "__all__") => {
 };
 
 newsApi.getNewsById = async (item_id) => {
+  if (Number(item_id) < 1000) {
+    return handleMyOwnDetails(item_id);
+  }
   const test = "/MockData/news_details.json";
   // const production = `http://localhost:4500/tt/news/${item_id}`;
   const production = `${BASE_URL}/news/${item_id}`;
