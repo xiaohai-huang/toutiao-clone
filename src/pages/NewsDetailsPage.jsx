@@ -1,5 +1,6 @@
 import {
   AppBar,
+  Avatar,
   Box,
   Breadcrumbs,
   Button,
@@ -57,17 +58,40 @@ const useStyles = makeStyles((theme) => ({
       cursor: "pointer",
     },
   },
+  buttons: {
+    position: "sticky",
+    top: "1rem",
+  },
   container: {
     marginTop: "1rem",
     // border: "1px solid red",
   },
   title: {
-    fontSize: "2rem",
+    fontSize: "2.15rem",
     fontWeight: 700,
+    marginBottom: "1rem",
+
+    [theme.breakpoints.down("sm")]: {
+      fontSize: "1.55rem",
+      lineHeight: "2.25rem",
+    },
+  },
+  avatar: {
+    width: "2.85rem",
+    height: "2.85rem",
+  },
+  authorName: {
+    fontWeight: 500,
+  },
+  date: {
+    color: "#222",
+  },
+  subscribeButton: {
+    border: "0.1px solid #999",
   },
   content: {
-    fontSize: "1rem",
-    lineHeight: "28px",
+    fontSize: "1.15rem",
+    lineHeight: "1.67",
   },
   commentButton: {
     fontWeight: 700,
@@ -135,6 +159,41 @@ function FakeAppBar() {
   );
 }
 
+function Author({ author_name, avatar_url, publish_time }) {
+  const classes = useStyles();
+  const xs = useMediaQuery((theme) => theme.breakpoints.down("xs"));
+  const pc = (
+    <Box display="flex" alignItems="center">
+      <Typography variant="subtitle2">{author_name}</Typography>
+      <Box mr={1} />
+      <Typography variant="subtitle2">{formatDate(publish_time)}</Typography>
+    </Box>
+  );
+  const mobile = (
+    <Box
+      display="flex"
+      justifyContent="space-between"
+      alignItems="center"
+      mb={3}
+    >
+      <Box display="flex" alignItems="center">
+        <Avatar className={classes.avatar} alt={author_name} src={avatar_url} />
+        <Box p={0.5} />
+        <Box>
+          <Typography className={classes.authorName} variant="subtitle2">
+            {author_name}
+          </Typography>
+          <Typography className={classes.date} variant="subtitle2">
+            {formatDate(publish_time, "PPP")}
+          </Typography>
+        </Box>
+      </Box>
+      <Button className={classes.subscribeButton}>关注</Button>
+    </Box>
+  );
+  return xs ? mobile : pc;
+}
+
 function NewsDetailsPage() {
   const { news_id } = useParams();
   const classes = useStyles();
@@ -193,6 +252,7 @@ function NewsDetailsPage() {
                 display="flex"
                 flexDirection="column"
                 alignItems="flex-start"
+                className={classes.buttons}
               >
                 <Button
                   variant="text"
@@ -229,16 +289,15 @@ function NewsDetailsPage() {
                 {/* Author */}
 
                 <Box mt={1} />
-                <Box display="flex">
-                  <Typography variant="subtitle2">{author_name}</Typography>
-                  <Box mr={1} />
-                  <Typography variant="subtitle2">
-                    {formatDate(publish_time)}
-                  </Typography>
-                </Box>
+
+                <Author
+                  author_name={author_name}
+                  avatar_url={avatar_url}
+                  publish_time={publish_time}
+                />
 
                 {/* Main Text */}
-                {content && parse(html)}
+                <Box className={classes.content}>{content && parse(html)}</Box>
 
                 {/* Comments */}
                 <Button onClick={handleCommentsUpdate}>More Comments</Button>

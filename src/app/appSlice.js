@@ -3,7 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 const appSlice = createSlice({
   name: "app",
   initialState: {
-    device: "PC",
+    device: "mobile",
     displayMode: "light",
   },
   reducers: {

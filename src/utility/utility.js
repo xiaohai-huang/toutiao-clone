@@ -21,12 +21,12 @@ export function timeAgo(publishTime) {
 }
 
 // Date.now() => 2021-02-28 上午 6:38:58
-export function formatDate(publishTime) {
+export function formatDate(publishTime, formatStr) {
   if (!publishTime) {
     return "2012-02-29 上午 12:59:60";
   }
   let temp = publishTime * 10 ** 3;
-  return format(new Date(temp), "PPpp", {
+  return format(new Date(temp), formatStr ? formatStr : "PPpp", {
     locale: zhlocale,
   });
 }
