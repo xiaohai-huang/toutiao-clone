@@ -45,27 +45,13 @@ function Feed() {
   const [open, setOpen] = React.useState(true);
   const [failCount, setFailCount] = React.useState(0);
   const Alert = useAlert("您有未读新闻，点击查看", setOpen);
-  const onScroll = () => {
-    // copied from css tricks
-    let scrollTop = window.scrollY;
-    let docHeight = document.body.offsetHeight;
-    let winHeight = window.innerHeight;
-    let scrollPercent = scrollTop / (docHeight - winHeight);
-    let scrollPercentRounded = Math.round(scrollPercent * 100);
-    if (scrollPercentRounded > 80) {
-      // fetch new news
-      // dispatch(fetchNews(category));
-    }
-  };
+
   // initial fetch
   React.useEffect(() => {
     dispatch(fetchNews(category));
-    window.addEventListener("scroll", onScroll);
-    return () => {
-      window.removeEventListener("scroll", onScroll);
-    };
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [dispatch]);
+  }, []);
   // fetch when category changes
   React.useEffect(() => {
     dispatch(fetchNews(category));

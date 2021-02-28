@@ -9,7 +9,7 @@ export const fetchNews = createAsyncThunk(
     const latestTime = latestNews?.behot_time;
     const news = await newsApi.getNews(latestTime, category);
 
-    return news;
+    return { news, category };
   }
 );
 let initialNews = {
@@ -42,8 +42,8 @@ const feedSlice = createSlice({
   },
   extraReducers: {
     [fetchNews.fulfilled]: (state, action) => {
-      const currentCategory = state.category;
-      let newNews = action.payload;
+      const currentCategory = action.payload.category;
+      let newNews = action.payload.news;
       let oldNews = state.news[currentCategory];
       if (oldNews && oldNews.length !== 0) {
         newNews = newNews.filter((nn) => {

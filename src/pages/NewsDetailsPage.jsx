@@ -24,6 +24,7 @@ import parse from "html-react-parser";
 
 import SearchBar from "../features/company/SearchBar";
 import { formatDate } from "../utility/utility";
+import { useSelector } from "react-redux";
 
 const useStyles = makeStyles((theme) => ({
   fakeAppBar: {
@@ -77,6 +78,7 @@ const useStyles = makeStyles((theme) => ({
 function DetailsPageAppBar() {
   const classes = useStyles();
   const history = useHistory();
+  const category = useSelector((state) => state.feed.category);
   return (
     <AppBar
       position="static"
@@ -103,7 +105,7 @@ function DetailsPageAppBar() {
               <Typography
                 color="inherit"
                 className={classes.indexBread}
-                onClick={() => history.push("/")}
+                onClick={() => history.push("/" + category)}
               >
                 首页
               </Typography>
