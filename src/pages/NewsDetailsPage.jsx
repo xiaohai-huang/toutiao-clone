@@ -6,6 +6,7 @@ import {
   Container,
   Divider,
   Grid,
+  LinearProgress,
   makeStyles,
   Toolbar,
   Typography,
@@ -45,6 +46,7 @@ const useStyles = makeStyles((theme) => ({
   indexBread: {
     "&:hover": {
       cursor: "pointer",
+      color: theme.palette.grey[400],
     },
   },
   logo: {
@@ -172,7 +174,10 @@ function NewsDetailsPage() {
   ];
   // parse content
   let html = content;
-  html = content?.replace("<html><body>", "").replace("</body></html>", "");
+  html = html
+    ?.replace("<html><body>", "")
+    .replace("</body></html>", "")
+    .replaceAll("<img", ' <img style="width: 100%;" ');
   return (
     <>
       <FakeAppBar />
@@ -212,28 +217,35 @@ function NewsDetailsPage() {
             </Grid>
           )}
           {/* Main Content */}
-          <Grid item lg sm={10} md={8}>
-            <Typography variant="h1" className={classes.title}>
-              {title}
-            </Typography>
-            {/* Author */}
+          <Grid item lg sm={10} md={8} xs={12}>
+            {content ? (
+              // wrapper
+              <Box>
+                <Typography variant="h1" className={classes.title}>
+                  {title}
+                </Typography>
+                {/* Author */}
 
-            <Box mt={1} />
-            <Box display="flex">
-              <Typography variant="subtitle2">{author_name}</Typography>
-              <Box mr={1} />
-              <Typography variant="subtitle2">
-                {formatDate(publish_time)}
-              </Typography>
-            </Box>
+                <Box mt={1} />
+                <Box display="flex">
+                  <Typography variant="subtitle2">{author_name}</Typography>
+                  <Box mr={1} />
+                  <Typography variant="subtitle2">
+                    {formatDate(publish_time)}
+                  </Typography>
+                </Box>
 
-            {/* Main Text */}
-            {html &&
-              parse(html.replaceAll("<img", ' <img style="width: 100%;" '))}
+                {/* Main Text */}
+                {content && parse(html)}
 
-            {/* Comments */}
-            <Button onClick={handleCommentsUpdate}>More Comments</Button>
+                {/* Comments */}
+                <Button onClick={handleCommentsUpdate}>More Comments</Button>
+              </Box>
+            ) : (
+              <LinearProgress color="secondary" />
+            )}
           </Grid>
+
           {/* Author Info */}
           {!(sm || xs) && (
             <Grid item lg={3}>
