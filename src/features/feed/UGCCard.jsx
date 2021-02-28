@@ -31,7 +31,7 @@ const useStyles = makeStyles((theme) => ({
   name: {
     fontWeight: 400,
   },
-  badage: {
+  badge: {
     background: "#ff9818",
     color: "#fff",
     "& > *": {
@@ -104,7 +104,7 @@ function UGCAuthor({
               height="16px"
             />
           ) : undefined}
-          <Box className={classes.badage}>
+          <Box className={classes.badge}>
             <Typography>微头条</Typography>
           </Box>
         </Box>

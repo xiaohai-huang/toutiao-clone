@@ -136,7 +136,7 @@ function DetailsPageAppBar() {
               <Typography color="textPrimary">正文</Typography>
             </Breadcrumbs>
           </Box>
-          <Box minWidth="290px">
+          <Box minWidth="275px">
             <SearchBar />
           </Box>
         </Box>

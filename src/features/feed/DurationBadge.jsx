@@ -19,7 +19,7 @@ const useStyles = makeStyles((theme) => ({
     },
   },
 }));
-export const DurationBadage = ({ duration }) => {
+export default function DurationBadge({ duration }) {
   const classes = useStyles();
   return (
     <Box
@@ -34,4 +34,4 @@ export const DurationBadage = ({ duration }) => {
       </Box>
     </Box>
   );
-};
+}

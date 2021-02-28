@@ -2,7 +2,7 @@ import React from "react";
 import { Box, makeStyles } from "@material-ui/core";
 
 import SimpleContentCard from "./SimpleContentCard";
-import { DurationBadage } from "./DurationBadage";
+import DurationBadge from "./DurationBadge";
 import { useSelector } from "react-redux";
 
 const useStyles = makeStyles((theme) => ({
@@ -59,7 +59,7 @@ function MediaCard({ image_url, video_duration_str, ...rest }) {
           src={image_url}
           height="auto"
         />
-        {video_duration_str && <DurationBadage duration={video_duration_str} />}
+        {video_duration_str && <DurationBadge duration={video_duration_str} />}
       </Box>
       <Box p={1} />
       <SimpleContentCard {...rest} />

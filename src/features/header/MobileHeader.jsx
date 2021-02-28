@@ -13,7 +13,7 @@ const useStyles = makeStyles((theme) => ({
     top: 0,
     zIndex: theme.zIndex.appBar,
   },
-  badage: {
+  badge: {
     background: "#fff",
   },
   logoContainer: {
@@ -44,7 +44,7 @@ function MobileHeader() {
     >
       <IconButton color="inherit" size="small">
         <Badge
-          classes={{ colorPrimary: classes.badage }}
+          classes={{ colorPrimary: classes.badge }}
           variant="dot"
           color="primary"
           overlap="circle"
