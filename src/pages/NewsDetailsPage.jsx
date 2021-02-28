@@ -170,7 +170,9 @@ function NewsDetailsPage() {
     { label: "Qzone", icon: <InstagramIcon /> },
     { label: "微信", icon: <TwitterIcon /> },
   ];
-
+  // parse content
+  let html = content;
+  html = content?.replace("<html><body>", "").replace("</body></html>", "");
   return (
     <>
       <FakeAppBar />
@@ -189,7 +191,6 @@ function NewsDetailsPage() {
                   variant="text"
                   color="secondary"
                   className={classes.commentButton}
-                  CreateIcon
                   startIcon={<CreateIcon />}
                 >
                   {comment_count}
@@ -201,7 +202,6 @@ function NewsDetailsPage() {
                       variant="text"
                       color="inherit"
                       className={classes.socialButton}
-                      CreateIcon
                       startIcon={tool.icon}
                     >
                       {tool.label}
@@ -218,7 +218,7 @@ function NewsDetailsPage() {
             </Typography>
             {/* Author */}
 
-            <Box mt={1} md />
+            <Box mt={1} />
             <Box display="flex">
               <Typography variant="subtitle2">{author_name}</Typography>
               <Box mr={1} />
@@ -228,7 +228,8 @@ function NewsDetailsPage() {
             </Box>
 
             {/* Main Text */}
-            {content && parse(content)}
+            {html &&
+              parse(html.replaceAll("<img", ' <img style="width: 100%;" '))}
 
             {/* Comments */}
             <Button onClick={handleCommentsUpdate}>More Comments</Button>

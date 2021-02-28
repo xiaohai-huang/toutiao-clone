@@ -1,5 +1,6 @@
 let newsApi = {};
 const BASE_URL = "https://toutiao-proxy.herokuapp.com/tt";
+
 newsApi.getNews = async (time, category = "__all__") => {
   const test = "MockData/news.json";
   // const production = `http://localhost:4500/tt/news/findByCategory?category=${category}&max_behot_time=${time}`;
@@ -25,7 +26,7 @@ newsApi.getNews = async (time, category = "__all__") => {
 };
 
 newsApi.getNewsById = async (item_id) => {
-  const test = "MockData/newsDetails.json";
+  const test = "/MockData/news_details.json";
   // const production = `http://localhost:4500/tt/news/${item_id}`;
   const production = `${BASE_URL}/news/${item_id}`;
 
@@ -33,6 +34,7 @@ newsApi.getNewsById = async (item_id) => {
   const data = await fetch(url)
     .then((res) => res.json())
     .then((json) => json.data);
+
   return data;
 };
 

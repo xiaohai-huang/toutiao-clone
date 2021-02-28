@@ -47,7 +47,7 @@ export default function WeatherPopover({
 }) {
   const classes = useStyles();
   // obtain 3 days of weather forecasts
-  const forecasts = forecast_list.slice(1, 3 + 1);
+  const forecasts = forecast_list && forecast_list.slice(1, 3 + 1);
   return (
     <Paper className={classes.root} elevation={0}>
       <Box className={classes.weatherHeader} display="flex" alignItems="center">

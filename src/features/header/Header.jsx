@@ -39,9 +39,14 @@ const useStyles = makeStyles((theme) => ({
 function WeatherTool() {
   const classes = useStyles();
   const [weather, setWeather] = useState({});
+  const xs = useMediaQuery((theme) => theme.breakpoints.down("xs"));
   useEffect(() => {
-    newsApi.getWeather().then((wea) => setWeather(wea));
-  }, []);
+    if (!xs) {
+      let isMounted = true;
+      newsApi.getWeather().then((wea) => isMounted && setWeather(wea));
+      return () => (isMounted = false);
+    }
+  }, [xs]);
   const {
     city_name,
     current_condition,
@@ -92,7 +97,7 @@ function Header() {
   const mobile = useMediaQuery((theme) => theme.breakpoints.down("sm"));
   setTimeout(() => {
     dispatch(deviceUpdated(mobile ? "mobile" : "PC"));
-  }, 100);
+  }, 500);
   return xs ? (
     <MobileHeader />
   ) : (

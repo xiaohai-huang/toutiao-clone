@@ -20,12 +20,25 @@ export function timeAgo(publishTime) {
   return timeAgo;
 }
 
+// Date.now() => 2021-02-28 上午 6:38:58
 export function formatDate(publishTime) {
   if (!publishTime) {
-    return "2012";
+    return "2012-02-29 上午 12:59:60";
   }
   let temp = publishTime * 10 ** 3;
   return format(new Date(temp), "PPpp", {
     locale: zhlocale,
   });
+}
+
+export function numberToChinese(number) {
+  // number of digits required for chinese 万
+  const W = 4;
+  const numStr = number.toString();
+  const len = numStr.length;
+  if (len > W) {
+    return numStr.slice(0, len - W) + "万";
+  } else {
+    return numStr;
+  }
 }

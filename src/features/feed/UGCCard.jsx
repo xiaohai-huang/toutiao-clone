@@ -2,7 +2,7 @@ import { Avatar, Box, makeStyles, Typography } from "@material-ui/core";
 import clsx from "clsx";
 import React from "react";
 // import { useHistory } from "react-router-dom";
-import { timeAgo } from "../../utility/utility";
+import { numberToChinese, timeAgo } from "../../utility/utility";
 
 // const author = {
 //   ugc_user: {
@@ -49,6 +49,11 @@ const useStyles = makeStyles((theme) => ({
   },
   footer: {
     color: "#777",
+    [theme.breakpoints.down("sm")]: {
+      // color: "#999",
+      fontSize: "0.64rem",
+      fontWeight: "300",
+    },
   },
   show_count: {
     [theme.breakpoints.down("sm")]: {
@@ -117,22 +122,27 @@ function UGCCard({ title, ugc_data, behot_time, comments_count, item_id }) {
   // const history = useHistory();
   const classes = useStyles();
   const { ugc_images, digg_count, show_count } = ugc_data;
+  const hasImage = ugc_images.length > 0;
   return (
     <Box display="flex" pt={1} pb={1} alignItems="center">
+      {/* Left Image */}
       <Box>
-        {ugc_images[0] ? (
+        {hasImage && (
           <img
             alt={title}
             src={ugc_images[0]}
             // style={{ width: "auto", height: "auto" }}
             style={{ objectFit: "cover", width: "154px", height: "100%" }}
           />
-        ) : undefined}
+        )}
       </Box>
-      {ugc_images[0] ? <Box p={1} /> : undefined}
+      {hasImage && <Box p={1} />}
+      {/* Info */}
       <Box display="flex" flexDirection="column" justifyContent="center">
+        {/* author avatar */}
         <UGCAuthor {...ugc_data.ugc_user} />
         <Box mb={0.9} />
+        {/* title - link */}
         <Box
           whiteSpace="pre-wrap"
           textOverflow="ellipsis"
@@ -148,10 +158,11 @@ function UGCCard({ title, ugc_data, behot_time, comments_count, item_id }) {
           </Typography>
         </Box>
         <Box pb={0.8} />
+        {/* Subtitle */}
         <Typography variant="subtitle2" className={classes.footer}>
           {digg_count}赞&nbsp;·&nbsp;{comments_count}评论
           <span className={classes.show_count}>
-            &nbsp;·&nbsp;{show_count}展现
+            &nbsp;·&nbsp;{numberToChinese(show_count)}展现
           </span>
           &nbsp;·&nbsp;{timeAgo(behot_time)}
         </Typography>
