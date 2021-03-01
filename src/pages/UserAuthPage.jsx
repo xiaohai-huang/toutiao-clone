@@ -7,6 +7,8 @@ import Container from "@material-ui/core/Container";
 
 import LoginForm from "../features/user/LoginForm";
 import RegistrationForm from "../features/user/RegistrationForm";
+import { useSelector } from "react-redux";
+import { useHistory } from "react-router-dom";
 
 function Copyright() {
   return (
@@ -40,6 +42,13 @@ const useStyles = makeStyles((theme) => ({
 
 export default function UserAuthPage({ type }) {
   const classes = useStyles();
+  const history = useHistory();
+  const user = useSelector((state) => state.app.user);
+  if (type === "login" && user) {
+    setTimeout(() => {
+      history.push("/");
+    }, 100);
+  }
 
   return (
     <Box className={classes.authContainer}>

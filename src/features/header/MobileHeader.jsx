@@ -42,7 +42,11 @@ function MobileHeader() {
       pl={2}
       pr={2}
     >
-      <IconButton color="inherit" size="small">
+      <IconButton
+        color="inherit"
+        size="small"
+        onClick={() => history.push("/login")}
+      >
         <Badge
           classes={{ colorPrimary: classes.badge }}
           variant="dot"

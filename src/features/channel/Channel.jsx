@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
@@ -123,13 +123,23 @@ export default function Channel() {
   const classes = useStyles();
   const categories = useCategories();
   const dispatch = useDispatch();
-
+  const [isMounted, setIsMounted] = useState(false);
   const currentCategoryCode = useSelector((state) => state.feed.category);
+
+  // fix memory leak
+  useEffect(() => {
+    setIsMounted(true);
+    return () => {
+      setIsMounted(false);
+    };
+  }, [isMounted]);
 
   const handleClick = (category) => {
     return () => {
-      dispatch(categoryUpdated(category));
-      history.push("/" + category);
+      if (isMounted) {
+        dispatch(categoryUpdated(category));
+        history.push("/" + category);
+      }
     };
   };
 

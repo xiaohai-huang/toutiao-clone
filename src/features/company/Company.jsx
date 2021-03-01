@@ -1,9 +1,9 @@
 import React from "react";
 import { Container, makeStyles } from "@material-ui/core";
 
-import LoginCard from "./LoginCard";
 import SearchBar from "./SearchBar";
 import LinksPanel from "./LinksPanel";
+import UserInfoCard from "./UserInfoCard";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -84,10 +84,11 @@ const friendsLinks = [
 
 function Company() {
   const classes = useStyles();
+
   return (
     <Container className={classes.root} fixed>
       <SearchBar />
-      <LoginCard />
+      <UserInfoCard />
       <LinksPanel title="更多" links={more} />
       <LinksPanel title="友情链接" links={friendsLinks} />
     </Container>

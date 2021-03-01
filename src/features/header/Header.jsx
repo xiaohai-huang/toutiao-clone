@@ -2,7 +2,8 @@ import React, { useEffect, useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import { AppBar, Box, Typography } from "@material-ui/core";
 import useMediaQuery from "@material-ui/core/useMediaQuery";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { useHistory } from "react-router-dom";
 
 import WeatherPopover from "./WeatherPopover";
 import useMouseOverPopover from "../../utility/useMouseOverPopover";
@@ -10,7 +11,7 @@ import PropductsPopover from "./PropductsPopover";
 import MobileHeader from "./MobileHeader";
 import { deviceUpdated } from "../../app/appSlice";
 import newsApi from "../../Api/newsApi";
-import { useHistory } from "react-router-dom";
+import { userLogout } from "../../app/appSlice";
 const useStyles = makeStyles((theme) => ({
   appBar: {
     background: "#222",
@@ -75,6 +76,10 @@ function WeatherTool() {
 
 const RightNav = () => {
   const classes = useStyles();
+  const history = useHistory();
+  const dispatch = useDispatch();
+  const user = useSelector((state) => state.app.user);
+
   const Products = () => {
     const Text = () => (
       <Typography className={classes.toolBar_Link} variant="subtitle2">
@@ -84,8 +89,32 @@ const RightNav = () => {
 
     return useMouseOverPopover(Text, PropductsPopover);
   };
+  const Login = () => (
+    <Typography
+      className={classes.toolBar_Link}
+      variant="subtitle2"
+      onClick={() => history.push("/login")}
+    >
+      登录
+    </Typography>
+  );
+  const Logout = () => (
+    <Typography
+      className={classes.toolBar_Link}
+      variant="subtitle2"
+      onClick={() => dispatch(userLogout())}
+    >
+      注销
+    </Typography>
+  );
   return (
     <Box className={classes.rightNav} display="flex" pr={2}>
+      {user && (
+        <Typography className={classes.toolBar_Link} variant="subtitle2">
+          你好，{user.username}
+        </Typography>
+      )}
+      {user ? <Logout /> : <Login />}
       <Typography className={classes.toolBar_Link} variant="subtitle2">
         侵权投诉
       </Typography>

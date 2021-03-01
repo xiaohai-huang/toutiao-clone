@@ -30,12 +30,10 @@ export default function RegistrationForm() {
   const validate = (values) => {
     const errors = {};
 
-    if (!values.email) {
-      errors.email = "Required";
-    } else if (
-      !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)
-    ) {
-      errors.email = "Must be a valid email address";
+    if (!values.username) {
+      errors.username = "Required";
+    } else if (values.username.length < 6) {
+      errors.username = "Must be 6 characters or greater";
     }
 
     if (!values.password) {
@@ -53,7 +51,7 @@ export default function RegistrationForm() {
 
   const handleOnSubmit = (values) => {
     authApi
-      .register(values.email, values.password)
+      .register(values.username, values.password)
       .then((res) => res.json())
       .then((res) =>
         res.success ? history.push("/login") : console.log(res.message)
@@ -61,7 +59,7 @@ export default function RegistrationForm() {
   };
 
   const formik = useFormik({
-    initialValues: { email: "", password: "", confirmPassword: "" },
+    initialValues: { username: "", password: "", confirmPassword: "" },
     validate,
     onSubmit: handleOnSubmit,
   });
@@ -76,14 +74,14 @@ export default function RegistrationForm() {
           variant="outlined"
           margin="normal"
           fullWidth
-          id="email"
-          label="邮箱"
-          name="email"
+          id="username"
+          label="用户名"
+          name="username"
           autoFocus
-          value={formik.values.email}
+          value={formik.values.username}
           onChange={formik.handleChange}
-          error={Boolean(formik.touched.email && formik.errors.email)}
-          helperText={formik.touched.email && formik.errors.email}
+          error={Boolean(formik.touched.username && formik.errors.username)}
+          helperText={formik.touched.username && formik.errors.username}
         />
         <TextField
           variant="outlined"
