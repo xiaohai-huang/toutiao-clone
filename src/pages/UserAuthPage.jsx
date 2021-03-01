@@ -25,7 +25,7 @@ function Copyright() {
 
 const useStyles = makeStyles((theme) => ({
   authContainer: {
-    width: "100vw",
+    width: "100%",
     height: "100%",
     backgroundImage:
       "url(//s3b.pstatp.com/toutiao/resource/ntoutiao_web/static/image/login/login_bg_7584f6a.png)",
@@ -56,7 +56,8 @@ export default function UserAuthPage({ type }) {
         <Box display="flex" flexDirection="column" alignItems="center">
           <Box position="absolute">
             <img
-              width="auto"
+              style={{ objectFit: "cover" }}
+              width="100vw"
               height="320px"
               alt="slogn"
               src="//s3a.pstatp.com/toutiao/resource/ntoutiao_web/static/image/login/slogan_c6bab2f.png"
@@ -65,10 +66,9 @@ export default function UserAuthPage({ type }) {
           <Box className={classes.form}>
             {type === "login" ? <LoginForm /> : <RegistrationForm />}
           </Box>
-        </Box>
-        {/* </div> */}
-        <Box mt={5} pb={2}>
-          <Copyright />
+          <Box mt={5} pb={2}>
+            <Copyright />
+          </Box>
         </Box>
       </Container>
     </Box>

@@ -15,7 +15,7 @@ import { userLogout } from "../../app/appSlice";
 const useStyles = makeStyles((theme) => ({
   appBar: {
     background: "#222",
-    width: "100vw",
+    width: "100%",
     lineHeight: "20px",
     height: "34px",
     display: "flex",
