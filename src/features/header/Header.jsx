@@ -10,6 +10,7 @@ import PropductsPopover from "./PropductsPopover";
 import MobileHeader from "./MobileHeader";
 import { deviceUpdated } from "../../app/appSlice";
 import newsApi from "../../Api/newsApi";
+import { useHistory } from "react-router-dom";
 const useStyles = makeStyles((theme) => ({
   appBar: {
     background: "#222",
@@ -18,9 +19,13 @@ const useStyles = makeStyles((theme) => ({
     height: "34px",
     display: "flex",
     justifyContent: "center",
-    "& .toolBar_Link": {
-      padding: "0 10px",
-      borderRight: "1px solid #3a3a3a",
+  },
+  toolBar_Link: {
+    padding: "0 10px",
+    borderRight: "1px solid #3a3a3a",
+    "&:hover": {
+      cursor: "pointer",
+      color: theme.palette.grey[300],
     },
   },
   toolBar: {},
@@ -72,7 +77,7 @@ const RightNav = () => {
   const classes = useStyles();
   const Products = () => {
     const Text = () => (
-      <Typography className="toolBar_Link" variant="subtitle2">
+      <Typography className={classes.toolBar_Link} variant="subtitle2">
         头条产品
       </Typography>
     );
@@ -81,7 +86,7 @@ const RightNav = () => {
   };
   return (
     <Box className={classes.rightNav} display="flex" pr={2}>
-      <Typography className="toolBar_Link" variant="subtitle2">
+      <Typography className={classes.toolBar_Link} variant="subtitle2">
         侵权投诉
       </Typography>
       <Products />
@@ -92,6 +97,7 @@ const RightNav = () => {
 function Header() {
   const classes = useStyles();
   const dispatch = useDispatch();
+  const history = useHistory();
 
   const xs = useMediaQuery((theme) => theme.breakpoints.down("xs"));
   const mobile = useMediaQuery((theme) => theme.breakpoints.down("sm"));
@@ -109,10 +115,18 @@ function Header() {
           justifyContent="space-between"
         >
           <Box className={classes.leftNav} display="flex">
-            <Typography className="toolBar_Link" variant="subtitle2">
+            <Typography
+              className={classes.toolBar_Link}
+              variant="subtitle2"
+              onClick={() => history.push("/")}
+            >
               下载APP
             </Typography>
-            <Typography className="toolBar_Link" variant="subtitle2">
+            <Typography
+              className={classes.toolBar_Link}
+              variant="subtitle2"
+              onClick={() => history.push("/register")}
+            >
               注册头条号
             </Typography>
             <WeatherTool />

@@ -7,6 +7,7 @@ import MainPage from "./pages/MainPage";
 import { useSelector } from "react-redux";
 import UGCCard from "./features/feed/UGCCard";
 import NewsDetailsPage from "./pages/NewsDetailsPage";
+import UserAuthPage from "./pages/UserAuthPage";
 
 function App() {
   let theme;
@@ -67,12 +68,17 @@ function App() {
 
         <Header />
         <Switch>
-          <Route exact path="/nice">
-            <p>nice</p>
-          </Route>
           <Route exact path="/test">
             <UGCCard />
           </Route>
+
+          <Route exact path="/register">
+            <UserAuthPage type="register" />
+          </Route>
+          <Route exact path="/login">
+            <UserAuthPage type="login" />
+          </Route>
+
           <Route exact path="/:category">
             <MainPage />
           </Route>

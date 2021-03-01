@@ -7,6 +7,7 @@ import {
   Paper,
   Typography,
 } from "@material-ui/core";
+import { useHistory } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -22,6 +23,7 @@ const useStyles = makeStyles((theme) => ({
 
 function LoginCard() {
   const classes = useStyles();
+  const history = useHistory();
   return (
     <Box className={classes.root} p={2.5} pb={2}>
       <Paper className={classes.paper} elevation={1}>
@@ -44,6 +46,7 @@ function LoginCard() {
             variant="contained"
             fullWidth
             disableElevation
+            onClick={() => history.push("/login")}
           >
             登录
           </Button>
