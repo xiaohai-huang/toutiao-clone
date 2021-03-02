@@ -15,6 +15,9 @@ const useStyles = makeStyles((theme) => ({
     paddingLeft: "10px",
     paddingRight: "6px",
     marginTop: theme.spacing(2),
+    [theme.breakpoints.down("xs")]: {
+      marginTop: 0,
+    },
   },
   channelContainer: {
     padding: "0!important",
