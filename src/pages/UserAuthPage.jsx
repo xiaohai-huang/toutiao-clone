@@ -27,6 +27,13 @@ const useStyles = makeStyles((theme) => ({
   authContainer: {
     width: "100%",
     height: "100%",
+    backgroundSize: "cover",
+    [theme.breakpoints.down("sm")]: {
+      height: "100vh",
+      display: "flex",
+      alignItems: "center",
+    },
+
     backgroundImage:
       "url(//s3b.pstatp.com/toutiao/resource/ntoutiao_web/static/image/login/login_bg_7584f6a.png)",
   },
