@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
 import Link from "@material-ui/core/Link";
@@ -13,6 +13,7 @@ import jwt from "jsonwebtoken";
 import authApi from "../../Api/authApi";
 import { useDispatch } from "react-redux";
 import { userUpdated } from "../../app/appSlice";
+import { useFormik } from "formik";
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -28,25 +29,38 @@ const useStyles = makeStyles((theme) => ({
 
 export default function LoginForm() {
   const classes = useStyles();
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
-  const [loading, setLoading] = useState(false);
   const history = useHistory();
   const dispatch = useDispatch();
 
   // if (token) {
   //   return <Redirect to="/" />;
   // }
+  const validate = (values) => {
+    const errors = {};
 
-  const handleOnSubmit = (e) => {
-    e.preventDefault();
-    setLoading(true);
+    if (!values.username) {
+      errors.username = "Required";
+    } else if (values.username.length < 6) {
+      errors.username = "Must be 6 characters or greater";
+    }
+
+    if (!values.password) {
+      errors.password = "Required";
+    } else if (values.password.length < 6) {
+      errors.password = "Must be 6 characters or greater";
+    }
+
+    return errors;
+  };
+  const handleOnSubmit = (values, { setSubmitting, setFieldError }) => {
+    // e.preventDefault();
+    setSubmitting(true);
     authApi
-      .login(username, password)
+      .login(values.username, values.password)
       .then((res) => res.json())
       .then((res) => {
-        setLoading(false);
         if (res.error) {
+          setFieldError("password", res.message);
           console.log(res.message);
           return;
         }
@@ -55,12 +69,18 @@ export default function LoginForm() {
         dispatch(userUpdated(user));
         history.push("/");
       })
-      .catch((err) => console.log(err));
+      .catch((err) => console.log(err))
+      .finally(() => setSubmitting(false));
   };
+  const formik = useFormik({
+    initialValues: { username: "", password: "" },
+    validate,
+    onSubmit: handleOnSubmit,
+  });
 
   return (
     <Box display="flex" flexDirection="column" alignItems="center">
-      <form className={classes.form} noValidate onSubmit={handleOnSubmit}>
+      <form className={classes.form} noValidate onSubmit={formik.handleSubmit}>
         <Typography align="center">假用户名登录</Typography>
         <Box mb={1} />
         <Divider />
@@ -72,8 +92,10 @@ export default function LoginForm() {
           label="用户名"
           name="username"
           autoFocus
-          value={username}
-          onChange={(e) => setUsername(e.target.value)}
+          value={formik.values.username}
+          onChange={formik.handleChange}
+          error={Boolean(formik.touched.username && formik.errors.username)}
+          helperText={formik.touched.username && formik.errors.username}
         />
         <TextField
           variant="outlined"
@@ -84,8 +106,10 @@ export default function LoginForm() {
           type="password"
           id="password"
           autoComplete="current-password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
+          value={formik.values.password}
+          onChange={formik.handleChange}
+          error={Boolean(formik.errors.password)}
+          helperText={formik.errors.password}
         />
 
         <Button
@@ -96,7 +120,7 @@ export default function LoginForm() {
           className={classes.submit}
           size="large"
           disableElevation
-          disabled={loading}
+          disabled={formik.isSubmitting}
         >
           登录
         </Button>

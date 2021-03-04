@@ -49,12 +49,14 @@ export default function RegistrationForm() {
     return errors;
   };
 
-  const handleOnSubmit = (values) => {
+  const handleOnSubmit = (values, { setFieldError }) => {
     authApi
       .register(values.username, values.password)
       .then((res) => res.json())
       .then((res) =>
-        res.success ? history.push("/login") : console.log(res.message)
+        res.success
+          ? history.push("/login")
+          : setFieldError("username", res.message)
       );
   };
 
