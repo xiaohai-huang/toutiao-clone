@@ -59,7 +59,7 @@ export default function WeatherPopover({
       </Box>
 
       <List className={classes.weatherDetails}>
-        {forecasts.map((forecast, i) => {
+        {forecasts?.map((forecast, i) => {
           const {
             low_temperature,
             high_temperature,

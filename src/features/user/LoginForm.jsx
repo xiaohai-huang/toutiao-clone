@@ -40,8 +40,8 @@ export default function LoginForm() {
 
     if (!values.username) {
       errors.username = "Required";
-    } else if (values.username.length < 6) {
-      errors.username = "Must be 6 characters or greater";
+    } else if (values.username.length < 2) {
+      errors.username = "Must be 2 characters or greater";
     }
 
     if (!values.password) {
@@ -65,12 +65,17 @@ export default function LoginForm() {
           return;
         }
         const user = jwt.verify(res.token, "a secret key");
+        user.avatar_url = res.avatar_url;
+        user.token = res.token;
         // save user info to redux once logged in
         dispatch(userUpdated(user));
+        setSubmitting(false);
         history.push("/");
       })
-      .catch((err) => console.log(err))
-      .finally(() => setSubmitting(false));
+      .catch((err) => {
+        console.log(err);
+        setSubmitting(false);
+      });
   };
   const formik = useFormik({
     initialValues: { username: "", password: "" },

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import TextField from "@material-ui/core/TextField";
 import Link from "@material-ui/core/Link";
 import Grid from "@material-ui/core/Grid";
@@ -7,8 +7,10 @@ import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import { Link as RouterLink, useHistory } from "react-router-dom";
 import { useFormik } from "formik";
-import { Button } from "@material-ui/core";
+import { Avatar, Button, IconButton } from "@material-ui/core";
+import DeleteIcon from "@material-ui/icons/Delete";
 import authApi from "../../Api/authApi";
+import ImageUploadButton from "../feed/ImageUploadButton";
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -32,8 +34,8 @@ export default function RegistrationForm() {
 
     if (!values.username) {
       errors.username = "Required";
-    } else if (values.username.length < 6) {
-      errors.username = "Must be 6 characters or greater";
+    } else if (values.username.length < 2) {
+      errors.username = "Must be 2 characters or greater";
     }
 
     if (!values.password) {
@@ -49,19 +51,29 @@ export default function RegistrationForm() {
     return errors;
   };
 
-  const handleOnSubmit = (values, { setFieldError }) => {
+  const handleOnSubmit = (values, { setFieldError, setSubmitting }) => {
+    setSubmitting(true);
     authApi
-      .register(values.username, values.password)
+      .register(values.username, values.password, imageSrc)
       .then((res) => res.json())
-      .then((res) =>
+      .then((res) => {
+        setSubmitting(false);
         res.success
           ? history.push("/login")
-          : setFieldError("username", res.message)
-      );
+          : setFieldError("username", res.message);
+      })
+      .catch((err) => {
+        console.log(err);
+        setSubmitting(false);
+      });
   };
-
+  const [imageSrc, setImageSrc] = useState("");
   const formik = useFormik({
-    initialValues: { username: "", password: "", confirmPassword: "" },
+    initialValues: {
+      username: "",
+      password: "",
+      confirmPassword: "",
+    },
     validate,
     onSubmit: handleOnSubmit,
   });
@@ -112,6 +124,22 @@ export default function RegistrationForm() {
           error={Boolean(formik.errors.confirmPassword)}
           helperText={formik.errors.confirmPassword}
         />
+        <Box display="flex" alignItems="center">
+          <ImageUploadButton
+            label="头像"
+            imageSrc={imageSrc}
+            setImageSrc={setImageSrc}
+          />
+          {imageSrc && (
+            <>
+              <Avatar src={imageSrc} />
+              {/* <img src={imageSrc} alt="" width="200px" height="200px" /> */}
+              <IconButton onClick={() => setImageSrc("")}>
+                <DeleteIcon />
+              </IconButton>
+            </>
+          )}
+        </Box>
 
         <Button
           type="submit"
@@ -120,6 +148,7 @@ export default function RegistrationForm() {
           color="secondary"
           disableElevation
           className={classes.submit}
+          disabled={formik.isSubmitting}
         >
           注册
         </Button>

@@ -21,11 +21,36 @@ import CreateIcon from "@material-ui/icons/Create";
 import FacebookIcon from "@material-ui/icons/Facebook";
 import InstagramIcon from "@material-ui/icons/Instagram";
 import TwitterIcon from "@material-ui/icons/Twitter";
-import parse from "html-react-parser";
+import ReactMarkdown from "react-markdown";
+import gfm from "remark-gfm";
+import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
+import { atomDark } from "react-syntax-highlighter/dist/esm/styles/prism";
+import Tex from "@matejmazur/react-katex";
+import math from "remark-math";
+import "katex/dist/katex.min.css";
 
 import SearchBar from "../features/company/SearchBar";
 import { formatDate } from "../utility/utility";
 import { useSelector } from "react-redux";
+import AuthoInfoPanel from "../features/feed/AuthorInfoPanel";
+
+const renderers = {
+  code: ({ language, value }) => {
+    console.log(language, value);
+    if (!value || !language) {
+      return <span></span>;
+    }
+    return (
+      <SyntaxHighlighter
+        style={atomDark}
+        language={language}
+        children={value}
+      />
+    );
+  },
+  inlineMath: ({ value }) => <Tex math={value} />,
+  math: ({ value }) => <Tex block math={value} />,
+};
 
 const useStyles = makeStyles((theme) => ({
   fakeAppBar: {
@@ -302,9 +327,18 @@ function NewsDetailsPage() {
                 />
 
                 {/* Main Text */}
-                {hasVideo && <video width="320" height="240" src={videoUrl} />}
-                <Box className={classes.content}>{content && parse(html)}</Box>
+                {hasVideo && (
+                  <video controls>
+                    <source src={videoUrl} />
+                  </video>
+                )}
 
+                <ReactMarkdown
+                  source={html}
+                  escapeHtml={false}
+                  plugins={[gfm, math]}
+                  renderers={renderers}
+                />
                 {/* Comments */}
                 <Button onClick={handleCommentsUpdate}>More Comments</Button>
               </Box>
@@ -316,9 +350,12 @@ function NewsDetailsPage() {
           {/* Author Info */}
           {!(sm || xs) && (
             <Grid item lg={3}>
-              {/* <AuthoInfoPanel /> */}
-              <Box style={{ background: "lightblue" }}>author work lists</Box>
-              <img alt={author_name} src={avatar_url} />
+              <AuthoInfoPanel
+                author_name={author_name}
+                avatar_url={avatar_url}
+              />
+              {/* <Box style={{ background: "lightblue" }}>author work lists</Box>
+              <img alt={author_name} src={avatar_url} /> */}
             </Grid>
           )}
         </Grid>

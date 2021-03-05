@@ -61,7 +61,10 @@ const feedSlice = createSlice({
         return;
       }
 
+      // sort the news in DESC order
+
       state.news[currentCategory].push(...newNews);
+      state.news[currentCategory].sort((a, b) => b.behot_time - a.behot_time);
       state.status = "successed";
     },
     [fetchNews.pending]: (state) => {

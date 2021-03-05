@@ -13,6 +13,7 @@
 ### Single news info brief (list)
 
 **article**
+normal
 {
 "item_id":"Number",
 "article_genre":""article"",
@@ -28,7 +29,6 @@
 title:string,
 content,
 publish_time,
-media_user,
 comment_count,
 media_user:{
 screen_name,

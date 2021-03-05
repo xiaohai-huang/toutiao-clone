@@ -3,8 +3,6 @@ import { makeStyles } from "@material-ui/core/styles";
 import Button from "@material-ui/core/Button";
 import IconButton from "@material-ui/core/IconButton";
 import PhotoCamera from "@material-ui/icons/PhotoCamera";
-import DeleteIcon from "@material-ui/icons/Delete";
-import { Box } from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
   input: {
@@ -12,14 +10,13 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function ImageUploadButton({ imageSrc, setImageSrc }) {
+export default function ImageUploadButton({ label, imageSrc, setImageSrc }) {
   const classes = useStyles();
   function encodeImageFileAsURL(element) {
     const file = element.files[0];
     const reader = new FileReader();
     reader.onloadend = function () {
       setImageSrc(reader.result);
-      console.log("RESULT", reader.result);
     };
     reader.readAsDataURL(file);
   }
@@ -30,13 +27,12 @@ export default function ImageUploadButton({ imageSrc, setImageSrc }) {
         accept="image/*"
         className={classes.input}
         id="contained-button-file"
-        multiple
         type="file"
         onChange={(e) => encodeImageFileAsURL(e.target)}
       />
       <label htmlFor="contained-button-file">
         <Button variant="contained" color="primary" component="span">
-          封面图片
+          {label}
         </Button>
       </label>
       <input
@@ -55,14 +51,6 @@ export default function ImageUploadButton({ imageSrc, setImageSrc }) {
           <PhotoCamera />
         </IconButton>
       </label>
-      {imageSrc && (
-        <Box display="flex" alignItems="flex-end">
-          <img src={imageSrc} alt="" width="200px" height="200px" />
-          <IconButton onClick={() => setImageSrc("")}>
-            <DeleteIcon />
-          </IconButton>
-        </Box>
-      )}
     </div>
   );
 }

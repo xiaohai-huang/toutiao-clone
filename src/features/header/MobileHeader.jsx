@@ -45,7 +45,7 @@ function MobileHeader() {
       <IconButton
         color="inherit"
         size="small"
-        onClick={() => history.push("/login")}
+        onClick={() => history.push("/news/create")}
       >
         <Badge
           classes={{ colorPrimary: classes.badge }}

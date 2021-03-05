@@ -12,11 +12,11 @@ const handleMyOwnNews = () => {
     .then((res) => res.json())
     .then((js) => js.data);
 };
-const handleMyOwnDetails = (item_id) => {
-  return fetch(`/MockData/xiaohai/${item_id}.json`)
-    .then((res) => res.json())
-    .then((js) => js.data);
-};
+// const handleMyOwnDetails = (item_id) => {
+//   return fetch(`/MockData/xiaohai/${item_id}.json`)
+//     .then((res) => res.json())
+//     .then((js) => js.data);
+// };
 
 newsApi.getNews = async (time, category = "__all__") => {
   if (category === "xiaohai") {
@@ -46,9 +46,6 @@ newsApi.getNews = async (time, category = "__all__") => {
 };
 
 newsApi.getNewsById = async (item_id) => {
-  if (Number(item_id) < 1000) {
-    return handleMyOwnDetails(item_id);
-  }
   const test = "/MockData/news_details.json";
   // const production = `http://localhost:4500/tt/news/${item_id}`;
   const production = `${BASE_URL}/news/${item_id}`;
@@ -115,5 +112,18 @@ newsApi.getCategories = () => {
     .then((json) => json.categories);
 };
 
-newsApi.uploadNews = (data, category) => {};
+newsApi.uploadNews = (data, token) => {
+  const test = `http://localhost:4500/tt/news`;
+  const production = `${BASE_URL}/news`;
+
+  const url = false ? test : production;
+  return fetch(url, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+    body: JSON.stringify(data),
+  });
+};
 export default newsApi;

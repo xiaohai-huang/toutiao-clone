@@ -1,5 +1,12 @@
 import React from "react";
-import { Box, Button, makeStyles, Paper, Typography } from "@material-ui/core";
+import {
+  Avatar,
+  Box,
+  Button,
+  makeStyles,
+  Paper,
+  Typography,
+} from "@material-ui/core";
 import CreateIcon from "@material-ui/icons/Create";
 import { useDispatch } from "react-redux";
 
@@ -35,6 +42,8 @@ function UserCard({ user }) {
           alignContent="center"
           textAlign="center"
         >
+          <Avatar src={user.avatar_url} alt={user.username} />
+          <Box mb={1} />
           <Typography className={classes.text} variant="caption">
             你好，{user.username}
           </Typography>

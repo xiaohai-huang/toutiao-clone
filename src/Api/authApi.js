@@ -12,13 +12,13 @@ authApi.login = (username, password) => {
   });
 };
 
-authApi.register = (username, password) => {
+authApi.register = (username, password, avatar_url) => {
   return fetch(`${BASE_URL}/api/users/register`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
     },
-    body: JSON.stringify({ username, password }),
+    body: JSON.stringify({ username, password, avatar_url }),
   });
 };
 

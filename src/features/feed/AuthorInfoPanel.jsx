@@ -1,5 +1,5 @@
 import React from "react";
-import { Box, makeStyles } from "@material-ui/core";
+import { Avatar, Box, Button, makeStyles, Typography } from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -30,8 +30,12 @@ const useStyles = makeStyles((theme) => ({
       paddingRight: "0.2rem",
     },
   },
+  largeAvatar: {
+    width: theme.spacing(6),
+    height: theme.spacing(6),
+  },
 }));
-export function AuthoInfoPanel({ name }) {
+export function AuthoInfoPanel({ author_name, avatar_url }) {
   const classes = useStyles();
   return (
     <Box
@@ -42,7 +46,21 @@ export function AuthoInfoPanel({ name }) {
       flexDirection="column"
       alignItems="flex-start"
     >
-      {/* <Title className={classes.title} /> */}
+      <Box display="flex" alignItems="center">
+        <Avatar
+          src={avatar_url}
+          alt={author_name}
+          className={classes.largeAvatar}
+        />
+        <Box mr={2} />
+        <Box display="flex" flexDirection="column" alignItems="flex-start">
+          <Typography variant="h5">{author_name}</Typography>
+          <Box mt={0.3} />
+          <Button variant="contained" color="primary" size="small">
+            关注
+          </Button>
+        </Box>
+      </Box>
 
       <Box display="flex" justifyContent="flex-start" flexWrap="wrap" mt={1}>
         {/* <Body /> */}
