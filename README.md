@@ -10,6 +10,32 @@
 
 ## Components
 
+### Single news info brief (list)
+
+**article**
+{
+"item_id":"Number",
+"article_genre":""article"",
+"single_mode":"boolean",
+"title":"string",
+"behot_time":"Date.now() - 3 digites loss",
+"source":"string - author name",
+"media_avatar_url":"url",
+"comments_count":"number",
+}
+**article_details**
+{
+title:string,
+content,
+publish_time,
+media_user,
+comment_count,
+media_user:{
+screen_name,
+avatar_url,
+}
+}
+
 ### NewsCard
 
 single_mode:false == no video or image.

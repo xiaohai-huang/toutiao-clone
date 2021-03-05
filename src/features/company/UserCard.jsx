@@ -1,8 +1,10 @@
 import React from "react";
 import { Box, Button, makeStyles, Paper, Typography } from "@material-ui/core";
+import CreateIcon from "@material-ui/icons/Create";
 import { useDispatch } from "react-redux";
 
 import { userLogout } from "../../app/appSlice";
+import { useHistory } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -18,6 +20,7 @@ const useStyles = makeStyles((theme) => ({
 
 function UserCard({ user }) {
   const classes = useStyles();
+  const history = useHistory();
   const dispatch = useDispatch();
   return (
     <Box className={classes.root} p={2.5} pb={2}>
@@ -36,6 +39,17 @@ function UserCard({ user }) {
             你好，{user.username}
           </Typography>
           <Box mt={2} />
+          <Button
+            color="primary"
+            variant="contained"
+            fullWidth
+            disableElevation
+            onClick={() => history.push("/news/create")}
+            startIcon={<CreateIcon />}
+          >
+            创建新头条
+          </Button>
+          <Box marginTop={1} />
           <Button
             color="secondary"
             variant="contained"

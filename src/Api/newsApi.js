@@ -2,7 +2,13 @@ let newsApi = {};
 const BASE_URL = "https://toutiao-proxy.herokuapp.com/tt";
 
 const handleMyOwnNews = () => {
-  return fetch("MockData/xiaohai/xiaohai_news.json")
+  const category = "xiaohai";
+  const test = "MockData/xiaohai/xiaohai_news.json";
+  // const production = `http://localhost:4500/tt/news/findByCategory?category=${category}&max_behot_time=0`;
+  const production = `${BASE_URL}/news/findByCategory?category=${category}&max_behot_time=0`;
+
+  const url = false ? test : production;
+  return fetch(url)
     .then((res) => res.json())
     .then((js) => js.data);
 };
@@ -109,4 +115,5 @@ newsApi.getCategories = () => {
     .then((json) => json.categories);
 };
 
+newsApi.uploadNews = (data, category) => {};
 export default newsApi;

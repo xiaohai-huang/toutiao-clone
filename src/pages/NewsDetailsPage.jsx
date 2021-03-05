@@ -231,8 +231,7 @@ function NewsDetailsPage() {
   const avatar_url = media_user?.avatar_url;
 
   const hasVideo = Boolean(news.video_id);
-  const videoUrl =
-    "https://v9-xg-web-default.ixigua.com/ed09abaedae61b84891daf6e9c16a295/603baca7/video/tos/cn/tos-cn-ve-31/007130f44cc4484bbbbbdf0d6610b78d/?a=1768&br=4812&bt=1203&cd=0%7C0%7C0&ch=0&cr=0&cs=0&cv=1&dr=0&ds=3&er=0&l=202102282138380102060382322C491D8E&lr=default&mime_type=video_mp4&pl=0&qs=0&rc=amd0NmVodTdkMzMzOGkzM0ApaDdmNDozMzw5N2YzOjZkZmdtaGNsNS9ebHBgLS0xLi9zc19gMTQ0YF9gXjQ2NTUvYC06Yw%3D%3D&vl=&vr=";
+  const videoUrl = "http://techslides.com/demos/sample-videos/small.mp4";
   const tools = [
     { label: "转发", icon: <ChatIcon /> },
     { label: "微博", icon: <FacebookIcon /> },

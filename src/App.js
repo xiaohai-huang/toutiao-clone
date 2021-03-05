@@ -8,6 +8,7 @@ import { useSelector } from "react-redux";
 import UGCCard from "./features/feed/UGCCard";
 import NewsDetailsPage from "./pages/NewsDetailsPage";
 import UserAuthPage from "./pages/UserAuthPage";
+import NewsCreationPage from "./pages/NewsCreationPage";
 
 function App() {
   let theme;
@@ -81,6 +82,9 @@ function App() {
 
           <Route exact path="/:category">
             <MainPage />
+          </Route>
+          <Route exact path="/news/create">
+            <NewsCreationPage />
           </Route>
           <Route exact path="/news/:news_id">
             <NewsDetailsPage />
