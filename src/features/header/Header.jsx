@@ -74,7 +74,7 @@ function WeatherTool() {
   return useMouseOverPopover(Main, Pop);
 }
 
-const RightNav = () => {
+const RightNav = ({ mobile }) => {
   const classes = useStyles();
   const history = useHistory();
   const dispatch = useDispatch();
@@ -115,9 +115,11 @@ const RightNav = () => {
         </Typography>
       )}
       {user ? <Logout /> : <Login />}
-      <Typography className={classes.toolBar_Link} variant="subtitle2">
-        侵权投诉
-      </Typography>
+      {!mobile && (
+        <Typography className={classes.toolBar_Link} variant="subtitle2">
+          侵权投诉
+        </Typography>
+      )}
       <Products />
     </Box>
   );
@@ -161,7 +163,7 @@ function Header() {
             <WeatherTool />
             {/* <WeatherTool /> */}
           </Box>
-          <RightNav />
+          <RightNav mobile={mobile} />
         </Box>
       </AppBar>
     </Box>

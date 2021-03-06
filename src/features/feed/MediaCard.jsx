@@ -55,12 +55,7 @@ function MediaCard({ image_url, video_duration_str, ...rest }) {
       flexDirection={device === "PC" ? "row" : "row-reverse"}
     >
       <Box className={classes.mediaContainer} position="relative">
-        <img
-          className={classes.image}
-          alt={rest.title}
-          src={image_url}
-          height="auto"
-        />
+        <img className={classes.image} alt={rest.title} src={image_url} />
         {video_duration_str && <DurationBadge duration={video_duration_str} />}
       </Box>
       <Box p={1} />
