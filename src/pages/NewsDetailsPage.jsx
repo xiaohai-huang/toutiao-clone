@@ -136,7 +136,7 @@ function DetailsPageAppBar() {
       elevation={0}
       className={classes.appBar}
     >
-      <Toolbar variant="dense" className={classes.toolBar}>
+      <Toolbar variant="dense" className={classes.toolBar} disableGutters>
         <Box
           display="flex"
           justifyContent="space-between"
@@ -244,8 +244,6 @@ function NewsDetailsPage() {
   const { news_id } = useParams();
   const classes = useStyles();
   const [news, setNews] = useState({});
-  const [comments, setComments] = useState([]);
-  const [offset, setOffset] = useState(0);
   const dispatch = useDispatch();
   const history = useHistory();
   const user = useSelector((state) => state.app.user);
@@ -254,24 +252,8 @@ function NewsDetailsPage() {
   // initial fetch
   useEffect(() => {
     newsApi.getNewsById(news_id).then((n) => setNews(n));
-    newsApi.getCommentsById(news_id, offset).then((json) => {
-      const newComments = json.data;
-      if (comments === newComments) {
-      }
-      setComments((prev) => [...prev, ...newComments]);
-      setOffset(Number(json.offset));
-    });
     // eslint-disable-next-line
   }, [news_id]);
-  // fetch extra comments
-  // if the user press the more comments button
-  const handleCommentsUpdate = () => {
-    newsApi.getCommentsById(news_id, offset).then((json) => {
-      const newComments = json.data;
-      setComments((prev) => [...prev, ...newComments]);
-      setOffset(Number(json.offset));
-    });
-  };
 
   const handleDelete = async () => {
     await newsApi
@@ -378,7 +360,7 @@ function NewsDetailsPage() {
                   renderers={renderers}
                 />
                 {/* Comments */}
-                <Button onClick={handleCommentsUpdate}>More Comments</Button>
+                {/* <Button onClick={handleCommentsUpdate}>More Comments</Button> */}
               </Box>
             ) : (
               <LinearProgress color="secondary" />
