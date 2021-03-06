@@ -125,11 +125,7 @@ export default function RegistrationForm() {
           helperText={formik.errors.confirmPassword}
         />
         <Box display="flex" alignItems="center">
-          <ImageUploadButton
-            label="头像"
-            imageSrc={imageSrc}
-            setImageSrc={setImageSrc}
-          />
+          <ImageUploadButton label="头像" setImageSrc={setImageSrc} />
           {imageSrc && (
             <>
               <Avatar src={imageSrc} />

@@ -10,13 +10,45 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function ImageUploadButton({ label, imageSrc, setImageSrc }) {
+export default function ImageUploadButton({ label, setImageSrc }) {
   const classes = useStyles();
+  // https://codepen.io/tuanitpro/pen/wJZJbp?editors=1010
   function encodeImageFileAsURL(element) {
     const file = element.files[0];
+    const img = document.createElement("img");
     const reader = new FileReader();
-    reader.onloadend = function () {
-      setImageSrc(reader.result);
+    reader.onloadend = function (e) {
+      img.src = e.target.result;
+
+      img.onload = () => {
+        const canvas = document.createElement("canvas");
+        let ctx = canvas.getContext("2d");
+        ctx.drawImage(img, 0, 0);
+
+        const MAX_WIDTH = 200;
+        const MAX_HEIGHT = 200;
+        let width = img.width;
+        let height = img.height;
+
+        if (width > height) {
+          if (width > MAX_WIDTH) {
+            height *= MAX_WIDTH / width;
+            width = MAX_WIDTH;
+          }
+        } else {
+          if (height > MAX_HEIGHT) {
+            width *= MAX_HEIGHT / height;
+            height = MAX_HEIGHT;
+          }
+        }
+        canvas.width = width;
+        canvas.height = height;
+        const newCtx = canvas.getContext("2d");
+        newCtx.drawImage(img, 0, 0, width, height);
+        const dataurl = canvas.toDataURL();
+
+        setImageSrc(dataurl);
+      };
     };
     reader.readAsDataURL(file);
   }

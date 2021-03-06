@@ -128,11 +128,7 @@ function NewsCreationPage() {
           </Grid>
 
           <Grid item xs={6}>
-            <ImageUploadButton
-              label="封面图片"
-              imageSrc={imageSrc}
-              setImageSrc={setImageSrc}
-            />
+            <ImageUploadButton label="封面图片" setImageSrc={setImageSrc} />
             {imageSrc && (
               <Box display="flex" alignItems="flex-end">
                 <img src={imageSrc} alt="" width="200px" height="200px" />
