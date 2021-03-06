@@ -3,11 +3,11 @@ const BASE_URL = "https://toutiao-proxy.herokuapp.com/tt";
 
 const handleMyOwnNews = () => {
   const category = "xiaohai";
-  const test = "MockData/xiaohai/xiaohai_news.json";
-  // const production = `http://localhost:4500/tt/news/findByCategory?category=${category}&max_behot_time=0`;
+  // const test = "MockData/xiaohai/xiaohai_news.json";
+  const test = `http://localhost:4500/tt/news/findByCategory?category=${category}&max_behot_time=0`;
   const production = `${BASE_URL}/news/findByCategory?category=${category}&max_behot_time=0`;
 
-  const url = false ? test : production;
+  const url = process.env.NODE_ENV === "development" ? test : production;
   return fetch(url)
     .then((res) => res.json())
     .then((js) => js.data);
@@ -22,11 +22,12 @@ newsApi.getNews = async (time, category = "__all__") => {
   if (category === "xiaohai") {
     return handleMyOwnNews();
   }
-  const test = "MockData/news.json";
-  // const production = `http://localhost:4500/tt/news/findByCategory?category=${category}&max_behot_time=${time}`;
+
+  // const test = "MockData/news.json";
+  const test = `http://localhost:4500/tt/news/findByCategory?category=${category}&max_behot_time=${time}`;
   const production = `${BASE_URL}/news/findByCategory?category=${category}&max_behot_time=${time}`;
 
-  const url = false ? test : production;
+  const url = process.env.NODE_ENV === "development" ? test : production;
   const remoteData = await fetch(url)
     .then((res) => res.json())
     .then((json) => json.data)
@@ -46,11 +47,11 @@ newsApi.getNews = async (time, category = "__all__") => {
 };
 
 newsApi.getNewsById = async (item_id) => {
-  const test = "/MockData/news_details.json";
-  // const production = `http://localhost:4500/tt/news/${item_id}`;
+  // const test = "/MockData/news_details.json";
+  const test = `http://localhost:4500/tt/news/${item_id}`;
   const production = `${BASE_URL}/news/${item_id}`;
 
-  const url = false ? test : production;
+  const url = process.env.NODE_ENV === "development" ? test : production;
   const data = await fetch(url)
     .then((res) => res.json())
     .then((json) => json.data);
@@ -59,11 +60,11 @@ newsApi.getNewsById = async (item_id) => {
 };
 
 newsApi.getCommentsById = async (news_id, offset) => {
-  const test = "MockData/comments.json";
-  // const production = `http://localhost:4500/tt/comments/${news_id}?offset=${offset}`;
+  // const test = "MockData/comments.json";
+  const test = `http://localhost:4500/tt/comments/${news_id}?offset=${offset}`;
   const production = `${BASE_URL}/comments/${news_id}?offset=${offset}`;
 
-  const url = false ? test : production;
+  const url = process.env.NODE_ENV === "development" ? test : production;
   const remoteData = await fetch(url)
     .then((res) => res.json())
     .catch((err) =>
@@ -84,10 +85,11 @@ newsApi.getCommentsById = async (news_id, offset) => {
 };
 
 newsApi.getWeather = async () => {
-  const test = "MockData/weather.json";
+  // const test = "MockData/weather.json";
+  const test = "http://localhost:4500/tt/weather";
   const production = "https://toutiao-proxy.herokuapp.com/tt/weather";
 
-  const url = false ? test : production;
+  const url = process.env.NODE_ENV === "development" ? test : production;
   const remoteData = await fetch(url) // url!!!!
     .then((res) => res.json())
     .then((json) => json.weather)
@@ -116,7 +118,7 @@ newsApi.uploadNews = (data, token) => {
   const test = `http://localhost:4500/tt/news`;
   const production = `${BASE_URL}/news`;
 
-  const url = false ? test : production;
+  const url = process.env.NODE_ENV === "development" ? test : production;
   return fetch(url, {
     method: "POST",
     headers: {
@@ -125,5 +127,34 @@ newsApi.uploadNews = (data, token) => {
     },
     body: JSON.stringify(data),
   });
+};
+
+newsApi.editNews = (data, news_id, token) => {
+  const test = `http://localhost:4500/tt/news/${news_id}`;
+  const production = `${BASE_URL}/news${news_id}`;
+
+  const url = process.env.NODE_ENV === "development" ? test : production;
+  return fetch(url, {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+    body: JSON.stringify(data),
+  });
+};
+
+newsApi.deleteNews = (news_id, token) => {
+  const test = `http://localhost:4500/tt/news/${news_id}`;
+  const production = `${BASE_URL}/news${news_id}`;
+
+  const url = process.env.NODE_ENV === "development" ? test : production;
+  return fetch(url, {
+    method: "DELETE",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+  }).then((res) => res.json());
 };
 export default newsApi;

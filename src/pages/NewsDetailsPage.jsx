@@ -31,8 +31,9 @@ import "katex/dist/katex.min.css";
 
 import SearchBar from "../features/company/SearchBar";
 import { formatDate } from "../utility/utility";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import AuthoInfoPanel from "../features/feed/AuthorInfoPanel";
+import { categoryDeleted } from "../features/feed/feedSlice";
 
 const renderers = {
   code: ({ language, value }) => {
@@ -185,9 +186,16 @@ function FakeAppBar() {
   );
 }
 
-function Author({ author_name, avatar_url, publish_time }) {
+function Author({
+  author_name,
+  avatar_url,
+  publish_time,
+  handleDelete,
+  handleEdit,
+}) {
   const classes = useStyles();
   const xs = useMediaQuery((theme) => theme.breakpoints.down("xs"));
+  const username = useSelector((state) => state.app.user?.username);
   const pc = (
     <Box display="flex" alignItems="center">
       <Typography variant="subtitle2">{author_name}</Typography>
@@ -214,7 +222,19 @@ function Author({ author_name, avatar_url, publish_time }) {
           </Typography>
         </Box>
       </Box>
-      <Button className={classes.subscribeButton}>关注</Button>
+      {!author_name || username !== author_name ? (
+        <Button className={classes.subscribeButton}>关注</Button>
+      ) : (
+        <Box display="flex">
+          <Button color="primary" variant="contained" onClick={handleEdit}>
+            编辑
+          </Button>
+          <Box m={0.2} />
+          <Button color="secondary" variant="contained" onClick={handleDelete}>
+            删除
+          </Button>
+        </Box>
+      )}
     </Box>
   );
   return xs ? mobile : pc;
@@ -226,6 +246,9 @@ function NewsDetailsPage() {
   const [news, setNews] = useState({});
   const [comments, setComments] = useState([]);
   const [offset, setOffset] = useState(0);
+  const dispatch = useDispatch();
+  const history = useHistory();
+  const user = useSelector((state) => state.app.user);
   const xs = useMediaQuery((theme) => theme.breakpoints.down("xs"));
   const sm = useMediaQuery((theme) => theme.breakpoints.down("sm"));
   // initial fetch
@@ -248,6 +271,19 @@ function NewsDetailsPage() {
       setComments((prev) => [...prev, ...newComments]);
       setOffset(Number(json.offset));
     });
+  };
+
+  const handleDelete = async () => {
+    await newsApi
+      .deleteNews(news_id, user.token)
+      .then((res) => console.log(res));
+    // should be pushed to the category that the deleted news belong to
+    dispatch(categoryDeleted("xiaohai"));
+    history.push("/xiaohai");
+  };
+
+  const handleEdit = () => {
+    history.push(`/news/edit/${news_id}`);
   };
 
   const { title, content, publish_time, media_user, comment_count } = news;
@@ -276,8 +312,8 @@ function NewsDetailsPage() {
         <DetailsPageAppBar />
         <Grid container className={classes.container} spacing={2}>
           {/* left tools */}
-          {!xs && (
-            <Grid item lg={1} sm={2}>
+          {!(xs || sm) && (
+            <Grid item lg={1} sm={2} md={2}>
               <Box
                 display="flex"
                 flexDirection="column"
@@ -309,7 +345,7 @@ function NewsDetailsPage() {
             </Grid>
           )}
           {/* Main Content */}
-          <Grid item lg sm={10} md={8} xs={12}>
+          <Grid item lg={7} sm={8} md={6} xs={12}>
             {content ? (
               // wrapper
               <Box>
@@ -324,11 +360,13 @@ function NewsDetailsPage() {
                   author_name={author_name}
                   avatar_url={avatar_url}
                   publish_time={publish_time}
+                  handleEdit={handleEdit}
+                  handleDelete={handleDelete}
                 />
 
                 {/* Main Text */}
                 {hasVideo && (
-                  <video controls>
+                  <video controls width="100%">
                     <source src={videoUrl} />
                   </video>
                 )}
@@ -348,11 +386,14 @@ function NewsDetailsPage() {
           </Grid>
 
           {/* Author Info */}
-          {!(sm || xs) && (
-            <Grid item lg={3}>
+          {!xs && (
+            <Grid item lg={3} md={4} sm={4}>
               <AuthoInfoPanel
+                news_id={news_id}
                 author_name={author_name}
                 avatar_url={avatar_url}
+                handleEdit={handleEdit}
+                handleDelete={handleDelete}
               />
               {/* <Box style={{ background: "lightblue" }}>author work lists</Box>
               <img alt={author_name} src={avatar_url} /> */}

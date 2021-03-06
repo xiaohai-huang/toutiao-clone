@@ -1,5 +1,13 @@
 import React from "react";
-import { Avatar, Box, Button, makeStyles, Typography } from "@material-ui/core";
+import {
+  Avatar,
+  Box,
+  Button,
+  makeStyles,
+  Typography,
+  useMediaQuery,
+} from "@material-ui/core";
+import { useSelector } from "react-redux";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -35,13 +43,37 @@ const useStyles = makeStyles((theme) => ({
     height: theme.spacing(6),
   },
 }));
-export function AuthoInfoPanel({ author_name, avatar_url }) {
+export function AuthoInfoPanel({
+  author_name,
+  avatar_url,
+  news_id,
+  handleDelete,
+  handleEdit,
+}) {
   const classes = useStyles();
+  const user = useSelector((state) => state.app.user);
+  const username = user?.username;
+
+  const sm = useMediaQuery((theme) => theme.breakpoints.only("sm"));
+
+  // const handleDelete = async () => {
+  //   await newsApi
+  //     .deleteNews(news_id, user.token)
+  //     .then((res) => console.log(res));
+  //   // should be pushed to the category that the deleted news belong to
+  //   dispatch(categoryDeleted("xiaohai"));
+  //   history.push("/xiaohai");
+  // };
+
+  // const handleEdit = () => {
+  //   history.push(`/news/edit/${news_id}`);
+  // };
+
   return (
     <Box
       className={classes.root}
       p={3}
-      pl={4}
+      pl={3}
       display="flex"
       flexDirection="column"
       alignItems="flex-start"
@@ -56,9 +88,31 @@ export function AuthoInfoPanel({ author_name, avatar_url }) {
         <Box display="flex" flexDirection="column" alignItems="flex-start">
           <Typography variant="h5">{author_name}</Typography>
           <Box mt={0.3} />
-          <Button variant="contained" color="primary" size="small">
-            关注
-          </Button>
+          {!author_name || username !== author_name ? (
+            <Button variant="contained" color="primary" size="small">
+              关注
+            </Button>
+          ) : (
+            <Box display={!sm ? "flex" : ""}>
+              <Button
+                variant="contained"
+                color="primary"
+                size="small"
+                onClick={handleEdit}
+              >
+                编辑
+              </Button>
+              <Box m={0.5} />
+              <Button
+                variant="contained"
+                color="secondary"
+                size="small"
+                onClick={handleDelete}
+              >
+                删除
+              </Button>
+            </Box>
+          )}
         </Box>
       </Box>
 

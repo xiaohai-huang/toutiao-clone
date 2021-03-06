@@ -9,6 +9,7 @@ import UGCCard from "./features/feed/UGCCard";
 import NewsDetailsPage from "./pages/NewsDetailsPage";
 import UserAuthPage from "./pages/UserAuthPage";
 import NewsCreationPage from "./pages/NewsCreationPage";
+import NewsEditPage from "./pages/NewsEditPage";
 
 function App() {
   let theme;
@@ -85,6 +86,9 @@ function App() {
           </Route>
           <Route exact path="/news/create">
             <NewsCreationPage />
+          </Route>
+          <Route exact path="/news/edit/:news_id">
+            <NewsEditPage />
           </Route>
           <Route exact path="/news/:news_id">
             <NewsDetailsPage />

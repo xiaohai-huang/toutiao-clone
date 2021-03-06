@@ -1,7 +1,7 @@
 let authApi = {};
-const BASE_URL = "https://toutiao-proxy.herokuapp.com/tt";
-// const BASE_URL = "http://localhost:4500/tt";
-
+const test = "http://localhost:4500/tt";
+const production = "https://toutiao-proxy.herokuapp.com/tt";
+const BASE_URL = process.env.NODE_ENV === "development" ? test : production;
 authApi.login = (username, password) => {
   return fetch(`${BASE_URL}/api/users/login`, {
     method: "POST",

@@ -39,6 +39,10 @@ const feedSlice = createSlice({
     categoryUpdated: (state, action) => {
       state.category = action.payload;
     },
+    categoryDeleted: (state, action) => {
+      const category = action.payload;
+      state.news[category] = [];
+    },
   },
   extraReducers: {
     [fetchNews.fulfilled]: (state, action) => {
@@ -77,6 +81,6 @@ const feedSlice = createSlice({
   },
 });
 
-export const { categoryUpdated } = feedSlice.actions;
+export const { categoryUpdated, categoryDeleted } = feedSlice.actions;
 
 export default feedSlice.reducer;
