@@ -131,7 +131,7 @@ newsApi.uploadNews = (data, token) => {
 
 newsApi.editNews = (data, news_id, token) => {
   const test = `http://localhost:4500/tt/news/${news_id}`;
-  const production = `${BASE_URL}/news${news_id}`;
+  const production = `${BASE_URL}/news/${news_id}`;
 
   const url = process.env.NODE_ENV === "development" ? test : production;
   return fetch(url, {
