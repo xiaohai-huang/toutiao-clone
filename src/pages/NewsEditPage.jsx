@@ -96,7 +96,10 @@ function NewsEditPage() {
         dispatch(categoryDeleted("xiaohai"));
         history.push(`/news/${item_id}`);
       })
-      .catch((err) => console.log(err));
+      .catch((err) => {
+        console.log(err);
+        setSubmitting(false);
+      });
   };
   // article_genre
   return (

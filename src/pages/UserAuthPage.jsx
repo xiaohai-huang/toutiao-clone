@@ -24,23 +24,26 @@ function Copyright() {
 }
 
 const useStyles = makeStyles((theme) => ({
+  bg: {
+    // backgroundColor: "rgb(234,234,234)",
+  },
   authContainer: {
     width: "100%",
     height: "100%",
     backgroundSize: "cover",
-    [theme.breakpoints.down("sm")]: {
-      height: "100vh",
-      display: "flex",
-      alignItems: "center",
-    },
+    // [theme.breakpoints.down("xs")]: {
+    //   height: "100vh",
+    //   display: "flex",
+    //   alignItems: "center",
+    // },
 
-    backgroundImage:
-      "url(//s3b.pstatp.com/toutiao/resource/ntoutiao_web/static/image/login/login_bg_7584f6a.png)",
+    // backgroundImage:
+    // "url(//s3b.pstatp.com/toutiao/resource/ntoutiao_web/static/image/login/login_bg_7584f6a.png)",
   },
 
   form: {
     width: "90%",
-    marginTop: theme.spacing(21.8),
+    marginTop: theme.spacing(20),
     backgroundColor: theme.palette.background.paper,
     borderRadius: "4px",
     padding: "1rem",
@@ -58,13 +61,13 @@ export default function UserAuthPage({ type }) {
   }
 
   return (
-    <Box className={classes.authContainer}>
-      <Container component="main" maxWidth="xs">
+    <Box className={classes.bg}>
+      <Container maxWidth="xs" className={classes.authContainer}>
         <Box display="flex" flexDirection="column" alignItems="center">
-          <Box position="absolute">
+          <Box position="absolute" mt={0.5}>
             <img
-              style={{ objectFit: "cover" }}
-              width="100vw"
+              style={{ objectFit: "contain" }}
+              width="100%"
               height="320px"
               alt="slogn"
               src="//s3a.pstatp.com/toutiao/resource/ntoutiao_web/static/image/login/slogan_c6bab2f.png"

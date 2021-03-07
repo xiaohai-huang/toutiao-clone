@@ -58,44 +58,27 @@ function NewsCreationPage() {
   const handleOnSubmit = () => {
     // has images or videos ==> single_mode=true
     setSubmitting(true);
-    if (imageSrc) {
-      newsApi
-        .uploadNews(
-          {
-            title,
-            article_genre: genreCH2ENG[genre],
-            single_mode: true,
-            content,
-            image_url: imageSrc,
-          },
-          user.token
-        )
-        .then((res) => res.json())
-        .then((js) => {
-          const { item_id } = js;
-          setSubmitting(false);
-          history.push(`/news/${item_id}`);
-        })
-        .catch((err) => console.log(err));
-    } else {
-      newsApi
-        .uploadNews(
-          {
-            title,
-            article_genre: genreCH2ENG[genre],
-            single_mode: false,
-            content,
-          },
-          user.token
-        )
-        .then((res) => res.json())
-        .then((js) => {
-          const { item_id } = js;
-          setSubmitting(false);
-          history.push(`/news/${item_id}`);
-        })
-        .catch((err) => console.log(err));
-    }
+    newsApi
+      .uploadNews(
+        {
+          title,
+          article_genre: genreCH2ENG[genre],
+          single_mode: Boolean(imageSrc),
+          content,
+          image_url: imageSrc,
+        },
+        user.token
+      )
+      .then((res) => res.json())
+      .then((js) => {
+        const { item_id } = js;
+        setSubmitting(false);
+        history.push(`/news/${item_id}`);
+      })
+      .catch((err) => {
+        console.log(err);
+        setSubmitting(false);
+      });
   };
   // article_genre
   return (
