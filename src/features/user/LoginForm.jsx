@@ -59,6 +59,8 @@ export default function LoginForm() {
       .login(values.username, values.password)
       .then((res) => res.json())
       .then((res) => {
+        setSubmitting(false);
+
         if (res.error) {
           setFieldError("password", res.message);
           console.log(res.message);
@@ -69,11 +71,11 @@ export default function LoginForm() {
         user.token = res.token;
         // save user info to redux once logged in
         dispatch(userUpdated(user));
-        setSubmitting(false);
         history.push("/");
       })
       .catch((err) => {
         console.log(err);
+        setFieldError("password", "Unable to connect to server.");
         setSubmitting(false);
       });
   };
@@ -129,7 +131,7 @@ export default function LoginForm() {
         >
           登录
         </Button>
-        <Grid container direction="row" justify="space-between">
+        <Grid container direction="row" justify="space-between" spacing={1}>
           <Grid item>
             <Link variant="body2" component={RouterLink} to="/register">
               注意！本网站不是真正的
