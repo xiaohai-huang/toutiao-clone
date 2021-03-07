@@ -42,6 +42,9 @@ const useStyles = makeStyles((theme) => ({
     width: theme.spacing(6),
     height: theme.spacing(6),
   },
+  authorName: {
+    wordWrap: "anywhere",
+  },
 }));
 export function AuthoInfoPanel({
   author_name,
@@ -86,7 +89,9 @@ export function AuthoInfoPanel({
         />
         <Box mr={2} />
         <Box display="flex" flexDirection="column" alignItems="flex-start">
-          <Typography variant="h5">{author_name}</Typography>
+          <Typography variant="h5" className={classes.authorName}>
+            {author_name}
+          </Typography>
           <Box mt={0.3} />
           {!author_name || username !== author_name ? (
             <Button variant="contained" color="primary" size="small">

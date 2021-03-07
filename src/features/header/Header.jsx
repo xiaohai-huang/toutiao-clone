@@ -74,9 +74,8 @@ function WeatherTool() {
   return useMouseOverPopover(Main, Pop);
 }
 
-const RightNav = ({ mobile }) => {
+const RightNav = ({ mobile, history }) => {
   const classes = useStyles();
-  const history = useHistory();
   const dispatch = useDispatch();
   const user = useSelector((state) => state.app.user);
 
@@ -115,12 +114,22 @@ const RightNav = ({ mobile }) => {
         </Typography>
       )}
       {user ? <Logout /> : <Login />}
-      {!mobile && (
-        <Typography className={classes.toolBar_Link} variant="subtitle2">
-          侵权投诉
+      {!mobile ? (
+        <>
+          <Typography className={classes.toolBar_Link} variant="subtitle2">
+            侵权投诉
+          </Typography>
+          <Products />
+        </>
+      ) : (
+        <Typography
+          className={classes.toolBar_Link}
+          variant="subtitle2"
+          onClick={() => history.push("/news/create")}
+        >
+          新头条
         </Typography>
       )}
-      <Products />
     </Box>
   );
 };
@@ -163,7 +172,7 @@ function Header() {
             <WeatherTool />
             {/* <WeatherTool /> */}
           </Box>
-          <RightNav mobile={mobile} />
+          <RightNav mobile={mobile} history={history} />
         </Box>
       </AppBar>
     </Box>
