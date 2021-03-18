@@ -5,14 +5,17 @@ import RefreshIcon from "@material-ui/icons/Refresh";
 import SearchIcon from "@material-ui/icons/Search";
 import { useHistory } from "react-router-dom";
 import { useSelector } from "react-redux";
+import Channel from "../channel/Channel";
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    background: "#d43d3d",
-    height: "2.8rem",
     position: "sticky",
     top: 0,
     zIndex: theme.zIndex.appBar,
+  },
+  nav: {
+    background: "#d43d3d",
+    height: "2.8rem",
   },
   badge: {
     background: "#fff",
@@ -33,51 +36,54 @@ function MobileHeader() {
   const history = useHistory();
   const category = useSelector((state) => state.feed.category);
   return (
-    <Box
-      className={classes.root}
-      display="flex"
-      flexDirection="row"
-      alignItems="center"
-      justifyContent="space-between"
-      width="100%"
-      color="#fff"
-      pl={2}
-      pr={2}
-    >
-      <IconButton
-        color="inherit"
-        size="small"
-        onClick={() => history.push("/news/create")}
-      >
-        <Badge
-          classes={{ colorPrimary: classes.badge }}
-          variant="dot"
-          color="primary"
-          overlap="circle"
-          badgeContent=" "
-        >
-          <MailOutlineIcon />
-        </Badge>
-      </IconButton>
+    <Box className={classes.root}>
       <Box
-        className={classes.logoContainer}
+        className={classes.nav}
         display="flex"
         flexDirection="row"
         alignItems="center"
-        onClick={() => history.push("/" + category)}
+        justifyContent="space-between"
+        width="100%"
+        color="#fff"
+        pl={2}
+        pr={2}
       >
-        <img
-          src="https://sf1-scmcdn2-tos.pstatp.com/mobile_list/image/wap_logo@3x_581de69e.png"
-          alt="今日头条"
-          style={{ width: "83px", height: "21px" }}
-        />
-        <IconButton className="refreshButton" size="small" color="inherit">
-          <RefreshIcon />
+        <IconButton
+          color="inherit"
+          size="small"
+          onClick={() => history.push("/news/create")}
+        >
+          <Badge
+            classes={{ colorPrimary: classes.badge }}
+            variant="dot"
+            color="primary"
+            overlap="circle"
+            badgeContent=" "
+          >
+            <MailOutlineIcon />
+          </Badge>
+        </IconButton>
+        <Box
+          className={classes.logoContainer}
+          display="flex"
+          flexDirection="row"
+          alignItems="center"
+          onClick={() => history.push("/" + category)}
+        >
+          <img
+            src="https://sf1-scmcdn2-tos.pstatp.com/mobile_list/image/wap_logo@3x_581de69e.png"
+            alt="今日头条"
+            style={{ width: "83px", height: "21px" }}
+          />
+          <IconButton className="refreshButton" size="small" color="inherit">
+            <RefreshIcon />
+          </IconButton>
+        </Box>
+        <IconButton size="small" color="inherit">
+          <SearchIcon />
         </IconButton>
       </Box>
-      <IconButton size="small" color="inherit">
-        <SearchIcon />
-      </IconButton>
+      <Channel />
     </Box>
   );
 }

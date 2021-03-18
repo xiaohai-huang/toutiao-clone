@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import Container from "@material-ui/core/Container";
 import Grid from "@material-ui/core/Grid";
-import { Box, makeStyles } from "@material-ui/core";
+import { Box, makeStyles, useMediaQuery } from "@material-ui/core";
 import { useParams } from "react-router-dom";
 
 import Channel from "../features/channel/Channel";
@@ -13,20 +13,18 @@ import { useDispatch } from "react-redux";
 const useStyles = makeStyles((theme) => ({
   root: {
     paddingLeft: "10px",
-    paddingRight: "6px",
+    paddingRight: "10px",
     marginTop: theme.spacing(2),
     [theme.breakpoints.down("xs")]: {
       marginTop: 0,
     },
-  },
-  channelContainer: {
-    padding: "0!important",
   },
 }));
 
 export default function MainPage() {
   const classes = useStyles();
   const { category } = useParams();
+  const xs = useMediaQuery((theme) => theme.breakpoints.only("xs"));
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(categoryUpdated(category));
@@ -36,9 +34,12 @@ export default function MainPage() {
     <Container className={classes.root}>
       <Grid container spacing={1}>
         {/* Channel */}
-        <Grid item className={classes.channelContainer} xs={12} sm={3} md={2}>
-          <Channel />
-        </Grid>
+        {!xs && (
+          <Grid item className={classes.channelContainer} xs={12} sm={3} md={2}>
+            <Channel />
+          </Grid>
+        )}
+
         {/* Feed */}
         <Grid item className={classes.feedContainer} xs={12} sm={9} md>
           <Feed />

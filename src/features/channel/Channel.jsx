@@ -2,16 +2,22 @@ import React, { useEffect, useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
-import { Box, Button, Hidden, Typography } from "@material-ui/core";
+import {
+  Box,
+  Button,
+  Hidden,
+  Typography,
+  useMediaQuery,
+} from "@material-ui/core";
 import { useHistory } from "react-router-dom";
 
 import useCategories from "../../utility/useCategories";
 import { useDispatch, useSelector } from "react-redux";
 import { categoryUpdated } from "../feed/feedSlice";
+import clsx from "clsx";
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    position: "sticky",
     top: 0,
     display: "flex",
     flexDirection: "column",
@@ -19,13 +25,16 @@ const useStyles = makeStyles((theme) => ({
   },
   [theme.breakpoints.down("xs")]: {
     root: {
+      background: "rgb(244, 245, 246)",
       position: "static",
       flexDirection: "row",
-      flexWrap: "wrap",
-      justifyContent: "center",
+      flexWrap: "nowrap",
+      overflow: "hidden",
+      "overflow-x": "scroll",
+      justifyContent: "flex-start",
     },
-    listItem: {
-      width: "7rem",
+    activeButton: {
+      color: "rgb(248, 89, 89)",
     },
   },
   textRoot: {
@@ -33,6 +42,9 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: "center",
   },
   logo: {
+    [theme.breakpoints.down("xs")]: {
+      display: "none",
+    },
     [theme.breakpoints.up("sm")]: {
       marginBottom: "0.5rem",
       "&:hover": {
@@ -48,17 +60,28 @@ const useStyles = makeStyles((theme) => ({
     paddingTop: "2px",
     paddingBottom: "2px",
   },
+
   gutters: {
     paddingLeft: "10px",
     paddingRight: "10px",
   },
-  button: {
-    "&:hover": {
+  noGutters: {
+    paddingLeft: "0px",
+    paddingRight: "0px",
+  },
+  [theme.breakpoints.up("sm")]: {
+    activeButton: {
       background: theme.palette.secondary.main,
       color: theme.palette.primary.contrastText,
     },
-    [theme.breakpoints.up("sm")]: {
-      maxWidth: "130px",
+    button: {
+      "&:hover": {
+        background: theme.palette.secondary.main,
+        color: theme.palette.primary.contrastText,
+      },
+      [theme.breakpoints.up("sm")]: {
+        maxWidth: "130px",
+      },
     },
   },
 }));
@@ -67,14 +90,13 @@ const NavButton = ({ label, active, onClick }) => {
   if (active) {
     return (
       <Button
-        className={classes.button}
-        variant="contained"
+        className={clsx(classes.activeButton, classes.button)}
         color="secondary"
         fullWidth
         disableElevation
         onClick={onClick}
       >
-        <Typography>{label}</Typography>
+        <Typography noWrap>{label}</Typography>
       </Button>
     );
   }
@@ -86,7 +108,7 @@ const NavButton = ({ label, active, onClick }) => {
       disableElevation
       onClick={onClick}
     >
-      <Typography>{label}</Typography>
+      <Typography noWrap>{label}</Typography>
     </Button>
   );
 };
@@ -125,7 +147,7 @@ export default function Channel() {
   const dispatch = useDispatch();
   const [isMounted, setIsMounted] = useState(false);
   const currentCategoryCode = useSelector((state) => state.feed.category);
-
+  const xs = useMediaQuery((theme) => theme.breakpoints.down("xs"));
   // fix memory leak
   useEffect(() => {
     setIsMounted(true);
@@ -168,7 +190,10 @@ export default function Channel() {
             key={categoryCode}
             dense
             className={classes.listItem}
-            classes={{ dense: classes.listItemDense, gutters: classes.gutters }}
+            classes={{
+              dense: classes.listItemDense,
+              gutters: !xs ? classes.gutters : classes.noGutters,
+            }}
           >
             <NavButton
               active={categoryCode === currentCategoryCode}

@@ -21,7 +21,6 @@ import UGCCard from "./UGCCard";
 const useStyles = makeStyles((theme) => ({
   feedContainer: {
     [theme.breakpoints.down("xs")]: {
-      marginTop: theme.spacing(2),
       paddingLeft: "0.2rem",
       paddingRight: "0.15rem",
     },
