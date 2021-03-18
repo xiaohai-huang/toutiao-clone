@@ -48,6 +48,9 @@ function Feed() {
   // initial fetch
   React.useEffect(() => {
     dispatch(fetchNews(category));
+    setTimeout(() => {
+      setOpen(false);
+    }, 3000);
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
