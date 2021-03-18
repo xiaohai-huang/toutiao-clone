@@ -37,7 +37,6 @@ import { categoryDeleted } from "../features/feed/feedSlice";
 
 const renderers = {
   code: ({ language, value }) => {
-    console.log(language, value);
     if (!value || !language) {
       return <span></span>;
     }
@@ -88,9 +87,17 @@ const useStyles = makeStyles((theme) => ({
     position: "sticky",
     top: "1rem",
   },
+  leftTools: {
+    [theme.breakpoints.up("lg")]: {
+      marginRight: "1rem",
+    },
+  },
   container: {
     marginTop: "1rem",
     // border: "1px solid red",
+  },
+  mainContent: {
+    fontSize: "1rem",
   },
   title: {
     fontSize: "2.15rem",
@@ -276,10 +283,10 @@ function NewsDetailsPage() {
   const hasVideo = Boolean(news.video_id);
   const videoUrl = "http://techslides.com/demos/sample-videos/small.mp4";
   const tools = [
-    { label: "转发", icon: <ChatIcon /> },
-    { label: "微博", icon: <FacebookIcon /> },
-    { label: "Qzone", icon: <InstagramIcon /> },
-    { label: "微信", icon: <TwitterIcon /> },
+    { label: "转发", icon: <ChatIcon color="error" /> },
+    { label: "微博", icon: <FacebookIcon color="primary" /> },
+    { label: "Qzone", icon: <InstagramIcon color="action" /> },
+    { label: "微信", icon: <TwitterIcon color="secondary" /> },
   ];
   // parse content
   let html = content;
@@ -295,7 +302,7 @@ function NewsDetailsPage() {
         <Grid container className={classes.container} spacing={2}>
           {/* left tools */}
           {!(xs || sm) && (
-            <Grid item lg={1} sm={2} md={2}>
+            <Grid item lg={1} sm={2} md={2} className={classes.leftTools}>
               <Box
                 display="flex"
                 flexDirection="column"
@@ -316,6 +323,7 @@ function NewsDetailsPage() {
                     <Button
                       variant="text"
                       color="inherit"
+                      size="large"
                       className={classes.socialButton}
                       startIcon={tool.icon}
                     >
@@ -327,7 +335,14 @@ function NewsDetailsPage() {
             </Grid>
           )}
           {/* Main Content */}
-          <Grid item lg={7} sm={8} md={6} xs={12}>
+          <Grid
+            item
+            lg={7}
+            sm={8}
+            md={6}
+            xs={12}
+            className={classes.mainContent}
+          >
             {content ? (
               // wrapper
               <Box>
@@ -369,7 +384,7 @@ function NewsDetailsPage() {
 
           {/* Author Info */}
           {!xs && (
-            <Grid item lg={3} md={4} sm={4}>
+            <Grid item lg md={4} sm={4}>
               <AuthoInfoPanel
                 news_id={news_id}
                 author_name={author_name}
@@ -389,3 +404,12 @@ function NewsDetailsPage() {
 }
 
 export default NewsDetailsPage;
+
+// // old ajax
+// ajax("https://a.com/getList",{
+//   onSuccess: (data)=>{},
+//   onError: (err)=>{}
+// })
+// // after promisefy
+// let newAjax = promisefy(ajax)
+// let data = await newAjax("https://a.com/getList")

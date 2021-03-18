@@ -29,7 +29,18 @@ const useStyles = makeStyles((theme) => ({
       color: theme.palette.grey[300],
     },
   },
-  toolBar: {},
+  loginButton: {
+    "&:hover": {
+      cursor: "pointer",
+      color: theme.palette.grey[300],
+    },
+  },
+  toolBar: {
+    height: "100%",
+  },
+  rightNav: {
+    height: "100%",
+  },
   weather: {
     paddingLeft: "7px",
     "& h6": {
@@ -89,13 +100,22 @@ const RightNav = ({ mobile, history }) => {
     return useMouseOverPopover(Text, PropductsPopover);
   };
   const Login = () => (
-    <Typography
-      className={classes.toolBar_Link}
-      variant="subtitle2"
-      onClick={() => history.push("/login")}
+    <Box
+      style={{ backgroundColor: "#ed4040" }}
+      alignSelf="stretch"
+      display="flex"
+      alignItems="center"
+      pl={2.5}
+      pr={2.5}
     >
-      登录
-    </Typography>
+      <Typography
+        className={classes.loginButton}
+        variant="subtitle2"
+        onClick={() => history.push("/login")}
+      >
+        登录
+      </Typography>
+    </Box>
   );
   const Logout = () => (
     <Typography
@@ -107,7 +127,7 @@ const RightNav = ({ mobile, history }) => {
     </Typography>
   );
   return (
-    <Box className={classes.rightNav} display="flex" pr={2}>
+    <Box className={classes.rightNav} display="flex" pr={2} alignItems="center">
       {user && (
         <Typography className={classes.toolBar_Link} variant="subtitle2">
           你好，{user.username}
@@ -153,6 +173,7 @@ function Header() {
           className={classes.toolBar}
           display="flex"
           justifyContent="space-between"
+          alignItems="center"
         >
           <Box className={classes.leftNav} display="flex">
             <Typography

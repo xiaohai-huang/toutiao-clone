@@ -4,6 +4,7 @@ import MailOutlineIcon from "@material-ui/icons/MailOutline";
 import RefreshIcon from "@material-ui/icons/Refresh";
 import SearchIcon from "@material-ui/icons/Search";
 import { useHistory } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -30,6 +31,7 @@ const useStyles = makeStyles((theme) => ({
 function MobileHeader() {
   const classes = useStyles();
   const history = useHistory();
+  const category = useSelector((state) => state.feed.category);
   return (
     <Box
       className={classes.root}
@@ -62,7 +64,7 @@ function MobileHeader() {
         display="flex"
         flexDirection="row"
         alignItems="center"
-        onClick={() => history.push("/")}
+        onClick={() => history.push("/" + category)}
       >
         <img
           src="https://sf1-scmcdn2-tos.pstatp.com/mobile_list/image/wap_logo@3x_581de69e.png"
