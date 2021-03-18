@@ -22,6 +22,7 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
+    position: "sticky",
   },
   [theme.breakpoints.down("xs")]: {
     root: {
@@ -166,7 +167,7 @@ export default function Channel() {
   };
 
   return (
-    <List component="nav" className={classes.root} disablePadding>
+    <List className={classes.root} disablePadding>
       {/* Logo */}
       <ListItem
         className={classes.logo}

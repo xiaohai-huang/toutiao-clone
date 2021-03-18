@@ -48,10 +48,10 @@ function Feed() {
   // initial fetch
   React.useEffect(() => {
     dispatch(fetchNews(category));
-    setTimeout(() => {
+    const timerId = setTimeout(() => {
       setOpen(false);
     }, 3000);
-
+    return () => clearTimeout(timerId);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   // fetch when category changes

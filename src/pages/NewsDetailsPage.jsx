@@ -131,6 +131,11 @@ const useStyles = makeStyles((theme) => ({
     fontSize: "1.25rem",
     fontFamily: "Georgia",
   },
+  authorPanel: {
+    [theme.breakpoints.down("xs")]: {
+      display: "none",
+    },
+  },
 }));
 function DetailsPageAppBar() {
   const classes = useStyles();
@@ -383,21 +388,18 @@ function NewsDetailsPage() {
           </Grid>
 
           {/* Author Info */}
-          {!xs && (
-            <Grid item lg md={4} sm={4}>
-              <AuthoInfoPanel
-                news_id={news_id}
-                author_name={author_name}
-                avatar_url={avatar_url}
-                handleEdit={handleEdit}
-                handleDelete={handleDelete}
-              />
-              {/* <Box style={{ background: "lightblue" }}>author work lists</Box>
+          <Grid item lg md={4} sm={4} className={classes.authorPanel}>
+            <AuthoInfoPanel
+              news_id={news_id}
+              author_name={author_name}
+              avatar_url={avatar_url}
+              handleEdit={handleEdit}
+              handleDelete={handleDelete}
+            />
+            {/* <Box style={{ background: "lightblue" }}>author work lists</Box>
               <img alt={author_name} src={avatar_url} /> */}
-            </Grid>
-          )}
+          </Grid>
         </Grid>
-        {/* <p>news details for {news_id}</p> */}
       </Container>
     </>
   );
