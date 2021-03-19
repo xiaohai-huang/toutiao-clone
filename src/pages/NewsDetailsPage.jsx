@@ -280,13 +280,20 @@ function NewsDetailsPage() {
     history.push(`/news/edit/${news_id}`);
   };
 
-  const { title, content, publish_time, media_user, comment_count } = news;
+  const {
+    title,
+    content,
+    publish_time,
+    media_user,
+    comment_count,
+    videoUrl,
+  } = news;
 
   const author_name = media_user?.screen_name;
   const avatar_url = media_user?.avatar_url;
 
   const hasVideo = Boolean(news.video_id);
-  const videoUrl = "http://techslides.com/demos/sample-videos/small.mp4";
+  // const videoUrl = "http://techslides.com/demos/sample-videos/small.mp4";
   const tools = [
     { label: "转发", icon: <ChatIcon color="error" /> },
     { label: "微博", icon: <FacebookIcon color="primary" /> },
@@ -370,6 +377,7 @@ function NewsDetailsPage() {
                 {hasVideo && (
                   <video controls width="100%">
                     <source src={videoUrl} />
+                    <source src="http://techslides.com/demos/sample-videos/small.mp4" />
                   </video>
                 )}
 

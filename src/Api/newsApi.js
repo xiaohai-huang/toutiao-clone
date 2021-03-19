@@ -46,6 +46,14 @@ newsApi.getNews = async (time, category = "__all__") => {
   return data;
 };
 
+newsApi.getVideoUrl = async (news_id) => {
+  const production = `${BASE_URL}/videos/${news_id}`;
+  const videoUrl = fetch(production)
+    .then((res) => res.json())
+    .then((js) => js.video);
+  return videoUrl;
+};
+
 newsApi.getNewsById = async (item_id) => {
   // const test = "/MockData/news_details.json";
   const test = `http://localhost:4500/tt/news/${item_id}`;
@@ -55,6 +63,10 @@ newsApi.getNewsById = async (item_id) => {
   const data = await fetch(url)
     .then((res) => res.json())
     .then((json) => json.data);
+  // if the news contains video
+  if (data.video_id) {
+    data.videoUrl = await newsApi.getVideoUrl(item_id);
+  }
 
   return data;
 };
