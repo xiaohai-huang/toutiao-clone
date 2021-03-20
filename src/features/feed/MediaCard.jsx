@@ -4,6 +4,7 @@ import { Box, makeStyles } from "@material-ui/core";
 import SimpleContentCard from "./SimpleContentCard";
 import DurationBadge from "./DurationBadge";
 import { useSelector } from "react-redux";
+import { useHistory } from "react-router";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -43,8 +44,9 @@ const useStyles = makeStyles((theme) => ({
 
 function MediaCard({ image_url, video_duration_str, ...rest }) {
   const classes = useStyles();
+  const history = useHistory();
   const device = useSelector((state) => state.app.device);
-
+  const { item_id } = rest;
   return (
     <Box
       display="flex"
@@ -54,7 +56,11 @@ function MediaCard({ image_url, video_duration_str, ...rest }) {
       pb={1}
       flexDirection={device === "PC" ? "row" : "row-reverse"}
     >
-      <Box className={classes.mediaContainer} position="relative">
+      <Box
+        className={classes.mediaContainer}
+        position="relative"
+        onClick={() => history.push(`/news/${item_id}`)}
+      >
         <img className={classes.image} alt={rest.title} src={image_url} />
         {video_duration_str && <DurationBadge duration={video_duration_str} />}
       </Box>

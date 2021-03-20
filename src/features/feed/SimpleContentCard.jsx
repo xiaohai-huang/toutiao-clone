@@ -51,11 +51,12 @@ function SimpleContentCard({
         m={1}
         ml={0}
       >
-        <Box mb={0.5} onClick={() => history.push(`/news/${item_id}`)}>
+        <Box mb={0.5}>
           <Typography
             className={clsx(classes.title, classes.link)}
             variant="h6"
             display="inline"
+            onClick={() => history.push(`/news/${item_id}`)}
           >
             {title}
           </Typography>
