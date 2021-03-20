@@ -121,7 +121,7 @@ newsApi.getWeather = async () => {
 };
 
 newsApi.getCategories = () => {
-  return fetch("MockData/categories.json")
+  return fetch("/MockData/categories.json")
     .then((res) => res.json())
     .then((json) => json.categories);
 };
