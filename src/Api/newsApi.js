@@ -1,6 +1,6 @@
 let newsApi = {};
 // const BASE_URL = "https://toutiao-proxy.herokuapp.com/tt";
-const BASE_URL = "http://1.15.175.81:4500/tt";
+const BASE_URL = "https://xiaotiao.ltd/tt";
 
 const handleMyOwnNews = () => {
   const category = "xiaohai";
