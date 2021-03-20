@@ -14,9 +14,11 @@
 
 **article**
 normal
-{
+
+```javascript
+const normal = {
 "item_id":"Number",
-"article_genre":""article"",
+"article_genre":"article,
 "single_mode":"boolean",
 "title":"string",
 "behot_time":"Date.now() - 3 digites loss",
@@ -24,17 +26,22 @@ normal
 "media_avatar_url":"url",
 "comments_count":"number",
 }
+```
+
 **article_details**
-{
-title:string,
-content,
-publish_time,
-comment_count,
-media_user:{
-screen_name,
-avatar_url,
+
+```js
+const details = {
+  "title":string,
+  "content",
+  publish_time,
+  comment_count,
+  "media_user":{
+    screen_name,
+    avatar_url,
+  }
 }
-}
+```
 
 ### NewsCard
 
@@ -44,6 +51,15 @@ single_mode:true == one video or image on the left.
 - news details:
   UI: https://m.toutiaoimg.cn/__{newsItem.item_id}__
   JSON:https://m.toutiaoimg.cn/{newsItem.item_id}/info/v2/?_signature=_02B4Z6wo00f01WJav3gAAIDDxFv75u.KQlliT7vAADil6foNRGdv-p.FzkAO6IiBEdniarpKheKe3inoSh5NbH1ZubEI62CXVYUjai.FWOyspWiqCa3Dzw2zEUo0LURAbhCxmK7w5r4KgpGM46
+
+### Video
+
+```js
+// at news details
+{
+  "is_pgc_article": true,
+}
+```
 
 # Notes
 

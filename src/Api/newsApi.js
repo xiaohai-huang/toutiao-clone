@@ -1,5 +1,6 @@
 let newsApi = {};
-const BASE_URL = "https://toutiao-proxy.herokuapp.com/tt";
+// const BASE_URL = "https://toutiao-proxy.herokuapp.com/tt";
+const BASE_URL = "http://1.15.175.81:4500/tt";
 
 const handleMyOwnNews = () => {
   const category = "xiaohai";
@@ -23,7 +24,7 @@ newsApi.getNews = async (time, category = "__all__") => {
     return handleMyOwnNews();
   }
 
-  // const test = "MockData/news.json";
+  const local = "/MockData/news.json";
   const test = `http://localhost:4500/tt/news/findByCategory?category=${category}&max_behot_time=${time}`;
   const production = `${BASE_URL}/news/findByCategory?category=${category}&max_behot_time=${time}`;
 
@@ -39,7 +40,7 @@ newsApi.getNews = async (time, category = "__all__") => {
   const hasData = remoteData && Object.keys(remoteData).length > 0;
   if (!hasData) {
     console.log("Use local news data.");
-    data = await fetch(test)
+    data = await fetch(local)
       .then((res) => res.json())
       .then((json) => json.data);
   }
@@ -50,19 +51,30 @@ newsApi.getVideoUrl = async (news_id) => {
   const production = `${BASE_URL}/videos/${news_id}`;
   const videoUrl = fetch(production)
     .then((res) => res.json())
-    .then((js) => js.video);
+    .then((js) => js.video)
+    .catch((err) => console.log(err));
   return videoUrl;
 };
 
 newsApi.getNewsById = async (item_id) => {
-  // const test = "/MockData/news_details.json";
+  const local = "/MockData/news_details.json";
   const test = `http://localhost:4500/tt/news/${item_id}`;
   const production = `${BASE_URL}/news/${item_id}`;
 
   const url = process.env.NODE_ENV === "development" ? test : production;
-  const data = await fetch(url)
+  let data = await fetch(url)
     .then((res) => res.json())
-    .then((json) => json.data);
+    .then((json) => json.data)
+    .catch(() => console.log("Cannot fetch news details data."));
+  if (!data) {
+    console.log("use local news details");
+    data = await fetch(local)
+      .then((res) => res.json())
+      .then((json) => {
+        console.log(json);
+        return json.data;
+      });
+  }
   // if the news contains video
   if (data.video_id) {
     data.videoUrl = await newsApi.getVideoUrl(item_id);
