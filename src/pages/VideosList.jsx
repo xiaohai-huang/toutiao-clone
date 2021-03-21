@@ -2,7 +2,9 @@ import {
   Box,
   Button,
   CircularProgress,
+  Divider,
   Grid,
+  Hidden,
   makeStyles,
 } from "@material-ui/core";
 import React, { useEffect } from "react";
@@ -13,6 +15,9 @@ import VideoCard from "../features/video/VideoCard";
 
 const useStyles = makeStyles((theme) => ({
   root: {
+    [theme.breakpoints.down("xs")]: {
+      marginTop: "0.4rem",
+    },
     [theme.breakpoints.up("sm")]: {
       paddingRight: "1rem",
     },
@@ -40,9 +45,12 @@ function VideosList() {
         };
         return (
           <Grid key={v.item_id} item lg={3} md={4} sm={6}>
-            <Box mb={2} mt={1}>
+            <Box mb={2}>
               <VideoCard handleClick={handleVideoClick} {...v} />
             </Box>
+            <Hidden smUp>
+              <Divider />
+            </Hidden>
           </Grid>
         );
       })}
