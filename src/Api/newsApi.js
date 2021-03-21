@@ -1,12 +1,12 @@
 let newsApi = {};
 const BASE_URL = "https://toutiao-proxy.herokuapp.com/tt";
-const TENCENT_SERVER = "https://xiaotiao.ltd/tt";
+const TENCENT_SERVER = "https://api.xiaotiao.ltd/tt";
 
 const handleMyOwnNews = () => {
   const category = "xiaohai";
   // const test = "MockData/xiaohai/xiaohai_news.json";
   const test = `http://localhost:4500/tt/news/findByCategory?category=${category}&max_behot_time=0`;
-  const production = `${BASE_URL}/news/findByCategory?category=${category}&max_behot_time=0`;
+  const production = `${TENCENT_SERVER}/news/findByCategory?category=${category}&max_behot_time=0`;
 
   const url = process.env.NODE_ENV === "development" ? test : production;
   return fetch(url)
