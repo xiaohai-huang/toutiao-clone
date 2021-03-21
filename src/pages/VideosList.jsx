@@ -6,6 +6,7 @@ import {
   Grid,
   Hidden,
   makeStyles,
+  Typography,
 } from "@material-ui/core";
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -61,7 +62,15 @@ function VideosList() {
             更多
           </Button>
           <Box mb={2} />
-          {status === "loading" && <CircularProgress color="secondary" />}
+          {status === "loading" && (
+            <Box display="flex" alignItems="center" flexDirection="column">
+              <Typography>
+                如遇到视频加载失败，请检查是否开启了VPN工具
+              </Typography>
+              <Box p={2} />
+              <CircularProgress color="secondary" />
+            </Box>
+          )}
         </Box>
       </Grid>
     </Grid>
