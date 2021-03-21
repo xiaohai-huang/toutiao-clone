@@ -52,12 +52,20 @@ single_mode:true == one video or image on the left.
   UI: https://m.toutiaoimg.cn/__{newsItem.item_id}__
   JSON:https://m.toutiaoimg.cn/{newsItem.item_id}/info/v2/?_signature=_02B4Z6wo00f01WJav3gAAIDDxFv75u.KQlliT7vAADil6foNRGdv-p.FzkAO6IiBEdniarpKheKe3inoSh5NbH1ZubEI62CXVYUjai.FWOyspWiqCa3Dzw2zEUo0LURAbhCxmK7w5r4KgpGM46
 
+### Video list
+
+![image-20210321184401454](C:\Users\Xiaohai\AppData\Roaming\Typora\typora-user-images\image-20210321184401454.png)
+
+cover image: "https://p6-xg.byteimg.com/" + `image_uri`
+
 ### Video
+
+### 
 
 ```js
 // at news details
 {
-  "is_pgc_article": true,
+  
 }
 ```
 

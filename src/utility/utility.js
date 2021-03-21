@@ -21,7 +21,9 @@ export function timeAgo(publishTime) {
 }
 
 // Date.now() => 2021-02-28 上午 6:38:58
+// publishTime: 1616302548
 export function formatDate(publishTime, formatStr) {
+  // {formatDate(publish_time, "PPP")} => 2021年3月21日
   if (!publishTime) {
     return "2012-02-29 上午 12:59:60";
   }
@@ -41,4 +43,12 @@ export function numberToChinese(number) {
   } else {
     return numStr;
   }
+}
+
+// only support duration under 1 hour
+export function secondsToTimeStr(seconds) {
+  // 620 => 10:20
+  const mins = Math.floor(seconds / 60);
+  const s = seconds - mins * 60;
+  return `${mins}:${s}`;
 }

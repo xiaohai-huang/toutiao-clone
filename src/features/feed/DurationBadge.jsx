@@ -5,7 +5,7 @@ import PlayArrowIcon from "@material-ui/icons/PlayArrow";
 const useStyles = makeStyles((theme) => ({
   root: {
     color: "#fff",
-    background: "rgba(0,0,0,.7)",
+    background: "rgba(0,0,0,.6)",
     fontSize: "0.8rem",
     borderRadius: "10px",
     paddingLeft: "5px",

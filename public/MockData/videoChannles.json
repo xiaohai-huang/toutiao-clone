@@ -1,0 +1,20 @@
+[
+  {
+    "channelInfo": {
+      "label": "推荐",
+      "pinyin": "tuijian",
+      "channel_id": "94349543909",
+      "channel_key": "",
+      "channel_type": "short_video",
+      "channel_level": "1",
+      "category_name": "xg_pc_short_video"
+    }
+  },
+  {
+    "channelInfo": {
+      "label": "电影",
+      "pinyin": "dianying",
+      "channel_id": "94349541312"
+    }
+  }
+]

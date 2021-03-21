@@ -12,9 +12,17 @@ export const fetchNews = createAsyncThunk(
     return { news, category };
   }
 );
+export const fetchVideos = createAsyncThunk(
+  "feed/fetchVideos",
+  async (_, { getState }) => {
+    const videos = await newsApi.getVideos();
+    return { news: videos, category: "xigua" };
+  }
+);
 let initialNews = {
   __all__: [],
   news_hot: [],
+  xigua: [],
   xiaohai: [],
   news_entertainment: [],
   news_tech: [],
@@ -45,41 +53,51 @@ const feedSlice = createSlice({
     },
   },
   extraReducers: {
-    [fetchNews.fulfilled]: (state, action) => {
-      const currentCategory = action.payload.category;
-      let newNews = action.payload.news;
-      let oldNews = state.news[currentCategory];
-      if (oldNews && oldNews.length !== 0) {
-        newNews = newNews.filter((nn) => {
-          for (let i = 0; i < oldNews.length; i++) {
-            if (oldNews[i].item_id === nn.item_id) {
-              return false;
-            }
-          }
-          return true;
-        });
-      }
-
-      if (!newNews || newNews?.length === 0) {
-        state.status = "failed";
-        return;
-      }
-
-      // sort the news in DESC order
-
-      state.news[currentCategory].push(...newNews);
-      state.news[currentCategory].sort((a, b) => b.behot_time - a.behot_time);
-      state.status = "successed";
-    },
-    [fetchNews.pending]: (state) => {
-      state.status = "loading";
-    },
-    [fetchNews.rejected]: (state, action) => {
-      state.error = action.error.message;
-      state.status = "failed";
-    },
+    [fetchNews.fulfilled]: addFullfilledReducer,
+    [fetchNews.pending]: pendingReducer,
+    [fetchNews.rejected]: rejectedReducer,
+    [fetchVideos.fulfilled]: addFullfilledReducer,
+    [fetchVideos.pending]: pendingReducer,
+    [fetchVideos.rejected]: rejectedReducer,
   },
 });
+
+function pendingReducer(state) {
+  state.status = "loading";
+}
+function rejectedReducer(state, action) {
+  state.error = action.error.message;
+  state.status = "failed";
+}
+
+function addFullfilledReducer(state, action) {
+  const currentCategory = action.payload.category;
+  let newNews = action.payload.news;
+  let oldNews = state.news[currentCategory];
+  if (oldNews && oldNews.length !== 0) {
+    newNews = newNews.filter((nn) => {
+      for (let i = 0; i < oldNews.length; i++) {
+        if (oldNews[i].item_id === nn.item_id) {
+          return false;
+        }
+      }
+      return true;
+    });
+  }
+
+  if (!newNews || newNews?.length === 0) {
+    state.status = "failed";
+    return;
+  }
+
+  // sort the news in DESC order
+
+  state.news[currentCategory].push(...newNews);
+  state.news[currentCategory].sort((a, b) => b?.behot_time - a?.behot_time);
+  state.status = "successed";
+}
+
+export const selectVideos = (state) => state.feed.news.xigua;
 
 export const { categoryUpdated, categoryDeleted } = feedSlice.actions;
 

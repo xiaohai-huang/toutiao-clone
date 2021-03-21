@@ -47,9 +47,23 @@ newsApi.getNews = async (time, category = "__all__") => {
   return data;
 };
 
+// channel = "tuijian" "dianying"
+// time = 1616315678
+newsApi.getVideos = async (channel, count, time) => {
+  // const local = "/MockData/shortVideos.json";
+  const test = "http://localhost:4500/tt/videos";
+  const production = `${TENCENT_SERVER}/videos`;
+
+  const url = process.env.NODE_ENV === "development" ? test : production;
+  return fetch(url).then((res) => res.json());
+};
+
 newsApi.getVideoUrl = async (news_id) => {
+  const test = `http://localhost:4500/tt/videos/${news_id}`;
   const production = `${TENCENT_SERVER}/videos/${news_id}`;
-  const videoUrl = fetch(production)
+  const url = process.env.NODE_ENV === "development" ? test : production;
+
+  const videoUrl = fetch(url)
     .then((res) => res.json())
     .then((js) => js.video)
     .catch((err) => console.log(err));

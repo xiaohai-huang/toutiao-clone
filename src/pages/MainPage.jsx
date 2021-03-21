@@ -9,6 +9,7 @@ import Feed from "../features/feed/Feed";
 import Company from "../features/company/Company";
 import { categoryUpdated } from "../features/feed/feedSlice";
 import { useDispatch } from "react-redux";
+import VideosList from "./VideosList";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -30,6 +31,21 @@ export default function MainPage() {
     dispatch(categoryUpdated(category));
   }, [dispatch, category]);
 
+  let mainContent;
+  if (category === "xigua") {
+    mainContent = (
+      <Grid item className={classes.videosContainer} xs={12} sm md>
+        <VideosList />;
+      </Grid>
+    );
+  } else {
+    mainContent = (
+      <Grid item className={classes.feedContainer} xs={12} sm={9} md>
+        <Feed />
+      </Grid>
+    );
+  }
+
   return (
     <Container className={classes.root}>
       <Grid container spacing={1}>
@@ -40,17 +56,17 @@ export default function MainPage() {
           </Grid>
         )}
 
-        {/* Feed */}
-        <Grid item className={classes.feedContainer} xs={12} sm={9} md>
-          <Feed />
-        </Grid>
+        {/* Feed or Videos*/}
+        {mainContent}
         {/* Links */}
-        <Grid item md={4}>
-          <span></span>
-          <Box display={{ xs: "none", md: "block" }}>
-            <Company />
-          </Box>
-        </Grid>
+        {category !== "xigua" && (
+          <Grid item md={4}>
+            <span></span>
+            <Box display={{ xs: "none", md: "block" }}>
+              <Company />
+            </Box>
+          </Grid>
+        )}
       </Grid>
     </Container>
   );
