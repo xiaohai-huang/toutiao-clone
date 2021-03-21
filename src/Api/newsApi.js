@@ -1,6 +1,6 @@
 let newsApi = {};
-// const BASE_URL = "https://toutiao-proxy.herokuapp.com/tt";
-const BASE_URL = "https://xiaotiao.ltd/tt";
+const BASE_URL = "https://toutiao-proxy.herokuapp.com/tt";
+const TENCENT_SERVER = "https://xiaotiao.ltd/tt";
 
 const handleMyOwnNews = () => {
   const category = "xiaohai";
@@ -48,7 +48,7 @@ newsApi.getNews = async (time, category = "__all__") => {
 };
 
 newsApi.getVideoUrl = async (news_id) => {
-  const production = `${BASE_URL}/videos/${news_id}`;
+  const production = `${TENCENT_SERVER}/videos/${news_id}`;
   const videoUrl = fetch(production)
     .then((res) => res.json())
     .then((js) => js.video)
@@ -59,7 +59,7 @@ newsApi.getVideoUrl = async (news_id) => {
 newsApi.getNewsById = async (item_id) => {
   const local = "/MockData/news_details.json";
   const test = `http://localhost:4500/tt/news/${item_id}`;
-  const production = `${BASE_URL}/news/${item_id}`;
+  const production = `${TENCENT_SERVER}/news/${item_id}`;
 
   const url = process.env.NODE_ENV === "development" ? test : production;
   let data = await fetch(url)
