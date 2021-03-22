@@ -118,12 +118,13 @@ function Feed() {
 
       <Grid item xs>
         <Box pt={2} display="flex" flexDirection="column" alignItems="center">
+          {failCount >= 1 && <Typography>Already up to date...</Typography>}
+          <Box mb={2} />
+          {status === "loading" && <CircularProgress color="secondary" />}
+          <Box mb={2} />
           <Button variant="contained" color="secondary" onClick={handleClick}>
             更多
           </Button>
-          <Box mb={2} />
-          {failCount >= 1 && <Typography>Already up to date...</Typography>}
-          {status === "loading" && <CircularProgress color="secondary" />}
         </Box>
       </Grid>
     </Grid>
