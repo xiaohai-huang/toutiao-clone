@@ -18,9 +18,18 @@ const useStyles = makeStyles((theme) => ({
   root: {
     [theme.breakpoints.down("xs")]: {
       marginTop: "0.4rem",
+      paddingLeft: "0.3rem",
+      paddingRight: "0.3rem",
     },
     [theme.breakpoints.up("sm")]: {
       paddingRight: "1rem",
+    },
+  },
+  [theme.breakpoints.down("xs")]: {
+    cardWrapper: {
+      borderBottom: "1px solid rgba(221, 221, 221, 0.6)",
+      paddingBottom: "1rem",
+      paddingTop: "0.5rem",
     },
   },
 }));
@@ -46,22 +55,15 @@ function VideosList() {
         };
         return (
           <Grid key={v.item_id} item lg={3} md={4} sm={6}>
-            <Box mb={2}>
+            <Box className={classes.cardWrapper}>
               <VideoCard handleClick={handleVideoClick} {...v} />
             </Box>
-            <Hidden smUp>
-              <Divider />
-            </Hidden>
           </Grid>
         );
       })}
 
       <Grid item xs>
         <Box pt={2} display="flex" flexDirection="column" alignItems="center">
-          <Button variant="contained" color="secondary" onClick={handleMore}>
-            更多
-          </Button>
-          <Box mb={2} />
           {status === "loading" && (
             <Box display="flex" alignItems="center" flexDirection="column">
               <Typography>
@@ -71,6 +73,10 @@ function VideosList() {
               <CircularProgress color="secondary" />
             </Box>
           )}
+          <Box mb={2} />
+          <Button variant="contained" color="secondary" onClick={handleMore}>
+            更多
+          </Button>
         </Box>
       </Grid>
     </Grid>

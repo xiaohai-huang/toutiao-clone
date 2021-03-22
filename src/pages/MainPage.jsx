@@ -35,7 +35,7 @@ export default function MainPage() {
   if (category === "xigua") {
     mainContent = (
       <Grid item className={classes.videosContainer} xs={12} sm md>
-        <VideosList />;
+        <VideosList />
       </Grid>
     );
   } else {
