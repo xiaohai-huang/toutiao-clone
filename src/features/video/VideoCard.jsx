@@ -65,9 +65,13 @@ function VideoCard({
   const videoRef = useRef(null);
   if (videoRef.current) {
     if (!play && !videoRef.current.paused) {
-      videoRef.current.load();
+      videoRef.current.src = preview_url;
     }
   }
+  const playPreview = (e) => {
+    e.target.play();
+    setPreview(item_id);
+  };
   return (
     <div className="video-card">
       <Box position="relative">
@@ -87,11 +91,9 @@ function VideoCard({
           poster={image_url}
           muted
           onClick={handleClick}
-          onMouseOver={(e) => {
-            e.target.play();
-            setPreview(item_id);
-          }}
-          onEnded={(e) => e.target.load()}
+          onTouchStart={playPreview}
+          onMouseOver={playPreview}
+          onEnded={(e) => (e.target.src = preview_url)}
           // onMouseOut={(e) => e.target.pause()}
         />
         <Author className={classes.authorInfo} {...author} />
