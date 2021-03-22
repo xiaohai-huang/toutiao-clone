@@ -19,10 +19,11 @@ const useStyles = makeStyles((theme) => ({
     },
   },
 }));
-export default function DurationBadge({ duration }) {
+export default function DurationBadge({ duration, ...rest }) {
   const classes = useStyles();
   return (
     <Box
+      {...rest}
       className={classes.root}
       display="flex"
       alignItems="center"

@@ -40,7 +40,6 @@ function MobileHeader() {
   const location = useLocation();
   const pathname = location.pathname;
   const category = useSelector((state) => state.feed.category);
-  console.log(!isHomePage(pathname));
   return (
     <Box className={classes.root}>
       <Box

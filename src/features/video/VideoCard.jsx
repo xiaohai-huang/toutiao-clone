@@ -1,5 +1,5 @@
 import { Avatar, Box, makeStyles, Typography } from "@material-ui/core";
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 import DurationBadge from "../feed/DurationBadge";
 
 const useStyles = makeStyles((theme) => ({
@@ -63,26 +63,25 @@ function VideoCard({
 }) {
   const classes = useStyles();
   const videoRef = useRef(null);
+  const [showBadage, setShowBadage] = useState(true);
   if (videoRef.current) {
     if (!play && !videoRef.current.paused) {
       videoRef.current.src = preview_url;
     }
   }
   const playPreview = (e) => {
+    setShowBadage(false);
     e.target.play();
     setPreview(item_id);
+  };
+
+  const resumePreview = (e) => {
+    setShowBadage(true);
+    e.target.src = preview_url;
   };
   return (
     <div className="video-card">
       <Box position="relative">
-        {/* <img
-          className={classes.coverImage}
-          src={image_url}
-          alt={title}
-          onClick={handleClick}
-          onMouseOver={() => setPlay(true)}
-          onMouseOut={() => setPlay(false)}
-        /> */}
         <video
           className={classes.coverImage}
           ref={videoRef}
@@ -93,11 +92,15 @@ function VideoCard({
           onClick={handleClick}
           onTouchStart={playPreview}
           onMouseOver={playPreview}
-          onEnded={(e) => (e.target.src = preview_url)}
-          // onMouseOut={(e) => e.target.pause()}
+          onEnded={resumePreview}
+          onMouseOut={resumePreview}
         />
         <Author className={classes.authorInfo} {...author} />
-        <DurationBadge duration={duration} />
+
+        <DurationBadge
+          style={{ display: !showBadage && "none" }}
+          duration={duration}
+        />
       </Box>
 
       <Typography className={classes.title} onClick={handleClick}>
