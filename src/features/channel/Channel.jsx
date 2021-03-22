@@ -141,7 +141,7 @@ const NavButton = ({ label, active, onClick }) => {
 //   internet: "互联网",
 //   smart_home: "智能家居",
 // };
-export default function Channel() {
+export default function Channel({ className }) {
   const history = useHistory();
   const classes = useStyles();
   const categories = useCategories();
@@ -165,9 +165,8 @@ export default function Channel() {
       }
     };
   };
-
   return (
-    <List className={classes.root} disablePadding>
+    <List className={clsx(classes.root, className)} disablePadding>
       {/* Logo */}
       <ListItem
         className={classes.logo}

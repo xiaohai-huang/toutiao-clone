@@ -2,9 +2,7 @@ import {
   Box,
   Button,
   CircularProgress,
-  Divider,
   Grid,
-  Hidden,
   makeStyles,
   Typography,
 } from "@material-ui/core";

@@ -3,7 +3,7 @@ import React from "react";
 import MailOutlineIcon from "@material-ui/icons/MailOutline";
 import RefreshIcon from "@material-ui/icons/Refresh";
 import SearchIcon from "@material-ui/icons/Search";
-import { useHistory } from "react-router-dom";
+import { useHistory, useLocation } from "react-router-dom";
 import { useSelector } from "react-redux";
 import Channel from "../channel/Channel";
 
@@ -30,11 +30,17 @@ const useStyles = makeStyles((theme) => ({
       right: "-33px",
     },
   },
+  hide: {
+    display: "none !important",
+  },
 }));
 function MobileHeader() {
   const classes = useStyles();
   const history = useHistory();
+  const location = useLocation();
+  const pathname = location.pathname;
   const category = useSelector((state) => state.feed.category);
+  console.log(!isHomePage(pathname));
   return (
     <Box className={classes.root}>
       <Box
@@ -83,9 +89,15 @@ function MobileHeader() {
           <SearchIcon />
         </IconButton>
       </Box>
-      <Channel />
+      <Channel className={!isHomePage(pathname) && classes.hide} />
     </Box>
   );
+}
+
+function isHomePage(pathname = "") {
+  const re = /\/[^/]+/g;
+  let results = [...pathname.matchAll(re)];
+  return results.length === 1;
 }
 
 export default MobileHeader;
