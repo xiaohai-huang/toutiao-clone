@@ -12,6 +12,18 @@ const useStyles = makeStyles((theme) => ({
       cursor: "pointer",
     },
   },
+  video: {
+    width: "100%",
+    height: "100%",
+    objectFit: "cover",
+    borderRadius: "1.5%",
+    "&:hover": {
+      cursor: "pointer",
+    },
+    position: "absolute",
+    left: "0px",
+    top: "0px",
+  },
   authorInfo: {
     position: "absolute",
     left: "10px",
@@ -82,19 +94,24 @@ function VideoCard({
   return (
     <div className="video-card">
       <Box position="relative">
-        <video
-          className={classes.coverImage}
-          ref={videoRef}
-          src={preview_url}
-          alt={title}
-          poster={image_url}
-          muted
-          onClick={handleClick}
+        <Box
           onTouchStart={playPreview}
           onMouseOver={playPreview}
-          onEnded={resumePreview}
           onMouseOut={resumePreview}
-        />
+        >
+          <img className={classes.coverImage} src={image_url} alt={title} />
+          <video
+            className={classes.video}
+            ref={videoRef}
+            src={preview_url}
+            alt={title}
+            poster={image_url}
+            muted
+            onClick={handleClick}
+            onEnded={resumePreview}
+          />
+        </Box>
+
         <Author className={classes.authorInfo} {...author} />
 
         <DurationBadge
