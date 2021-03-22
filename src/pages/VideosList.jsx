@@ -6,7 +6,7 @@ import {
   makeStyles,
   Typography,
 } from "@material-ui/core";
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router";
 import { fetchVideos, selectVideos } from "../features/feed/feedSlice";
@@ -37,7 +37,6 @@ function VideosList() {
   const status = useSelector((state) => state.feed.status);
   const classes = useStyles();
   const history = useHistory();
-  const [preview, setPreview] = useState(0);
   useEffect(() => {
     dispatch(fetchVideos());
   }, [dispatch]);
@@ -55,12 +54,7 @@ function VideosList() {
         return (
           <Grid key={v.item_id} item lg={3} md={4} sm={6}>
             <Box className={classes.cardWrapper}>
-              <VideoCard
-                play={v.item_id === preview}
-                setPreview={setPreview}
-                handleClick={handleVideoClick}
-                {...v}
-              />
+              <VideoCard handleClick={handleVideoClick} {...v} />
             </Box>
           </Grid>
         );

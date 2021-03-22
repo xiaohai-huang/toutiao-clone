@@ -69,27 +69,20 @@ function VideoCard({
   preview_url,
   image_url,
   statistics,
-  play,
-  setPreview,
   handleClick,
 }) {
   const classes = useStyles();
   const videoRef = useRef(null);
   const [showBadage, setShowBadage] = useState(true);
-  if (videoRef.current) {
-    if (!play && !videoRef.current.paused) {
-      videoRef.current.src = preview_url;
-    }
-  }
+
   const playPreview = (e) => {
     setShowBadage(false);
     e.target.play();
-    setPreview(item_id);
   };
 
   const resumePreview = (e) => {
     setShowBadage(true);
-    e.target.src = preview_url;
+    e.target.load();
   };
   return (
     <div className="video-card">
