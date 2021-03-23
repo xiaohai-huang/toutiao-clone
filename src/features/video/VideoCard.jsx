@@ -93,7 +93,7 @@ function VideoCard({
     try {
       e.target.load();
     } catch {
-      console.log("error at previewing video");
+      console.log("error at resuming video");
     }
   };
   return (
@@ -106,6 +106,7 @@ function VideoCard({
         >
           <img className={classes.coverImage} src={image_url} alt={title} />
           <video
+            style={{ opacity: !showBadage && 1 }}
             className={classes.video}
             ref={videoRef}
             src={preview_url}
