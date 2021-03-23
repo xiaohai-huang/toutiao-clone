@@ -1,4 +1,10 @@
-import { Box, Button, makeStyles, Typography } from "@material-ui/core";
+import {
+  Box,
+  Button,
+  makeStyles,
+  Typography,
+  useMediaQuery,
+} from "@material-ui/core";
 import React from "react";
 import { useHistory } from "react-router";
 import useHeadlines from "../../utility/useHeadlines";
@@ -15,6 +21,10 @@ function MobileHotCard() {
   const classes = useStyles();
   const headlines = useHeadlines();
   const history = useHistory();
+  const xs = useMediaQuery((theme) => theme.breakpoints.down("xs"));
+  if (!xs) {
+    return <></>;
+  }
   return (
     <div className="mobileHotCard">
       <Typography className={classes.title} variant="h6">

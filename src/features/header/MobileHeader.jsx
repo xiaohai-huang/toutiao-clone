@@ -38,9 +38,11 @@ function MobileHeader() {
   const classes = useStyles();
   const history = useHistory();
   const location = useLocation();
+  // const currentPosition = useSelector((state) => state.app.currentPosition);
   const pathname = location.pathname;
   const category = useSelector((state) => state.feed.category);
   return (
+    // <Box className={currentPosition === "video" ? classes.hide : classes.root}>
     <Box className={classes.root}>
       <Box
         className={classes.nav}

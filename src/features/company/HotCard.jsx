@@ -4,7 +4,7 @@ import { Box } from "@material-ui/core";
 import Headline from "./Headline";
 import useHeadlines from "../../utility/useHeadlines";
 
-function HotCard({ title }) {
+function HotCard({ title = "实时热搜榜" }) {
   const headlines = useHeadlines();
   return (
     <DisplayCard title={title}>

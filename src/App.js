@@ -5,15 +5,14 @@ import { createMuiTheme, ThemeProvider } from "@material-ui/core/styles";
 import Header from "./features/header/Header";
 import MainPage from "./pages/MainPage";
 import { useSelector } from "react-redux";
-import NewsDetailsPage from "./pages/NewsDetailsPage";
 import UserAuthPage from "./pages/UserAuthPage";
 import NewsCreationPage from "./pages/NewsCreationPage";
 import NewsEditPage from "./pages/NewsEditPage";
 import HotCard from "./features/company/HotCard";
+import DetailsPage from "./pages/DetailsPage";
 
 function App() {
   let theme;
-
   let PCTheme = createMuiTheme({
     palette: {
       primary: {
@@ -91,7 +90,7 @@ function App() {
             <NewsEditPage />
           </Route>
           <Route exact path="/news/:news_id">
-            <NewsDetailsPage />
+            <DetailsPage />
           </Route>
           <Redirect to="/__all__" />
         </Switch>

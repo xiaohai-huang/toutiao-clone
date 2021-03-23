@@ -10,6 +10,7 @@ import Company from "../features/company/Company";
 import { categoryUpdated } from "../features/feed/feedSlice";
 import { useDispatch } from "react-redux";
 import VideosList from "./VideosList";
+import { positionUpdated } from "../app/appSlice";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -29,6 +30,7 @@ export default function MainPage() {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(categoryUpdated(category));
+    dispatch(positionUpdated("home"));
   }, [dispatch, category]);
 
   let mainContent;

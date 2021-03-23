@@ -52,3 +52,12 @@ export function secondsToTimeStr(seconds) {
   const s = seconds - mins * 60;
   return `${mins}:${s}`;
 }
+
+// "<p><div class="tt-video-box" tt-videoid='v03004250000c18a1m3ao9dbg8tvqmt0'
+// tt-poster='http://p3.pstatp.com/large/tos-cn-i-0004/b24579d3aed84f339099da80c3608983'>
+// 视频加载中...</div><script src="https://s0.pstatp.com/tt_player/tt.player.js?v=20160723"></script></p><p>虽然自从美国前总统特朗普执政中期开始，美国军政高层就在疯狂叫嚣和中国打仗，但是从实际军费开支和部署情况看，美军所做的都是一些“小动作”。我们并没有看到美军在中国周边实施有规模的军事集结和部署，以当前印度洋和太平洋地区的美军兵力兵器，甚至不足以对中小国家发起一场局部战争，更不要说和中国打仗了。但是这并不妨碍美国各军兵种拿中国当做接口，向国会不断伸手要钱。（美国高层疯狂叫嚣和中国打仗，但印太美军真打得过解放军吗？）</p>"
+export function getVideoDetails(content) {
+  const re = /<p>(.+?)<\/p>/g;
+
+  return [...content.matchAll(re)].pop().pop();
+}

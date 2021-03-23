@@ -6,6 +6,7 @@ const appSlice = createSlice({
     device: "mobile",
     displayMode: "light",
     user: null,
+    currentPosition: "home",
   },
   reducers: {
     deviceUpdated: (state, action) => {
@@ -13,6 +14,9 @@ const appSlice = createSlice({
     },
     displayModeUpdated: (state, action) => {
       state.displayMode = action.payload;
+    },
+    positionUpdated: (state, action) => {
+      state.currentPosition = action.payload;
     },
     userUpdated: (state, action) => {
       state.user = action.payload;
@@ -25,6 +29,7 @@ const appSlice = createSlice({
 
 export const {
   deviceUpdated,
+  positionUpdated,
   displayModeUpdated,
   userUpdated,
   userLogout,

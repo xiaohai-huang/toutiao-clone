@@ -81,12 +81,20 @@ function VideoCard({
 
   const playPreview = (e) => {
     setShowBadage(false);
-    e.target.play();
+    try {
+      e.target.play();
+    } catch {
+      console.log("error at previewing video");
+    }
   };
 
   const resumePreview = (e) => {
     setShowBadage(true);
-    e.target.load();
+    try {
+      e.target.load();
+    } catch {
+      console.log("error at previewing video");
+    }
   };
   return (
     <div className="video-card">
