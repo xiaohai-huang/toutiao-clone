@@ -8,6 +8,7 @@ const useStyles = makeStyles((theme) => ({
   title: {
     color: "#222",
     fontWeight: 700,
+    marginBottom: "1rem",
   },
 }));
 function MobileHotCard() {
@@ -23,9 +24,9 @@ function MobileHotCard() {
         <Headline
           key={headline.title}
           number={i + 1}
-          spacing={1.5}
+          spacing={1}
           hotColor="#999"
-          hotFontSize="0.7rem"
+          hotFontSize="0.8rem"
           {...headline}
         />
       ))}

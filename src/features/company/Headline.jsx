@@ -4,6 +4,10 @@ import { Box, makeStyles, Typography } from "@material-ui/core";
 import { numberToChinese } from "../../utility/utility";
 const useStyles = makeStyles((theme) => ({
   headlineRoot: {
+    marginTop: theme.spacing(1.5),
+    [theme.breakpoints.only("xs")]: {
+      marginBottom: theme.spacing(2.7),
+    },
     "&:hover": {
       cursor: "pointer",
     },
@@ -12,6 +16,9 @@ const useStyles = makeStyles((theme) => ({
     textOverflow: "ellipsis",
     overflow: "hidden",
     whiteSpace: "nowrap",
+    [theme.breakpoints.only("xs")]: {
+      fontSize: "1.05rem",
+    },
   },
   topNumber: {
     color: "#fc3434",
@@ -46,7 +53,6 @@ function Headline({
       display="flex"
       alignItems="center"
       justifyContent="space-between"
-      mt={1.5}
       className={classes.headlineRoot}
     >
       {/* Left */}

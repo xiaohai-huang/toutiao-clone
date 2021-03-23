@@ -392,6 +392,7 @@ function NewsDetailsPage() {
                 {/* <Button onClick={handleCommentsUpdate}>More Comments</Button> */}
                 {/* Headlines */}
                 {xs && <MobileHotCard />}
+                <Box mb={8} />
               </Box>
             ) : (
               <LinearProgress color="secondary" />
