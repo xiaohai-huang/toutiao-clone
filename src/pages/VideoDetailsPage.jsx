@@ -117,7 +117,7 @@ function VideoDetailsPage({ videoInfo, news_id }) {
   return (
     <div className="videoDetailsPage">
       <Container disableGutters={xs}>
-        <Box mt={!xs && 3} />
+        <Box mt={!xs ? 3 : ""} />
         <Grid container spacing={3}>
           <Grid item md={8} sm={12}>
             <video
@@ -139,7 +139,7 @@ function VideoDetailsPage({ videoInfo, news_id }) {
               <Box mb={8} />
             </Container>
           </Grid>
-          <Grid item md="4" sm>
+          <Grid item md={4} sm>
             {!xs && <HotCard />}
           </Grid>
         </Grid>
