@@ -78,7 +78,7 @@ const useStyles = makeStyles((theme) => ({
   socialButtons: {
     "& > button": {
       borderRadius: "0.96rem",
-      margin: "0 0.4rem",
+      margin: "0 0.25rem",
     },
   },
   [theme.breakpoints.up("xs")]: {
@@ -118,8 +118,8 @@ function VideoDetailsPage({ videoInfo, news_id }) {
     <div className="videoDetailsPage">
       <Container disableGutters={xs}>
         <Box mt={!xs ? 3 : ""} />
-        <Grid container spacing={3}>
-          <Grid item md={8} sm={12}>
+        <Grid container spacing={xs ? 0 : 3}>
+          <Grid item md={8} sm={12} xs={12}>
             <video
               className={classes.video}
               controls
@@ -238,7 +238,12 @@ function Author({ screen_name, avatar_url, video_count, follower_count }) {
 function Buttons({ digg_count, ...rest }) {
   const classes = useStyles();
   return (
-    <Box className={classes.socialButtons} display="flex" {...rest}>
+    <Box
+      className={classes.socialButtons}
+      display="flex"
+      justifyContent="space-between"
+      {...rest}
+    >
       <Button
         size="large"
         fullWidth
