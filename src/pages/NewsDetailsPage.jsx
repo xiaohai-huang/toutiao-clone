@@ -34,6 +34,7 @@ import { formatDate } from "../utility/utility";
 import { useDispatch, useSelector } from "react-redux";
 import AuthoInfoPanel from "../features/feed/AuthorInfoPanel";
 import { categoryDeleted } from "../features/feed/feedSlice";
+import MobileHotCard from "../features/company/MobileHotCard";
 
 const renderers = {
   code: ({ language, value }) => {
@@ -389,6 +390,8 @@ function NewsDetailsPage() {
                 />
                 {/* Comments */}
                 {/* <Button onClick={handleCommentsUpdate}>More Comments</Button> */}
+                {/* Headlines */}
+                {xs && <MobileHotCard />}
               </Box>
             ) : (
               <LinearProgress color="secondary" />
