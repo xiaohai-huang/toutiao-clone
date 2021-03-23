@@ -376,7 +376,7 @@ function NewsDetailsPage() {
 
                 {/* Main Text */}
                 {hasVideo && (
-                  <video controls width="100%">
+                  <video controls width="100%" autoPlay>
                     <source src={videoUrl} />
                     <source src="http://techslides.com/demos/sample-videos/small.mp4" />
                   </video>

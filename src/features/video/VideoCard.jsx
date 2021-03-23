@@ -7,19 +7,23 @@ const useStyles = makeStyles((theme) => ({
     width: "100%",
     height: "100%",
     objectFit: "cover",
+    display: "block",
     borderRadius: "1.5%",
     "&:hover": {
       cursor: "pointer",
     },
   },
   video: {
+    opacity: 0,
     width: "100%",
     height: "100%",
     objectFit: "cover",
     borderRadius: "1.5%",
     "&:hover": {
       cursor: "pointer",
+      opacity: 1,
     },
+    transition: "opacity 0.3s",
     position: "absolute",
     left: "0px",
     top: "0px",
@@ -27,7 +31,7 @@ const useStyles = makeStyles((theme) => ({
   authorInfo: {
     position: "absolute",
     left: "10px",
-    bottom: "-18px",
+    bottom: "-23px",
   },
   avatar: {
     width: "32px",
@@ -53,7 +57,7 @@ const useStyles = makeStyles((theme) => ({
     lineHeight: "1.41",
     color: "#1d1d1d",
     fontWeight: 500,
-    marginTop: "1.8rem",
+    marginTop: "1.85rem",
     marginBottom: "0.3rem",
     "&:hover": {
       color: "#ff142b",
