@@ -391,6 +391,7 @@ function NewsDetailsPage() {
                 {/* Comments */}
                 {/* <Button onClick={handleCommentsUpdate}>More Comments</Button> */}
                 {/* Headlines */}
+                <Box mt={4} />
                 {xs && <MobileHotCard />}
                 <Box mb={8} />
               </Box>

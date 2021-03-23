@@ -1,5 +1,5 @@
 import React from "react";
-import { Box, makeStyles, Typography } from "@material-ui/core";
+import { Box, makeStyles, Tooltip, Typography, Zoom } from "@material-ui/core";
 
 import { numberToChinese } from "../../utility/utility";
 const useStyles = makeStyles((theme) => ({
@@ -56,13 +56,24 @@ function Headline({
       className={classes.headlineRoot}
     >
       {/* Left */}
-      <Box display="flex" alignItems="center" minWidth="0">
-        <Typography className={number < 4 ? classes.topNumber : classes.number}>
-          {number}
-        </Typography>
-        <Box m={spacing} />
-        <Typography className={classes.headlineTitle}>{title}</Typography>
-      </Box>
+      <Tooltip
+        title={title}
+        disableFocusListener
+        TransitionComponent={Zoom}
+        arrow
+        placement="top-start"
+      >
+        <Box display="flex" alignItems="center" minWidth="0">
+          <Typography
+            className={number < 4 ? classes.topNumber : classes.number}
+          >
+            {number}
+          </Typography>
+          <Box m={spacing} />
+          <Typography className={classes.headlineTitle}>{title}</Typography>
+        </Box>
+      </Tooltip>
+
       <Box m={spacing - 0.2} />
       {/* Right */}
       <Box display="flex" alignItems="center">
