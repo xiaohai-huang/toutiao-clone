@@ -1,18 +1,7 @@
 import React from "react";
 import { Box, makeStyles, Typography } from "@material-ui/core";
-
+import DisplayCard from "./DisplayCard";
 const useStyles = makeStyles((theme) => ({
-  root: {
-    background: theme.palette.background.secondary,
-    borderTop: "2px solid #ed4040",
-    [theme.breakpoints.only("md")]: {
-      paddingLeft: "2.8rem",
-      paddingRight: "0.6rem",
-    },
-  },
-  title: {
-    fontWeight: 700,
-  },
   link: {
     color: theme.palette.grey[600],
     fontSize: "0.9rem",
@@ -34,17 +23,7 @@ const useStyles = makeStyles((theme) => ({
 function LinksPanel({ title, links }) {
   const classes = useStyles();
   return (
-    <Box
-      className={classes.root}
-      p={3}
-      pl={4}
-      display="flex"
-      flexDirection="column"
-      alignItems="flex-start"
-    >
-      <Typography className={classes.title} variant="h6">
-        {title}
-      </Typography>
+    <DisplayCard title={title}>
       <Box display="flex" justifyContent="flex-start" flexWrap="wrap" mt={1}>
         {links.map((link) => (
           <Typography
@@ -56,7 +35,7 @@ function LinksPanel({ title, links }) {
           </Typography>
         ))}
       </Box>
-    </Box>
+    </DisplayCard>
   );
 }
 

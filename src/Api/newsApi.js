@@ -97,8 +97,21 @@ newsApi.getNewsById = async (item_id) => {
   return data;
 };
 
+newsApi.getHotboard = () => {
+  // const local = "/MockData/hotboard.json";
+
+  const test = `http://localhost:4500/tt/hotboard`;
+  const production = `${BASE_URL}/hotboard`;
+
+  const url = process.env.NODE_ENV === "development" ? test : production;
+
+  return fetch(url)
+    .then((res) => res.json())
+    .then((js) => js.data);
+};
+
 newsApi.getCommentsById = async (news_id, offset) => {
-  // const test = "MockData/comments.json";
+  // const test = "/MockData/comments.json";
   const test = `http://localhost:4500/tt/comments/${news_id}?offset=${offset}`;
   const production = `${BASE_URL}/comments/${news_id}?offset=${offset}`;
 

@@ -4,6 +4,7 @@ import { Container, makeStyles } from "@material-ui/core";
 import SearchBar from "./SearchBar";
 import LinksPanel from "./LinksPanel";
 import UserInfoCard from "./UserInfoCard";
+import HotCard from "./HotCard";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -89,6 +90,7 @@ function Company() {
     <Container className={classes.root} fixed>
       <SearchBar />
       <UserInfoCard />
+      <HotCard title="实时热榜" />
       <LinksPanel title="更多" links={more} />
       <LinksPanel title="友情链接" links={friendsLinks} />
     </Container>

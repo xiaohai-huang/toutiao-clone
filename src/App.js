@@ -5,11 +5,11 @@ import { createMuiTheme, ThemeProvider } from "@material-ui/core/styles";
 import Header from "./features/header/Header";
 import MainPage from "./pages/MainPage";
 import { useSelector } from "react-redux";
-import UGCCard from "./features/feed/UGCCard";
 import NewsDetailsPage from "./pages/NewsDetailsPage";
 import UserAuthPage from "./pages/UserAuthPage";
 import NewsCreationPage from "./pages/NewsCreationPage";
 import NewsEditPage from "./pages/NewsEditPage";
+import HotCard from "./features/company/HotCard";
 
 function App() {
   let theme;
@@ -71,7 +71,7 @@ function App() {
         <Header />
         <Switch>
           <Route exact path="/test">
-            <UGCCard />
+            <HotCard title="hot card" />
           </Route>
 
           <Route exact path="/register">
