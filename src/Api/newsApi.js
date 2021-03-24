@@ -63,15 +63,23 @@ newsApi.getVideos = async (channel, count, time) => {
     console.log("You are in China use Tencent Cloud Api");
   }
 
-  console.log(currentLocation !== "CN");
   console.log(currentLocation + " = " + TENCENT_SERVER);
   // need refine
-  // const local = "/MockData/shortVideos.json";
+  const local = "/MockData/shortVideos.json";
   const test = "http://localhost:4500/tt/videos";
   const production = `${TENCENT_SERVER}/videos`;
 
   const url = process.env.NODE_ENV === "development" ? test : production;
-  return fetch(url).then((res) => res.json());
+  const remoteData = await fetch(url)
+    .then((res) => res.json())
+    .catch(() => console.log("Cannot fetch live videos"));
+  if (remoteData) {
+    return remoteData;
+  } else {
+    console.log("Use local videos");
+    let localData = await fetch(local).then((res) => res.json());
+    return localData;
+  }
 };
 
 newsApi.getVideoUrl = async (news_id) => {
@@ -84,20 +92,27 @@ newsApi.getVideoUrl = async (news_id) => {
     console.log("You are in China use Tencent Cloud Api");
   }
 
-  console.log(currentLocation !== "CN");
   console.log(currentLocation + " = " + TENCENT_SERVER);
   // need refine
 
-  // const local = "/MockData/videoUrl.json";
+  const local = "/MockData/videoUrl.json";
   const test = `http://localhost:4500/tt/videos/${news_id}`;
   const production = `${TENCENT_SERVER}/videos/${news_id}`;
   const url = process.env.NODE_ENV === "development" ? test : production;
 
-  const videoUrl = await fetch(url)
+  const remoteData = await fetch(url)
     .then((res) => res.json())
     .then((js) => js.video)
-    .catch((err) => console.log(err));
-  return videoUrl;
+    .catch((err) => console.log("Cannot fetch remote video url"));
+  if (remoteData) {
+    return remoteData;
+  } else {
+    console.log("Use local video url");
+    const localData = await fetch(local)
+      .then((res) => res.json())
+      .then((js) => js.video);
+    return localData;
+  }
 };
 
 newsApi.getNewsById = async (item_id) => {
@@ -114,7 +129,9 @@ newsApi.getNewsById = async (item_id) => {
   console.log(currentLocation + " = " + TENCENT_SERVER);
   // need refine
 
-  const local = "/MockData/news_details.json";
+  let testVideo = true;
+  const localNews = "/MockData/news_details.json";
+  const localVideo = "/MockData/video_details.json";
   const test = `http://localhost:4500/tt/news/${item_id}`;
   const production = `${TENCENT_SERVER}/news/${item_id}`;
 
@@ -125,10 +142,9 @@ newsApi.getNewsById = async (item_id) => {
     .catch(() => console.log("Cannot fetch news details data."));
   if (!data) {
     console.log("use local news details");
-    data = await fetch(local)
+    data = await fetch(testVideo ? localVideo : localNews)
       .then((res) => res.json())
       .then((json) => {
-        console.log(json);
         return json.data;
       });
   }
@@ -140,17 +156,29 @@ newsApi.getNewsById = async (item_id) => {
   return data;
 };
 
-newsApi.getHotboard = () => {
-  // const local = "/MockData/hotboard.json";
+newsApi.getHotboard = async () => {
+  const local = "/MockData/hotboard.json";
 
   const test = `http://localhost:4500/tt/hotboard`;
   const production = `${BASE_URL}/hotboard`;
 
   const url = process.env.NODE_ENV === "development" ? test : production;
 
-  return fetch(url)
+  console.log("hottboard");
+  const remoteData = await fetch(url)
     .then((res) => res.json())
-    .then((js) => js.data);
+    .then((js) => js.data)
+    .catch(() => console.log("Cannot fetch remote hotboard data"));
+  if (remoteData) {
+    return remoteData;
+  } else {
+    console.log("Use local hotboard data");
+    const localData = await fetch(local)
+      .then((res) => res.json())
+      .then((js) => js.data.data);
+
+    return localData;
+  }
 };
 
 newsApi.getCommentsById = async (news_id, offset) => {
