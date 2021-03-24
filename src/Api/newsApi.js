@@ -1,16 +1,16 @@
 let newsApi = {};
 const BASE_URL = "https://toutiao-proxy.herokuapp.com/tt";
 let TENCENT_SERVER = "https://api.xiaotiao.site/tt";
-(() => {
-  fetch("https://ipinfo.io/country?token=bf9a05b30d48f7")
+
+const getLocation = () => {
+  return fetch("https://ipinfo.io/country?token=bf9a05b30d48f7")
     .then((r) => r.text())
     .then((country) => {
       country = country.trim();
-      if (country !== "CN") {
-        TENCENT_SERVER = BASE_URL;
-      }
+      return country;
     });
-})();
+};
+
 const handleMyOwnNews = () => {
   const category = "xiaohai";
   // const test = "MockData/xiaohai/xiaohai_news.json";
@@ -54,6 +54,18 @@ newsApi.getNews = async (time, category = "__all__") => {
 // channel = "tuijian" "dianying"
 // time = 1616315678
 newsApi.getVideos = async (channel, count, time) => {
+  // need refine
+  const currentLocation = await getLocation();
+  if (currentLocation !== "CN") {
+    console.log("You are not in China use Heroku Api");
+    TENCENT_SERVER = BASE_URL;
+  } else {
+    console.log("You are in China use Tencent Cloud Api");
+  }
+
+  console.log(currentLocation !== "CN");
+  console.log(currentLocation + " = " + TENCENT_SERVER);
+  // need refine
   // const local = "/MockData/shortVideos.json";
   const test = "http://localhost:4500/tt/videos";
   const production = `${TENCENT_SERVER}/videos`;
@@ -63,6 +75,19 @@ newsApi.getVideos = async (channel, count, time) => {
 };
 
 newsApi.getVideoUrl = async (news_id) => {
+  // need refine
+  const currentLocation = await getLocation();
+  if (currentLocation !== "CN") {
+    console.log("You are not in China use Heroku Api");
+    TENCENT_SERVER = BASE_URL;
+  } else {
+    console.log("You are in China use Tencent Cloud Api");
+  }
+
+  console.log(currentLocation !== "CN");
+  console.log(currentLocation + " = " + TENCENT_SERVER);
+  // need refine
+
   // const local = "/MockData/videoUrl.json";
   const test = `http://localhost:4500/tt/videos/${news_id}`;
   const production = `${TENCENT_SERVER}/videos/${news_id}`;
@@ -76,6 +101,19 @@ newsApi.getVideoUrl = async (news_id) => {
 };
 
 newsApi.getNewsById = async (item_id) => {
+  // need refine
+  const currentLocation = await getLocation();
+  if (currentLocation !== "CN") {
+    console.log("You are not in China use Heroku Api");
+    TENCENT_SERVER = BASE_URL;
+  } else {
+    console.log("You are in China use Tencent Cloud Api");
+  }
+
+  console.log(currentLocation !== "CN");
+  console.log(currentLocation + " = " + TENCENT_SERVER);
+  // need refine
+
   const local = "/MockData/news_details.json";
   const test = `http://localhost:4500/tt/news/${item_id}`;
   const production = `${TENCENT_SERVER}/news/${item_id}`;
