@@ -1,7 +1,16 @@
 let newsApi = {};
 const BASE_URL = "https://toutiao-proxy.herokuapp.com/tt";
-const TENCENT_SERVER = "https://api.xiaotiao.site/tt";
-
+let TENCENT_SERVER = "https://api.xiaotiao.site/tt";
+(() => {
+  fetch("https://ipinfo.io/country?token=bf9a05b30d48f7")
+    .then((r) => r.text())
+    .then((country) => {
+      console.log(country);
+      if (country !== "CN") {
+        TENCENT_SERVER = BASE_URL;
+      }
+    });
+})();
 const handleMyOwnNews = () => {
   const category = "xiaohai";
   // const test = "MockData/xiaohai/xiaohai_news.json";
@@ -13,11 +22,6 @@ const handleMyOwnNews = () => {
     .then((res) => res.json())
     .then((js) => js.data);
 };
-// const handleMyOwnDetails = (item_id) => {
-//   return fetch(`/MockData/xiaohai/${item_id}.json`)
-//     .then((res) => res.json())
-//     .then((js) => js.data);
-// };
 
 newsApi.getNews = async (time, category = "__all__") => {
   if (category === "xiaohai") {
