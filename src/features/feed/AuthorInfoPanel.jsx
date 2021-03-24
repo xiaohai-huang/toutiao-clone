@@ -46,7 +46,7 @@ const useStyles = makeStyles((theme) => ({
     wordWrap: "anywhere",
   },
 }));
-export function AuthoInfoPanel({
+export function AuthorInfoPanel({
   author_name,
   avatar_url,
   news_id,
@@ -128,4 +128,4 @@ export function AuthoInfoPanel({
   );
 }
 
-export default AuthoInfoPanel;
+export default AuthorInfoPanel;

@@ -9,7 +9,7 @@ import {
   Typography,
   useMediaQuery,
 } from "@material-ui/core";
-import React from "react";
+import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
 import newsApi from "../Api/newsApi";
 import ChatIcon from "@material-ui/icons/Chat";
@@ -27,9 +27,10 @@ import "katex/dist/katex.min.css";
 
 import { formatDate } from "../utility/utility";
 import { useDispatch, useSelector } from "react-redux";
-import AuthoInfoPanel from "../features/feed/AuthorInfoPanel";
+import AuthorInfoPanel from "../features/feed/AuthorInfoPanel";
 import { categoryDeleted } from "../features/feed/feedSlice";
 import MobileHotCard from "../features/company/MobileHotCard";
+import HotCard from "../features/company/HotCard";
 
 const renderers = {
   code: ({ language, value }) => {
@@ -104,6 +105,152 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+function NewsDetailsPage({ news, news_id }) {
+  const classes = useStyles();
+  // const { news_id } = useParams();
+  // const { news, isVideo } = useNews(news_id);
+  const dispatch = useDispatch();
+  const history = useHistory();
+  const user = useSelector((state) => state.app.user);
+
+  const handleDelete = async () => {
+    await newsApi
+      .deleteNews(news_id, user.token)
+      .then((res) => console.log(res));
+    // should be pushed to the category that the deleted news belong to
+    dispatch(categoryDeleted("xiaohai"));
+    history.push("/xiaohai");
+  };
+
+  const handleEdit = () => {
+    history.push(`/news/edit/${news_id}`);
+  };
+
+  const { title, content, publish_time, media_user, comment_count } = news;
+
+  const author_name = media_user?.screen_name;
+  const avatar_url = media_user?.avatar_url;
+
+  // const hasVideo = isVideo;
+  // const videoUrl = "http://techslides.com/demos/sample-videos/small.mp4";
+
+  // parse content
+  let html = content;
+  html = html
+    ?.replace("<html><body>", "")
+    .replace("</body></html>", "")
+    .replaceAll("<img", ' <img style="width: 100%;" ');
+  return (
+    <Container maxWidth="lg">
+      <Grid container className={classes.container} spacing={2}>
+        {/* left tools */}
+        <LeftTools comment_count={comment_count} />
+
+        {/* Main Content */}
+        <Grid item lg={7} sm={8} md={6} xs={12} className={classes.mainContent}>
+          <Box>
+            <Typography variant="h1" className={classes.title}>
+              {title}
+            </Typography>
+            {/* Author */}
+
+            <Box mt={1} />
+
+            <Author
+              author_name={author_name}
+              avatar_url={avatar_url}
+              publish_time={publish_time}
+              handleEdit={handleEdit}
+              handleDelete={handleDelete}
+            />
+
+            {/* Main Text */}
+            <ReactMarkdown
+              source={html}
+              escapeHtml={false}
+              plugins={[gfm, math]}
+              renderers={renderers}
+            />
+            {/* Comments */}
+            {/* <Button onClick={handleCommentsUpdate}>More Comments</Button> */}
+            {/* Headlines */}
+            <Box mt={4} />
+            <MobileHotCard />
+            <Box mb={8} />
+          </Box>
+        </Grid>
+
+        {/* Author Info */}
+        <Grid item lg md={4} sm={4} className={classes.authorPanel}>
+          <AuthorInfoPanel
+            news_id={news_id}
+            author_name={author_name}
+            avatar_url={avatar_url}
+            handleEdit={handleEdit}
+            handleDelete={handleDelete}
+          />
+          <Box mt={2.5} />
+          <HotCard />
+          {/* <Box style={{ background: "lightblue" }}>author work lists</Box>
+              <img alt={author_name} src={avatar_url} /> */}
+        </Grid>
+      </Grid>
+    </Container>
+  );
+}
+
+const tools = [
+  { label: "转发", icon: <ChatIcon color="error" /> },
+  { label: "微博", icon: <FacebookIcon color="primary" /> },
+  { label: "Qzone", icon: <InstagramIcon color="action" /> },
+  { label: "微信", icon: <TwitterIcon color="secondary" /> },
+];
+function LeftTools({ comment_count }) {
+  const classes = useStyles();
+  const xs = useMediaQuery((theme) => theme.breakpoints.down("xs"));
+  const sm = useMediaQuery((theme) => theme.breakpoints.down("sm"));
+  const [commentCount, setCommentCount] = useState(comment_count);
+  return (
+    <>
+      {!(xs || sm) && (
+        <Grid item lg={1} sm={2} md={2} className={classes.leftTools}>
+          <Box
+            display="flex"
+            flexDirection="column"
+            alignItems="flex-start"
+            className={classes.buttons}
+          >
+            <Button
+              variant="text"
+              color="secondary"
+              className={classes.commentButton}
+              startIcon={<CreateIcon />}
+              onClick={() =>
+                setCommentCount((prev) => (prev !== undefined ? prev + 1 : 0))
+              }
+            >
+              {commentCount}
+            </Button>
+            <Divider />
+            {tools.map((tool) => (
+              <Box key={tool.label} display="flex" flexDirection="column">
+                <Button
+                  variant="text"
+                  color="inherit"
+                  size="large"
+                  className={classes.socialButton}
+                  startIcon={tool.icon}
+                >
+                  {tool.label}
+                </Button>
+              </Box>
+            ))}
+          </Box>
+        </Grid>
+      )}
+    </>
+  );
+}
 function Author({
   author_name,
   avatar_url,
@@ -157,146 +304,6 @@ function Author({
   );
   return xs ? mobile : pc;
 }
-
-function NewsDetailsPage({ news, news_id }) {
-  const classes = useStyles();
-  // const { news_id } = useParams();
-  // const { news, isVideo } = useNews(news_id);
-  const dispatch = useDispatch();
-  const history = useHistory();
-  const user = useSelector((state) => state.app.user);
-  const xs = useMediaQuery((theme) => theme.breakpoints.down("xs"));
-  const sm = useMediaQuery((theme) => theme.breakpoints.down("sm"));
-
-  const handleDelete = async () => {
-    await newsApi
-      .deleteNews(news_id, user.token)
-      .then((res) => console.log(res));
-    // should be pushed to the category that the deleted news belong to
-    dispatch(categoryDeleted("xiaohai"));
-    history.push("/xiaohai");
-  };
-
-  const handleEdit = () => {
-    history.push(`/news/edit/${news_id}`);
-  };
-
-  const { title, content, publish_time, media_user, comment_count } = news;
-
-  const author_name = media_user?.screen_name;
-  const avatar_url = media_user?.avatar_url;
-
-  // const hasVideo = isVideo;
-  // const videoUrl = "http://techslides.com/demos/sample-videos/small.mp4";
-  const tools = [
-    { label: "转发", icon: <ChatIcon color="error" /> },
-    { label: "微博", icon: <FacebookIcon color="primary" /> },
-    { label: "Qzone", icon: <InstagramIcon color="action" /> },
-    { label: "微信", icon: <TwitterIcon color="secondary" /> },
-  ];
-  // parse content
-  let html = content;
-  html = html
-    ?.replace("<html><body>", "")
-    .replace("</body></html>", "")
-    .replaceAll("<img", ' <img style="width: 100%;" ');
-  return (
-    <>
-      <Container maxWidth="lg">
-        <Grid container className={classes.container} spacing={2}>
-          {/* left tools */}
-          {!(xs || sm) && (
-            <Grid item lg={1} sm={2} md={2} className={classes.leftTools}>
-              <Box
-                display="flex"
-                flexDirection="column"
-                alignItems="flex-start"
-                className={classes.buttons}
-              >
-                <Button
-                  variant="text"
-                  color="secondary"
-                  className={classes.commentButton}
-                  startIcon={<CreateIcon />}
-                >
-                  {comment_count}
-                </Button>
-                <Divider />
-                {tools.map((tool) => (
-                  <Box key={tool.label} display="flex" flexDirection="column">
-                    <Button
-                      variant="text"
-                      color="inherit"
-                      size="large"
-                      className={classes.socialButton}
-                      startIcon={tool.icon}
-                    >
-                      {tool.label}
-                    </Button>
-                  </Box>
-                ))}
-              </Box>
-            </Grid>
-          )}
-          {/* Main Content */}
-          <Grid
-            item
-            lg={7}
-            sm={8}
-            md={6}
-            xs={12}
-            className={classes.mainContent}
-          >
-            <Box>
-              <Typography variant="h1" className={classes.title}>
-                {title}
-              </Typography>
-              {/* Author */}
-
-              <Box mt={1} />
-
-              <Author
-                author_name={author_name}
-                avatar_url={avatar_url}
-                publish_time={publish_time}
-                handleEdit={handleEdit}
-                handleDelete={handleDelete}
-              />
-
-              {/* Main Text */}
-              <ReactMarkdown
-                source={html}
-                escapeHtml={false}
-                plugins={[gfm, math]}
-                renderers={renderers}
-              />
-              {/* Comments */}
-              {/* <Button onClick={handleCommentsUpdate}>More Comments</Button> */}
-              {/* Headlines */}
-              <Box mt={4} />
-              <MobileHotCard />
-              <Box mb={8} />
-            </Box>
-          </Grid>
-
-          {/* Author Info */}
-          <Grid item lg md={4} sm={4} className={classes.authorPanel}>
-            <AuthoInfoPanel
-              news_id={news_id}
-              author_name={author_name}
-              avatar_url={avatar_url}
-              handleEdit={handleEdit}
-              handleDelete={handleDelete}
-            />
-            {/* <Box style={{ background: "lightblue" }}>author work lists</Box>
-              <img alt={author_name} src={avatar_url} /> */}
-          </Grid>
-        </Grid>
-      </Container>
-    </>
-  );
-}
-
 export default NewsDetailsPage;
 
 // // old ajax
