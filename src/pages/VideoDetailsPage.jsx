@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import {
   Accordion,
@@ -58,10 +58,12 @@ const useStyles = makeStyles((theme) => ({
   },
   subscribeButton: {
     backgroundColor: "#f33",
-    minWidth: "3.85rem",
     borderRadius: "0.96rem",
-    fontSize: "0.7rem",
-    padding: "0.25rem 0.84rem",
+    [theme.breakpoints.down("xs")]: {
+      padding: "0.25rem 0.84rem",
+      fontSize: "0.7rem",
+      minWidth: "3.85rem",
+    },
   },
   accordionSummary: {
     padding: "0px",
@@ -79,6 +81,7 @@ const useStyles = makeStyles((theme) => ({
     "& > button": {
       borderRadius: "0.96rem",
       margin: "0 0.25rem",
+      whiteSpace: "nowrap",
     },
   },
   [theme.breakpoints.up("xs")]: {
@@ -101,6 +104,7 @@ const useStyles = makeStyles((theme) => ({
     stats: {
       "& > *": {
         fontSize: "0.95rem",
+        fontWeight: "400",
       },
     },
   },
@@ -173,8 +177,12 @@ function VideoTitle({
             alignItems="center"
             mt={0.3}
           >
-            {is_original && <Typography variant="subtitle2">原创</Typography>}
-            <div className={classes.verticalLine}></div>
+            {is_original && (
+              <>
+                <Typography variant="subtitle2">原创</Typography>
+                <div className={classes.verticalLine}></div>
+              </>
+            )}
             <Typography variant="subtitle2">
               {numberToChinese(video_play_count)}次播放
             </Typography>
@@ -237,6 +245,7 @@ function Author({ screen_name, avatar_url, video_count, follower_count }) {
 
 function Buttons({ digg_count, ...rest }) {
   const classes = useStyles();
+  const [count, setCount] = useState(digg_count);
   return (
     <Box
       className={classes.socialButtons}
@@ -249,8 +258,9 @@ function Buttons({ digg_count, ...rest }) {
         fullWidth
         variant="outlined"
         startIcon={<ThumbUpIcon />}
+        onClick={() => setCount((prev) => prev + 1)}
       >
-        {digg_count}
+        {count}
       </Button>
       <Button
         size="large"
