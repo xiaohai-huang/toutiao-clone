@@ -1,32 +1,10 @@
 import { Avatar, Box, makeStyles, Typography } from "@material-ui/core";
-import React, { useRef, useState } from "react";
-import DurationBadge from "../feed/DurationBadge";
+import React from "react";
+import Video from "./Video";
 
 const useStyles = makeStyles((theme) => ({
-  coverImage: {
+  videoCard: {
     width: "100%",
-    height: "100%",
-    objectFit: "cover",
-    display: "block",
-    borderRadius: "1.5%",
-    "&:hover": {
-      cursor: "pointer",
-    },
-  },
-  video: {
-    opacity: 0,
-    width: "100%",
-    height: "100%",
-    objectFit: "cover",
-    borderRadius: "1.5%",
-    "&:hover": {
-      cursor: "pointer",
-      opacity: 1,
-    },
-    transition: "opacity 0.3s",
-    position: "absolute",
-    left: "0px",
-    top: "0px",
   },
   authorInfo: {
     position: "absolute",
@@ -67,7 +45,6 @@ const useStyles = makeStyles((theme) => ({
 }));
 function VideoCard({
   title,
-  item_id,
   author,
   duration,
   preview_url,
@@ -76,55 +53,19 @@ function VideoCard({
   handleClick,
 }) {
   const classes = useStyles();
-  const videoRef = useRef(null);
-  const [showBadage, setShowBadage] = useState(true);
 
-  const playPreview = (e) => {
-    setShowBadage(false);
-    try {
-      e.target.play();
-    } catch {
-      console.log("error at previewing video");
-    }
-  };
-
-  const resumePreview = (e) => {
-    setShowBadage(true);
-    try {
-      e.target.load();
-    } catch {
-      console.log("error at resuming video");
-    }
-  };
   return (
-    <div className="video-card">
-      <Box position="relative">
-        <Box
-          onTouchStart={playPreview}
-          onMouseOver={playPreview}
-          onMouseOut={resumePreview}
-        >
-          <img className={classes.coverImage} src={image_url} alt={title} />
-          <video
-            style={{ opacity: !showBadage && 1 }}
-            className={classes.video}
-            ref={videoRef}
-            src={preview_url}
-            alt={title}
-            poster={image_url}
-            muted
-            onClick={handleClick}
-            onEnded={resumePreview}
-          />
-        </Box>
-
+    <div className="videoCard">
+      <Video
+        src={preview_url}
+        alt={title}
+        poster={image_url}
+        muted
+        duration={duration}
+        onClick={handleClick}
+      >
         <Author className={classes.authorInfo} {...author} />
-
-        <DurationBadge
-          style={{ display: !showBadage && "none" }}
-          duration={duration}
-        />
-      </Box>
+      </Video>
 
       <Typography className={classes.title} onClick={handleClick}>
         {title}

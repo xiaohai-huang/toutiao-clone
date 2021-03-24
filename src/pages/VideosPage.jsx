@@ -31,7 +31,7 @@ const useStyles = makeStyles((theme) => ({
     },
   },
 }));
-function VideosList() {
+function VideosPage() {
   const dispatch = useDispatch();
   const videos = useSelector(selectVideos);
   const status = useSelector((state) => state.feed.status);
@@ -81,4 +81,4 @@ function VideosList() {
   );
 }
 
-export default VideosList;
+export default VideosPage;

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import {
   Accordion,
   AccordionDetails,
@@ -8,6 +8,7 @@ import {
   Box,
   Button,
   Container,
+  Divider,
   Grid,
   makeStyles,
   Typography,
@@ -25,7 +26,11 @@ import {
   numberToChinese,
 } from "../utility/utility";
 import MobileHotCard from "../features/company/MobileHotCard";
-import HotCard from "../features/company/HotCard";
+import SmallVideoCard from "../features/video/SmallVideoCard";
+import { useHistory } from "react-router";
+import { fetchVideos } from "../features/feed/feedSlice";
+import VideosList from "../features/video/VideoList";
+import SwitchButton from "../features/video/SwitchButton";
 const useStyles = makeStyles((theme) => ({
   titleSection: {
     boxShadow: "none",
@@ -112,10 +117,21 @@ const useStyles = makeStyles((theme) => ({
 function VideoDetailsPage({ videoInfo, news_id }) {
   const classes = useStyles();
   const { videoUrl, poster_url, digg_count, media_user } = videoInfo;
+
   const dispatch = useDispatch();
   const xs = useMediaQuery((theme) => theme.breakpoints.down("xs"));
+  const smDown = useMediaQuery((theme) => theme.breakpoints.down("sm"));
+  const md = useMediaQuery((theme) => theme.breakpoints.up("md"));
+  const recommendedVideos = useSelector((state) => state.feed.news.xigua);
+
   useEffect(() => {
     dispatch(positionUpdated("video"));
+  }, [dispatch]);
+  useEffect(() => {
+    if (recommendedVideos.length === 0) {
+      dispatch(fetchVideos());
+    }
+    // eslint-disable-next-line
   }, [dispatch]);
 
   return (
@@ -139,18 +155,61 @@ function VideoDetailsPage({ videoInfo, news_id }) {
               <Box mt={2.5} />
               {!xs && <Author {...media_user} />}
               <Buttons digg_count={digg_count} mt={2.5} mb={3} />
+              {smDown && (
+                <RecommendedVideos recommendedVideos={recommendedVideos} />
+              )}
+              <Box mt={3} />
               <MobileHotCard />
               <Box mb={8} />
             </Container>
           </Grid>
-          <Grid item md={4} sm>
-            {!xs && <HotCard />}
-          </Grid>
+          {md && (
+            <Grid item md={4}>
+              <Box
+                display="flex"
+                justifyContent="space-between"
+                alignItems="center"
+              >
+                <Typography>接下来播放</Typography>
+                <SwitchButton />
+              </Box>
+              <RecommendedVideos recommendedVideos={recommendedVideos} />
+            </Grid>
+          )}
         </Grid>
       </Container>
     </div>
   );
 }
+
+function RecommendedVideos({ recommendedVideos }) {
+  const history = useHistory();
+  const sm = useMediaQuery((theme) => theme.breakpoints.down("sm"));
+  return (
+    <>
+      {sm ? (
+        <VideosList videos={recommendedVideos} />
+      ) : (
+        <>
+          {recommendedVideos.map((v, i) => {
+            const handleVideoClick = () => {
+              history.push(`/news/${v.item_id}`);
+            };
+            return (
+              <>
+                <Box mt={1.3} mb={1.3}>
+                  <SmallVideoCard handleClick={handleVideoClick} {...v} />
+                </Box>
+                {i === 0 && <Divider />}
+              </>
+            );
+          })}
+        </>
+      )}
+    </>
+  );
+}
+
 function VideoTitle({
   title,
   content,

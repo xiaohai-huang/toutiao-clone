@@ -19,7 +19,11 @@ const useStyles = makeStyles((theme) => ({
     },
   },
 }));
-export default function DurationBadge({ duration, ...rest }) {
+export default function DurationBadge({
+  duration,
+  disablePlayArrow = false,
+  ...rest
+}) {
   const classes = useStyles();
   return (
     <Box
@@ -29,7 +33,11 @@ export default function DurationBadge({ duration, ...rest }) {
       alignItems="center"
       justifyContent="center"
     >
-      <PlayArrowIcon fontSize="small" />
+      {disablePlayArrow ? (
+        <Box pl={0.33} />
+      ) : (
+        <PlayArrowIcon fontSize="small" />
+      )}
       <Box component="span" pt={0.15}>
         {duration}
       </Box>

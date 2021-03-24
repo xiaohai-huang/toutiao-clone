@@ -3,13 +3,13 @@ import Container from "@material-ui/core/Container";
 import Grid from "@material-ui/core/Grid";
 import { Box, makeStyles, useMediaQuery } from "@material-ui/core";
 import { useParams } from "react-router-dom";
+import { useDispatch } from "react-redux";
 
 import Channel from "../features/channel/Channel";
 import Feed from "../features/feed/Feed";
 import Company from "../features/company/Company";
 import { categoryUpdated } from "../features/feed/feedSlice";
-import { useDispatch } from "react-redux";
-import VideosList from "./VideosList";
+import VideosPage from "./VideosPage";
 import { positionUpdated } from "../app/appSlice";
 
 const useStyles = makeStyles((theme) => ({
@@ -37,7 +37,7 @@ export default function MainPage() {
   if (category === "xigua") {
     mainContent = (
       <Grid item className={classes.videosContainer} xs={12} sm md>
-        <VideosList />
+        <VideosPage />
       </Grid>
     );
   } else {
