@@ -5,7 +5,7 @@ let TENCENT_SERVER = "https://api.xiaotiao.site/tt";
   fetch("https://ipinfo.io/country?token=bf9a05b30d48f7")
     .then((r) => r.text())
     .then((country) => {
-      console.log(country);
+      country = country.trim();
       if (country !== "CN") {
         TENCENT_SERVER = BASE_URL;
       }
