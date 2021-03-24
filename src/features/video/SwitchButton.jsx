@@ -46,17 +46,8 @@ const AntSwitch = withStyles((theme) => ({
   checked: {},
 }))(Switch);
 
-export default function SwitchButton() {
+export default function SwitchButton({ autoPlay, handleChange }) {
   const classes = useStyles();
-  const [state, setState] = React.useState({
-    checkedA: true,
-    checkedB: true,
-    checkedC: true,
-  });
-
-  const handleChange = (event) => {
-    setState({ ...state, [event.target.name]: event.target.checked });
-  };
 
   return (
     <FormGroup>
@@ -67,9 +58,9 @@ export default function SwitchButton() {
           </Grid>
           <Grid item>
             <AntSwitch
-              checked={state.checkedC}
+              checked={autoPlay}
               onChange={handleChange}
-              name="checkedC"
+              name="autoPlayCheckButton"
             />
           </Grid>
         </Grid>

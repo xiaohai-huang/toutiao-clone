@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   Accordion,
@@ -10,6 +10,7 @@ import {
   Container,
   Divider,
   Grid,
+  LinearProgress,
   makeStyles,
   Typography,
   useMediaQuery,
@@ -18,8 +19,9 @@ import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import ThumbUpIcon from "@material-ui/icons/ThumbUp";
 import StarBorderIcon from "@material-ui/icons/StarBorder";
 import ShareIcon from "@material-ui/icons/Share";
+import { useHistory, useParams } from "react-router";
 
-import { positionUpdated } from "../app/appSlice";
+import AppBar from "../features/common/AppBar.jsx";
 import {
   formatDate,
   getVideoDetails,
@@ -27,8 +29,12 @@ import {
 } from "../utility/utility";
 import MobileHotCard from "../features/company/MobileHotCard";
 import SmallVideoCard from "../features/video/SmallVideoCard";
-import { useHistory } from "react-router";
-import { fetchVideos } from "../features/feed/feedSlice";
+import { fetchVideos, selectVideosAfterId } from "../features/feed/feedSlice";
+import { positionUpdated } from "../app/appSlice";
+import {
+  selectVideoDetailsById,
+  fetchVideoDetails,
+} from "../features/video/videoSlice";
 import VideosList from "../features/video/VideoList";
 import SwitchButton from "../features/video/SwitchButton";
 const useStyles = makeStyles((theme) => ({
@@ -114,15 +120,34 @@ const useStyles = makeStyles((theme) => ({
     },
   },
 }));
-function VideoDetailsPage({ videoInfo, news_id }) {
+// if params is not undefined, fetch news details myself
+function VideoDetailsPage() {
   const classes = useStyles();
-  const { videoUrl, poster_url, digg_count, media_user } = videoInfo;
-
+  const { video_id } = useParams();
   const dispatch = useDispatch();
+
+  let videoInfo = useSelector(selectVideoDetailsById(video_id));
+  if (!videoInfo) {
+    videoInfo = {};
+  }
+  let { videoUrl, poster_url, digg_count, media_user } = videoInfo;
+
   const xs = useMediaQuery((theme) => theme.breakpoints.down("xs"));
   const smDown = useMediaQuery((theme) => theme.breakpoints.down("sm"));
   const md = useMediaQuery((theme) => theme.breakpoints.up("md"));
-  const recommendedVideos = useSelector((state) => state.feed.news.xigua);
+  const recommendedVideos = useSelector(selectVideosAfterId(video_id));
+  const [autoPlay, setAutoPlay] = useState(true);
+  const videoRef = useRef(null);
+  const history = useHistory();
+
+  useEffect(() => {
+    dispatch(fetchVideoDetails(video_id));
+  }, [video_id, dispatch]);
+  useEffect(() => {
+    if (videoRef.current) {
+      videoRef.current.src = videoUrl;
+    }
+  }, [video_id, videoUrl]);
 
   useEffect(() => {
     dispatch(positionUpdated("video"));
@@ -134,51 +159,73 @@ function VideoDetailsPage({ videoInfo, news_id }) {
     // eslint-disable-next-line
   }, [dispatch]);
 
+  // console.log(Object.keys(videoInfo));
+
   return (
-    <div className="videoDetailsPage">
-      <Container disableGutters={xs}>
-        <Box mt={!xs ? 3 : ""} />
-        <Grid container spacing={xs ? 0 : 3}>
-          <Grid item md={8} sm={12} xs={12}>
-            <video
-              className={classes.video}
-              controls
-              width="100%"
-              autoPlay
-              poster={poster_url}
-            >
-              <source src={videoUrl} />
-              <source src="http://techslides.com/demos/sample-videos/small.mp4" />
-            </video>
-            <Container>
-              <VideoTitle {...videoInfo} />
-              <Box mt={2.5} />
-              {!xs && <Author {...media_user} />}
-              <Buttons digg_count={digg_count} mt={2.5} mb={3} />
-              {smDown && (
-                <RecommendedVideos recommendedVideos={recommendedVideos} />
+    <AppBar>
+      <div className="videoDetailsPage">
+        <Container disableGutters={xs}>
+          <Box mt={!xs ? 3 : ""} />
+          <Grid container spacing={xs ? 0 : 3}>
+            <Grid item md={8} sm={12} xs={12}>
+              {Object.keys(videoInfo).length === 0 ? (
+                <LinearProgress />
+              ) : (
+                <>
+                  <video
+                    className={classes.video}
+                    controls
+                    width="100%"
+                    autoPlay
+                    poster={poster_url}
+                    ref={videoRef}
+                    onEnded={() => {
+                      if (autoPlay) {
+                        const id = recommendedVideos[0].item_id;
+                        history.push(`/video/${id}`);
+                      }
+                    }}
+                  >
+                    <source src={videoUrl} />
+                    <source src="http://techslides.com/demos/sample-videos/small.mp4" />
+                  </video>
+                  <Container>
+                    <VideoTitle {...videoInfo} />
+                    <Box mt={2.5} />
+                    {!xs && <Author {...media_user} />}
+                    <Buttons digg_count={digg_count} mt={2.5} mb={3} />
+                    {smDown && (
+                      <RecommendedVideos
+                        recommendedVideos={recommendedVideos}
+                      />
+                    )}
+                    <Box mt={3} />
+                    <MobileHotCard />
+                    <Box mb={8} />
+                  </Container>
+                </>
               )}
-              <Box mt={3} />
-              <MobileHotCard />
-              <Box mb={8} />
-            </Container>
-          </Grid>
-          {md && (
-            <Grid item md={4}>
-              <Box
-                display="flex"
-                justifyContent="space-between"
-                alignItems="center"
-              >
-                <Typography>接下来播放</Typography>
-                <SwitchButton />
-              </Box>
-              <RecommendedVideos recommendedVideos={recommendedVideos} />
             </Grid>
-          )}
-        </Grid>
-      </Container>
-    </div>
+            {md && (
+              <Grid item md={4}>
+                <Box
+                  display="flex"
+                  justifyContent="space-between"
+                  alignItems="center"
+                >
+                  <Typography>接下来播放</Typography>
+                  <SwitchButton
+                    autoPlay={autoPlay}
+                    handleChange={() => setAutoPlay((prev) => !prev)}
+                  />
+                </Box>
+                <RecommendedVideos recommendedVideos={recommendedVideos} />
+              </Grid>
+            )}
+          </Grid>
+        </Container>
+      </div>
+    </AppBar>
   );
 }
 
@@ -193,15 +240,15 @@ function RecommendedVideos({ recommendedVideos }) {
         <>
           {recommendedVideos.map((v, i) => {
             const handleVideoClick = () => {
-              history.push(`/news/${v.item_id}`);
+              history.push(`/video/${v.item_id}`);
             };
             return (
-              <>
+              <div key={i}>
                 <Box mt={1.3} mb={1.3}>
                   <SmallVideoCard handleClick={handleVideoClick} {...v} />
                 </Box>
                 {i === 0 && <Divider />}
-              </>
+              </div>
             );
           })}
         </>

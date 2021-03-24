@@ -98,6 +98,15 @@ function addFullfilledReducer(state, action) {
 }
 
 export const selectVideos = (state) => state.feed.news.xigua;
+export const selectVideosAfterId = (id) => {
+  return (state) => {
+    const item_index = state.feed.news.xigua.findIndex(
+      (video) => video.item_id === id
+    );
+
+    return state.feed.news.xigua.filter((_, i) => i > item_index);
+  };
+};
 
 export const { categoryUpdated, categoryDeleted } = feedSlice.actions;
 

@@ -125,7 +125,7 @@ newsApi.getNewsById = async (item_id) => {
     console.log("You are in China use Tencent Cloud Api");
   }
 
-  console.log(currentLocation !== "CN");
+  // console.log(currentLocation !== "CN");
   console.log(currentLocation + " = " + TENCENT_SERVER);
   // need refine
 
@@ -164,7 +164,6 @@ newsApi.getHotboard = async () => {
 
   const url = process.env.NODE_ENV === "development" ? test : production;
 
-  console.log("hottboard");
   const remoteData = await fetch(url)
     .then((res) => res.json())
     .then((js) => js.data)

@@ -33,7 +33,7 @@ export function formatDate(publishTime, formatStr) {
   });
 }
 
-export function numberToChinese(number) {
+export function numberToChinese(number = 0) {
   // number of digits required for chinese 万
   const W = 4;
   const numStr = number.toString();

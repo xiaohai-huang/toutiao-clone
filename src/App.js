@@ -1,20 +1,23 @@
 import { CssBaseline } from "@material-ui/core";
 import { Redirect, Route, Switch } from "react-router-dom";
 import { createMuiTheme, ThemeProvider } from "@material-ui/core/styles";
+import { useSelector } from "react-redux";
 
 import Header from "./features/header/Header";
 import MainPage from "./pages/MainPage";
-import { useSelector } from "react-redux";
 import UserAuthPage from "./pages/UserAuthPage";
 import NewsCreationPage from "./pages/NewsCreationPage";
 import NewsEditPage from "./pages/NewsEditPage";
 import HotCard from "./features/company/HotCard";
 import DetailsPage from "./pages/DetailsPage";
+import VideoDetailsPage from "./pages/VideoDetailsPage";
 
 function App() {
+  const displayMode = useSelector((state) => state.app.displayMode);
   let theme;
   let PCTheme = createMuiTheme({
     palette: {
+      type: displayMode,
       primary: {
         main: "#208eda",
         light: "#406599",
@@ -36,6 +39,7 @@ function App() {
   // sm xs
   let mobileTheme = createMuiTheme({
     palette: {
+      type: displayMode,
       primary: {
         main: "#208eda",
         light: "#406599",
@@ -61,7 +65,6 @@ function App() {
 
   // (sm & xs)
   theme = device === "PC" ? PCTheme : mobileTheme;
-
   return (
     <ThemeProvider theme={theme}>
       <div className="App">
@@ -88,6 +91,9 @@ function App() {
           </Route>
           <Route exact path="/news/edit/:news_id">
             <NewsEditPage />
+          </Route>
+          <Route exact path="/video/:video_id">
+            <VideoDetailsPage />
           </Route>
           <Route exact path="/news/:news_id">
             <DetailsPage />

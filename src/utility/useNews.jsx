@@ -25,7 +25,7 @@ function useNews(news_id) {
       setMounted(false);
     };
     // eslint-disable-next-line
-  }, []);
+  }, [news_id]);
 
   const isVideo = Boolean(news.video_id);
   return { news, isVideo, loading };

@@ -30,7 +30,7 @@ function VideosList({ videos }) {
     <Grid className={classes.root} container spacing={2}>
       {videos.map((v) => {
         const handleVideoClick = () => {
-          history.push(`/news/${v.item_id}`);
+          history.push(`/video/${v.item_id}`);
         };
         return (
           <Grid key={v.item_id} item lg={3} md={4} sm={6}>
