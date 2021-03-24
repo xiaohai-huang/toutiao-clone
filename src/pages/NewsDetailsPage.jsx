@@ -144,7 +144,9 @@ function NewsDetailsPage({ news, news_id }) {
     <Container maxWidth="lg">
       <Grid container className={classes.container} spacing={2}>
         {/* left tools */}
-        <LeftTools comment_count={comment_count} />
+        <Grid item lg={1} className={classes.leftTools}>
+          <LeftTools comment_count={comment_count} />
+        </Grid>
 
         {/* Main Content */}
         <Grid item lg={7} sm={8} md={6} xs={12} className={classes.mainContent}>
@@ -213,40 +215,38 @@ function LeftTools({ comment_count }) {
   return (
     <>
       {!(xs || sm) && (
-        <Grid item lg={1} sm={2} md={2} className={classes.leftTools}>
-          <Box
-            display="flex"
-            flexDirection="column"
-            alignItems="flex-start"
-            className={classes.buttons}
+        <Box
+          display="flex"
+          flexDirection="column"
+          alignItems="flex-start"
+          className={classes.buttons}
+        >
+          <Button
+            variant="text"
+            color="secondary"
+            className={classes.commentButton}
+            startIcon={<CreateIcon />}
+            onClick={() =>
+              setCommentCount((prev) => (prev !== undefined ? prev + 1 : 0))
+            }
           >
-            <Button
-              variant="text"
-              color="secondary"
-              className={classes.commentButton}
-              startIcon={<CreateIcon />}
-              onClick={() =>
-                setCommentCount((prev) => (prev !== undefined ? prev + 1 : 0))
-              }
-            >
-              {commentCount}
-            </Button>
-            <Divider />
-            {tools.map((tool) => (
-              <Box key={tool.label} display="flex" flexDirection="column">
-                <Button
-                  variant="text"
-                  color="inherit"
-                  size="large"
-                  className={classes.socialButton}
-                  startIcon={tool.icon}
-                >
-                  {tool.label}
-                </Button>
-              </Box>
-            ))}
-          </Box>
-        </Grid>
+            {commentCount}
+          </Button>
+          <Divider />
+          {tools.map((tool) => (
+            <Box key={tool.label} display="flex" flexDirection="column">
+              <Button
+                variant="text"
+                color="inherit"
+                size="large"
+                className={classes.socialButton}
+                startIcon={tool.icon}
+              >
+                {tool.label}
+              </Button>
+            </Box>
+          ))}
+        </Box>
       )}
     </>
   );

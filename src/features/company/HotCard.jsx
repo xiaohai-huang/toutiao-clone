@@ -10,7 +10,7 @@ function HotCard({ title = "实时热搜榜" }) {
     <DisplayCard title={title}>
       <Box mt={2}>
         {headlines.map((headline, i) => (
-          <Headline key={headline.title} number={i + 1} {...headline} />
+          <Headline key={i} number={i + 1} {...headline} />
         ))}
       </Box>
     </DisplayCard>
