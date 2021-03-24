@@ -59,12 +59,12 @@ newsApi.getVideos = async (channel, count, time) => {
 };
 
 newsApi.getVideoUrl = async (news_id) => {
-  const local = "/MockData/videoUrl.json";
+  // const local = "/MockData/videoUrl.json";
   const test = `http://localhost:4500/tt/videos/${news_id}`;
   const production = `${TENCENT_SERVER}/videos/${news_id}`;
   const url = process.env.NODE_ENV === "development" ? test : production;
 
-  const videoUrl = await fetch(local)
+  const videoUrl = await fetch(url)
     .then((res) => res.json())
     .then((js) => js.video)
     .catch((err) => console.log(err));
