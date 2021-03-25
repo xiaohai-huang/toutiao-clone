@@ -55,15 +55,17 @@ const useStyles = makeStyles((theme) => ({
     top: "1rem",
   },
   leftTools: {
-    [theme.breakpoints.up("lg")]: {
-      marginRight: "1rem",
+    [theme.breakpoints.down("sm")]: {
+      display: "none",
     },
   },
   container: {
     marginTop: "1rem",
-    // border: "1px solid red",
   },
   mainContent: {
+    [theme.breakpoints.only("md")]: {
+      paddingLeft: "2.3rem !important",
+    },
     fontSize: "1rem",
   },
   title: {
@@ -142,14 +144,14 @@ function NewsDetailsPage({ news, news_id }) {
     .replaceAll("<img", ' <img style="width: 100%;" ');
   return (
     <Container maxWidth="lg">
-      <Grid container className={classes.container} spacing={2}>
+      <Grid container className={classes.container} spacing={3}>
         {/* left tools */}
-        <Grid item lg={1} className={classes.leftTools}>
+        <Grid item md={1} className={classes.leftTools}>
           <LeftTools comment_count={comment_count} />
         </Grid>
 
         {/* Main Content */}
-        <Grid item lg={7} sm={8} md={6} xs={12} className={classes.mainContent}>
+        <Grid item lg={7} md={7} sm={8} xs={12} className={classes.mainContent}>
           <Box>
             <Typography variant="h1" className={classes.title}>
               {title}
@@ -183,7 +185,7 @@ function NewsDetailsPage({ news, news_id }) {
         </Grid>
 
         {/* Author Info */}
-        <Grid item lg md={4} sm={4} className={classes.authorPanel}>
+        <Grid item lg={4} md={4} sm={4} className={classes.authorPanel}>
           <AuthorInfoPanel
             news_id={news_id}
             author_name={author_name}
@@ -242,7 +244,7 @@ function LeftTools({ comment_count }) {
                 className={classes.socialButton}
                 startIcon={tool.icon}
               >
-                {tool.label}
+                <Typography noWrap>{tool.label}</Typography>
               </Button>
             </Box>
           ))}
