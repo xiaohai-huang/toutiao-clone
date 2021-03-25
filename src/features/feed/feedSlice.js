@@ -112,12 +112,15 @@ export const selectVideosAfterId = (id, maxCount = 13) => {
     const item_index = state.feed.news.xigua.findIndex(
       (video) => video.item_id === id
     );
-    let count = 0;
 
-    return state.feed.news.xigua.filter((_, i) => {
-      count++;
-      return i >= item_index && count <= maxCount;
+    const filteredVideos = state.feed.news.xigua.filter((_, i) => {
+      return i >= item_index;
     });
+    const count = filteredVideos.length;
+    // handle situation that the video is not in the list
+    const result = filteredVideos.slice(0, maxCount > count ? count : maxCount);
+
+    return result.length === 0 ? state.feed.news.xigua : result;
   };
 };
 

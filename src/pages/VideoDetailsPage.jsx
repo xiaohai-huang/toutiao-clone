@@ -145,7 +145,7 @@ function VideoDetailsPage() {
   const videoRef = useRef(null);
   const history = useHistory();
   // remove the first one which is the current one
-  recommendedVideos.shift();
+  recommendedVideos = recommendedVideos.slice(1);
 
   useEffect(() => {
     dispatch(categoryUpdated("xigua"));
@@ -215,12 +215,16 @@ function VideoDetailsPage() {
                 <Box mt={2.5} />
                 {!xs && <Author {...media_user} />}
                 <Buttons digg_count={digg_count} mt={2.5} mb={3} />
-                <AutoPlay
-                  autoPlay={autoPlay}
-                  handleChange={() => setAutoPlay((prev) => !prev)}
-                />
+
                 {smDown && (
-                  <RecommendedVideos recommendedVideos={recommendedVideos} />
+                  <>
+                    <AutoPlay
+                      autoPlay={autoPlay}
+                      handleChange={() => setAutoPlay((prev) => !prev)}
+                    />
+                    <Box mb={3} />
+                    <RecommendedVideos recommendedVideos={recommendedVideos} />
+                  </>
                 )}
                 <Box mt={3} />
                 <MobileHotCard />
