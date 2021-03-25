@@ -385,6 +385,10 @@ function Author({ screen_name, avatar_url, video_count, follower_count }) {
 function Buttons({ digg_count, ...rest }) {
   const classes = useStyles();
   const [count, setCount] = useState(digg_count);
+
+  useEffect(() => {
+    setCount(digg_count);
+  }, [digg_count]);
   return (
     <Box
       className={classes.socialButtons}
