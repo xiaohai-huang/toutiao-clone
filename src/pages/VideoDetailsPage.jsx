@@ -29,7 +29,11 @@ import {
 } from "../utility/utility";
 import MobileHotCard from "../features/company/MobileHotCard";
 import SmallVideoCard from "../features/video/SmallVideoCard";
-import { fetchVideos, selectVideosAfterId } from "../features/feed/feedSlice";
+import {
+  categoryUpdated,
+  fetchVideos,
+  selectVideosAfterId,
+} from "../features/feed/feedSlice";
 import { positionUpdated } from "../app/appSlice";
 import {
   selectVideoDetailsById,
@@ -134,15 +138,23 @@ function VideoDetailsPage() {
 
   const xs = useMediaQuery((theme) => theme.breakpoints.down("xs"));
   const smDown = useMediaQuery((theme) => theme.breakpoints.down("sm"));
-  const md = useMediaQuery((theme) => theme.breakpoints.up("md"));
-  const recommendedVideos = useSelector(selectVideosAfterId(video_id));
+  const mdUp = useMediaQuery((theme) => theme.breakpoints.up("md"));
+  let recommendedVideos = useSelector(selectVideosAfterId(video_id));
+  const { image_url, title } = getVideoPreviewInfo(video_id, recommendedVideos);
   const [autoPlay, setAutoPlay] = useState(true);
   const videoRef = useRef(null);
   const history = useHistory();
+  // remove the first one which is the current one
+  recommendedVideos.shift();
+
+  useEffect(() => {
+    dispatch(categoryUpdated("xigua"));
+  }, [dispatch]);
 
   useEffect(() => {
     dispatch(fetchVideoDetails(video_id));
   }, [video_id, dispatch]);
+
   useEffect(() => {
     if (videoRef.current) {
       videoRef.current.src = videoUrl;
@@ -152,8 +164,10 @@ function VideoDetailsPage() {
   useEffect(() => {
     dispatch(positionUpdated("video"));
   }, [dispatch]);
+
+  // load recommend videos
   useEffect(() => {
-    if (recommendedVideos.length === 0) {
+    if (recommendedVideos.length < 3) {
       dispatch(fetchVideos());
     }
     // eslint-disable-next-line
@@ -169,7 +183,10 @@ function VideoDetailsPage() {
           <Grid container spacing={xs ? 0 : 3}>
             <Grid item md={8} sm={12} xs={12}>
               {Object.keys(videoInfo).length === 0 ? (
-                <LinearProgress />
+                <>
+                  <LinearProgress />
+                  <img src={image_url} alt={title} width="100%" />
+                </>
               ) : (
                 <>
                   <video
@@ -191,34 +208,31 @@ function VideoDetailsPage() {
                   </video>
                   <Container>
                     <VideoTitle {...videoInfo} />
-                    <Box mt={2.5} />
-                    {!xs && <Author {...media_user} />}
-                    <Buttons digg_count={digg_count} mt={2.5} mb={3} />
-                    {smDown && (
-                      <RecommendedVideos
-                        recommendedVideos={recommendedVideos}
-                      />
-                    )}
-                    <Box mt={3} />
-                    <MobileHotCard />
-                    <Box mb={8} />
                   </Container>
                 </>
               )}
+              <Container>
+                <Box mt={2.5} />
+                {!xs && <Author {...media_user} />}
+                <Buttons digg_count={digg_count} mt={2.5} mb={3} />
+                <AutoPlay
+                  autoPlay={autoPlay}
+                  handleChange={() => setAutoPlay((prev) => !prev)}
+                />
+                {smDown && (
+                  <RecommendedVideos recommendedVideos={recommendedVideos} />
+                )}
+                <Box mt={3} />
+                <MobileHotCard />
+                <Box mb={8} />
+              </Container>
             </Grid>
-            {md && (
+            {mdUp && (
               <Grid item md={4}>
-                <Box
-                  display="flex"
-                  justifyContent="space-between"
-                  alignItems="center"
-                >
-                  <Typography>接下来播放</Typography>
-                  <SwitchButton
-                    autoPlay={autoPlay}
-                    handleChange={() => setAutoPlay((prev) => !prev)}
-                  />
-                </Box>
+                <AutoPlay
+                  autoPlay={autoPlay}
+                  handleChange={() => setAutoPlay((prev) => !prev)}
+                />
                 <RecommendedVideos recommendedVideos={recommendedVideos} />
               </Grid>
             )}
@@ -228,7 +242,21 @@ function VideoDetailsPage() {
     </AppBar>
   );
 }
-
+function AutoPlay({ autoPlay, handleChange }) {
+  return (
+    <Box display="flex" justifyContent="space-between" alignItems="center">
+      <Typography>接下来播放</Typography>
+      <SwitchButton autoPlay={autoPlay} handleChange={handleChange} />
+    </Box>
+  );
+}
+function getVideoPreviewInfo(video_id, recommendedVideos) {
+  const v = recommendedVideos.find((v) => v.item_id === video_id);
+  if (v) {
+    return v;
+  }
+  return {};
+}
 function RecommendedVideos({ recommendedVideos }) {
   const history = useHistory();
   const sm = useMediaQuery((theme) => theme.breakpoints.down("sm"));
@@ -320,7 +348,7 @@ function Author({ screen_name, avatar_url, video_count, follower_count }) {
       alignItems="center"
       mb={3}
     >
-      <Box display="flex" alignItems="center">
+      <Box display="flex" alignItems="center" width="100%">
         <Avatar className={classes.avatar} alt={screen_name} src={avatar_url} />
         <Box p={0.5} />
         <Box>

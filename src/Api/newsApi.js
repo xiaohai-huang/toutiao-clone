@@ -57,10 +57,10 @@ newsApi.getVideos = async (channel, count, time) => {
   // need refine
   const currentLocation = await getLocation();
   if (currentLocation !== "CN") {
-    console.log("You are not in China use Heroku Api");
+    console.log(`You are in ${currentLocation} use Heroku Api`);
     TENCENT_SERVER = BASE_URL;
   } else {
-    console.log("You are in China use Tencent Cloud Api");
+    console.log("You are in =China= use Tencent Cloud Api");
   }
 
   console.log(currentLocation + " = " + TENCENT_SERVER);
@@ -86,7 +86,7 @@ newsApi.getVideoUrl = async (news_id) => {
   // need refine
   const currentLocation = await getLocation();
   if (currentLocation !== "CN") {
-    console.log("You are not in China use Heroku Api");
+    console.log(`You are in ${currentLocation} use Heroku Api`);
     TENCENT_SERVER = BASE_URL;
   } else {
     console.log("You are in China use Tencent Cloud Api");
@@ -119,7 +119,7 @@ newsApi.getNewsById = async (item_id) => {
   // need refine
   const currentLocation = await getLocation();
   if (currentLocation !== "CN") {
-    console.log("You are not in China use Heroku Api");
+    console.log(`You are in ${currentLocation} use Heroku Api`);
     TENCENT_SERVER = BASE_URL;
   } else {
     console.log("You are in China use Tencent Cloud Api");

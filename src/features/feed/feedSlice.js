@@ -15,6 +15,15 @@ export const fetchNews = createAsyncThunk(
 export const fetchVideos = createAsyncThunk(
   "feed/fetchVideos",
   async (_, { getState }) => {
+    const allVideos = selectVideos(getState());
+    console.log("number of videos: " + allVideos.length);
+    if (allVideos.length > 25) {
+      console.log(
+        "Too much videos, you can refresh the page to load new videos"
+      );
+
+      return { news: [], category: "xigua" };
+    }
     const videos = await newsApi.getVideos();
     return { news: videos, category: "xigua" };
   }
@@ -104,7 +113,7 @@ export const selectVideosAfterId = (id) => {
       (video) => video.item_id === id
     );
 
-    return state.feed.news.xigua.filter((_, i) => i > item_index);
+    return state.feed.news.xigua.filter((_, i) => i >= item_index);
   };
 };
 

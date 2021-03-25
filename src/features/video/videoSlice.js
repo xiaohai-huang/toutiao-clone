@@ -4,9 +4,8 @@ import newsApi from "../../Api/newsApi";
 export const fetchVideoDetails = createAsyncThunk(
   "video/fetchVideoDetails",
   async (video_id, { getState }) => {
-    const exist = selectAllVideoDetails(getState()).some(
-      (oldVideo) => oldVideo.gid === `${video_id}`
-    );
+    const allVideos = selectAllVideoDetails(getState());
+    const exist = allVideos.some((oldVideo) => oldVideo.gid === `${video_id}`);
 
     if (exist) {
       return;
