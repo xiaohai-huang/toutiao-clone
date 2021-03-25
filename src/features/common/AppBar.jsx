@@ -57,6 +57,21 @@ function MyAppBar({ children }) {
     </>
   );
 }
+const categoryToChinese = {
+  __all__: "推荐",
+  xigua: "西瓜视频",
+  news_hot: "热点",
+  xiaohai: "找工作",
+  news_entertainment: "娱乐",
+  news_tech: "科技",
+  news_military: "军事",
+  news_history: "历史",
+  news_food: "美食",
+  software: "软件",
+  internet: "互联网",
+  news_sports: "体育",
+  news_car: "汽车",
+};
 function DetailsPageAppBar() {
   const classes = useStyles();
   const history = useHistory();
@@ -89,7 +104,7 @@ function DetailsPageAppBar() {
                 className={classes.indexBread}
                 onClick={() => history.push("/" + category)}
               >
-                首页
+                {categoryToChinese[category]}
               </Typography>
               <Typography color="textPrimary">正文</Typography>
             </Breadcrumbs>
