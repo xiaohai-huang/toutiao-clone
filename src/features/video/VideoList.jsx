@@ -10,9 +10,6 @@ const useStyles = makeStyles((theme) => ({
       paddingLeft: "0.3rem",
       paddingRight: "0.3rem",
     },
-    [theme.breakpoints.up("sm")]: {
-      paddingRight: "1rem",
-    },
   },
   [theme.breakpoints.down("xs")]: {
     cardWrapper: {

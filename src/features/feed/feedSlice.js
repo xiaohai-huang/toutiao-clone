@@ -16,7 +16,7 @@ export const fetchVideos = createAsyncThunk(
   "feed/fetchVideos",
   async (_, { getState }) => {
     const allVideos = selectVideos(getState());
-    console.log("number of videos: " + allVideos.length);
+    // console.log("number of videos: " + allVideos.length);
     if (allVideos.length > 25) {
       console.log(
         "Too much videos, you can refresh the page to load new videos"

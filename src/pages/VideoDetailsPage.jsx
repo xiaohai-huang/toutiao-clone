@@ -298,7 +298,7 @@ function VideoTitle({
   is_original,
   media_user,
 }) {
-  const xs = useMediaQuery((theme) => theme.breakpoints.down("xs"));
+  const xsDown = useMediaQuery((theme) => theme.breakpoints.down("xs"));
   const classes = useStyles();
   return (
     <Accordion classes={{ root: classes.titleSection }}>
@@ -336,7 +336,7 @@ function VideoTitle({
         <Box>
           <Typography>{getVideoDetails(content)}</Typography>
           <Box mt={1.5} />
-          {xs && <Author {...media_user} />}
+          {xsDown && <Author {...media_user} />}
         </Box>
       </AccordionDetails>
     </Accordion>
@@ -346,6 +346,7 @@ function VideoTitle({
 function Author({ screen_name, avatar_url, video_count, follower_count }) {
   const classes = useStyles();
   const xs = useMediaQuery((theme) => theme.breakpoints.down("xs"));
+
   return (
     <Box
       display="flex"
