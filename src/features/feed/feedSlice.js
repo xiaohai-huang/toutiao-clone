@@ -107,13 +107,17 @@ function addFullfilledReducer(state, action) {
 }
 
 export const selectVideos = (state) => state.feed.news.xigua;
-export const selectVideosAfterId = (id) => {
+export const selectVideosAfterId = (id, maxCount = 13) => {
   return (state) => {
     const item_index = state.feed.news.xigua.findIndex(
       (video) => video.item_id === id
     );
+    let count = 0;
 
-    return state.feed.news.xigua.filter((_, i) => i >= item_index);
+    return state.feed.news.xigua.filter((_, i) => {
+      count++;
+      return i >= item_index && count <= maxCount;
+    });
   };
 };
 
