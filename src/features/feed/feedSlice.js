@@ -119,8 +119,8 @@ export const selectVideosAfterId = (id, maxCount = 13) => {
     const count = filteredVideos.length;
     // handle situation that the video is not in the list
     const result = filteredVideos.slice(0, maxCount > count ? count : maxCount);
-
-    return result.length === 0 ? state.feed.news.xigua : result;
+    // 1 because, the playing video itself will be removed at the recommend list
+    return result.length === 1 ? state.feed.news.xigua : result;
   };
 };
 
