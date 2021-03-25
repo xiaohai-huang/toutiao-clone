@@ -161,6 +161,8 @@ export default function Channel({ className }) {
     return () => {
       if (isMounted) {
         dispatch(categoryUpdated(category));
+        // scroll to the top of the page when a new category is loaded
+        window.scrollTo(0, 0);
         history.push("/" + category);
       }
     };
