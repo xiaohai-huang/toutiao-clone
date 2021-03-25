@@ -54,11 +54,10 @@ function Video({
 
   const resumePreview = (e) => {
     setShowBadage(true);
-    try {
-      e.target.load();
-    } catch {
+
+    e.target.load()?.catch((err) => {
       console.log("error at resuming video");
-    }
+    });
   };
   return (
     <Box className="magic-video" position="relative" {...rest}>

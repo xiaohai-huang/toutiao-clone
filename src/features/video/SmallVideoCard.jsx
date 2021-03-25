@@ -25,6 +25,11 @@ const useStyles = makeStyles((theme) => ({
   video: {
     borderRadius: "4px",
   },
+  subtitle: {
+    "&:hover": {
+      cursor: "pointer",
+    },
+  },
 }));
 function SmallVideoCard({
   title,

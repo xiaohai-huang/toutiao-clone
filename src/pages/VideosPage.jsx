@@ -37,6 +37,7 @@ function VideosPage() {
   const status = useSelector((state) => state.feed.status);
   const classes = useStyles();
   const history = useHistory();
+
   useEffect(() => {
     dispatch(fetchVideos());
   }, [dispatch]);
@@ -49,7 +50,7 @@ function VideosPage() {
     <Grid className={classes.root} container spacing={2}>
       {videos.map((v) => {
         const handleVideoClick = () => {
-          history.push(`/news/${v.item_id}`);
+          history.push(`/video/${v.item_id}`);
         };
         return (
           <Grid key={v.item_id} item lg={3} md={4} sm={6}>
@@ -65,7 +66,7 @@ function VideosPage() {
           {status === "loading" && (
             <Box display="flex" alignItems="center" flexDirection="column">
               <Typography>
-                如遇到视频加载失败，请检查是否开启了VPN工具
+                如遇到视频加载失败，请检查是否开启了VPN工具, 或者重新刷新页面
               </Typography>
               <Box p={2} />
               <CircularProgress color="secondary" />
