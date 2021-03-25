@@ -153,6 +153,7 @@ function VideoDetailsPage() {
 
   useEffect(() => {
     dispatch(fetchVideoDetails(video_id));
+    window.scrollTo(0, 0);
   }, [video_id, dispatch]);
 
   useEffect(() => {
