@@ -4,12 +4,13 @@ const BASE_URL = "https://api.xiaotiao.site:9443/tt";
 let TENCENT_SERVER = "https://api.xiaotiao.site:9443/tt";
 
 const getLocation = () => {
-  return fetch("https://ipinfo.io/country?token=bf9a05b30d48f7")
-    .then((r) => r.text())
-    .then((country) => {
-      country = country.trim();
-      return country;
-    });
+  return "CN";
+  // return fetch("https://ipinfo.io/country?token=bf9a05b30d48f7")
+  //   .then((r) => r.text())
+  //   .then((country) => {
+  //     country = country.trim();
+  //     return country;
+  //   });
 };
 
 const handleMyOwnNews = () => {
