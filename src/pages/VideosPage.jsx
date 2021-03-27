@@ -66,8 +66,7 @@ function VideosPage() {
           {status === "loading" && (
             <Box display="flex" alignItems="center" flexDirection="column">
               <Typography>
-                如遇到视频加载失败，请检查是否开启了VPN工具,
-                或者多按几下"更多"按钮, 目前不支持Safari
+                如遇到视频加载失败，请使用Chrome或者FireFox浏览(Andriod)
               </Typography>
               <Box p={2} />
               <CircularProgress color="secondary" />

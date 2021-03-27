@@ -140,7 +140,10 @@ function VideoDetailsPage() {
   const smDown = useMediaQuery((theme) => theme.breakpoints.down("sm"));
   const mdUp = useMediaQuery((theme) => theme.breakpoints.up("md"));
   let recommendedVideos = useSelector(selectVideosAfterId(video_id));
-  const { image_url, title } = getVideoPreviewInfo(video_id, recommendedVideos);
+  const { image_url, title, author: preview_author } = getVideoPreviewInfo(
+    video_id,
+    recommendedVideos
+  );
   const [autoPlay, setAutoPlay] = useState(true);
   const videoRef = useRef(null);
   const history = useHistory();
@@ -187,6 +190,17 @@ function VideoDetailsPage() {
                 <>
                   <LinearProgress />
                   <img src={image_url} alt={title} width="100%" />
+                  <Container>
+                    <VideoTitle
+                      title={title}
+                      media_user={{
+                        screen_name: preview_author
+                          ? preview_author.name
+                          : "作者",
+                        ...preview_author,
+                      }}
+                    />
+                  </Container>
                 </>
               ) : (
                 <>
@@ -292,7 +306,7 @@ function RecommendedVideos({ recommendedVideos }) {
 
 function VideoTitle({
   title,
-  content,
+  content = "loading",
   video_play_count,
   publish_time,
   is_original,
@@ -333,7 +347,7 @@ function VideoTitle({
         </Box>
       </AccordionSummary>
       <AccordionDetails classes={{ root: classes.accordionDetails }}>
-        <Box>
+        <Box width="100%">
           <Typography>{getVideoDetails(content)}</Typography>
           <Box mt={1.5} />
           {xsDown && <Author {...media_user} />}

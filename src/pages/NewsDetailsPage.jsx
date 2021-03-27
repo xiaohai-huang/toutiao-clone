@@ -114,6 +114,7 @@ function NewsDetailsPage({ news, news_id }) {
   const dispatch = useDispatch();
   const history = useHistory();
   const user = useSelector((state) => state.app.user);
+  const xs = useMediaQuery((theme) => theme.breakpoints.down("xs"));
 
   const handleDelete = async () => {
     await newsApi
@@ -179,7 +180,7 @@ function NewsDetailsPage({ news, news_id }) {
             {/* <Button onClick={handleCommentsUpdate}>More Comments</Button> */}
             {/* Headlines */}
             <Box mt={4} />
-            <MobileHotCard />
+            {xs && <MobileHotCard />}
             <Box mb={8} />
           </Box>
         </Grid>
