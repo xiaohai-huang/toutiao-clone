@@ -1,7 +1,7 @@
 import { CssBaseline } from "@material-ui/core";
 import { Redirect, Route, Switch } from "react-router-dom";
 import { createMuiTheme, ThemeProvider } from "@material-ui/core/styles";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 import Header from "./features/header/Header";
 import MainPage from "./pages/MainPage";
@@ -11,6 +11,8 @@ import NewsEditPage from "./pages/NewsEditPage";
 import HotCard from "./features/company/HotCard";
 import DetailsPage from "./pages/DetailsPage";
 import VideoDetailsPage from "./pages/VideoDetailsPage";
+import { useEffect } from "react";
+import { fetchVideos } from "./features/feed/feedSlice";
 
 function App() {
   const displayMode = useSelector((state) => state.app.displayMode);
@@ -62,9 +64,12 @@ function App() {
     },
   });
   const device = useSelector((state) => state.app.device);
-
+  const dispatch = useDispatch();
   // (sm & xs)
   theme = device === "PC" ? PCTheme : mobileTheme;
+  useEffect(() => {
+    dispatch(fetchVideos());
+  }, [dispatch]);
   return (
     <ThemeProvider theme={theme}>
       <div className="App">
