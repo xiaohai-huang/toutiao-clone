@@ -40,10 +40,11 @@ function MobileHotCard() {
           {...headline}
         />
       ))}
-      <Box m={3} />
+      <Box m={5} />
       <Button
         variant="contained"
         color="secondary"
+        size="large"
         fullWidth
         onClick={() => history.push("/")}
       >

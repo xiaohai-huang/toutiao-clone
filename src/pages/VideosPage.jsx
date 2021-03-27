@@ -66,7 +66,7 @@ function VideosPage() {
           {status === "loading" && (
             <Box display="flex" alignItems="center" flexDirection="column">
               <Typography>
-                如遇到视频加载失败，请使用Chrome或者FireFox浏览(Andriod)
+                如遇到视频加载失败，请使用Chrome或者Firefox浏览(Andriod)
               </Typography>
               <Box p={2} />
               <CircularProgress color="secondary" />

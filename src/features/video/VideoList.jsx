@@ -7,8 +7,6 @@ const useStyles = makeStyles((theme) => ({
   root: {
     [theme.breakpoints.down("xs")]: {
       marginTop: "0.4rem",
-      paddingLeft: "0.3rem",
-      paddingRight: "0.3rem",
     },
   },
   [theme.breakpoints.down("xs")]: {

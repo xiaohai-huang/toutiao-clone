@@ -47,8 +47,8 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: theme.palette.background.default,
   },
   videoTitle: {
-    fontSize: "1.05rem",
-    lineHeight: "1.4rem",
+    fontSize: "1.28rem",
+    lineHeight: "1.65rem",
     color: "rgba(0, 0, 0, 0.87)",
   },
   verticalLine: {
@@ -58,9 +58,12 @@ const useStyles = makeStyles((theme) => ({
   },
   stats: {
     color: "#757575",
-    "& > *": {
-      fontSize: "0.7rem",
-      marginRight: "0.25rem",
+
+    [theme.breakpoints.down("xs")]: {
+      "& > *": {
+        fontSize: "0.77rem",
+        marginRight: "0.25rem",
+      },
     },
   },
   avatar: {
@@ -91,6 +94,10 @@ const useStyles = makeStyles((theme) => ({
       fontSize: "0.81rem",
     },
   },
+  videoDescription: {
+    fontSize: "0.88rem",
+    color: "#666",
+  },
 
   socialButtons: {
     "& > button": {
@@ -99,14 +106,13 @@ const useStyles = makeStyles((theme) => ({
       whiteSpace: "nowrap",
     },
   },
-  [theme.breakpoints.up("xs")]: {
+  [theme.breakpoints.up("sm")]: {
     video: {
       borderRadius: "0.03rem",
     },
     avatar: {
       width: "54px",
       height: "54px",
-      margin: "4px 0 0 4px",
       boxShadow: "0 0 0 2.3px #fff",
       "&:hover": {
         cursor: "pointer",
@@ -120,8 +126,15 @@ const useStyles = makeStyles((theme) => ({
       "& > *": {
         fontSize: "0.95rem",
         fontWeight: "400",
+        marginRight: "0.25rem",
       },
     },
+  },
+
+  playNextTitle: {
+    fontWeight: 700,
+    fontSize: "1.1rem",
+    color: "#222",
   },
 }));
 // if params is not undefined, fetch news details myself
@@ -186,11 +199,12 @@ function VideoDetailsPage() {
           <Box mt={!xs ? 3 : ""} />
           <Grid container spacing={xs ? 0 : 3}>
             <Grid item md={8} sm={12} xs={12}>
+              {/* Video */}
               {Object.keys(videoInfo).length === 0 ? (
                 <>
                   <LinearProgress />
                   <img src={image_url} alt={title} width="100%" />
-                  <Container>
+                  <Container disableGutters={!xs}>
                     <VideoTitle
                       title={title}
                       media_user={{
@@ -221,23 +235,29 @@ function VideoDetailsPage() {
                     <source src={videoUrl} />
                     <source src="http://techslides.com/demos/sample-videos/small.mp4" />
                   </video>
-                  <Container>
+                  <Container disableGutters={!xs}>
                     <VideoTitle {...videoInfo} />
                   </Container>
                 </>
               )}
-              <Container>
+
+              <Container disableGutters={!xs}>
                 <Box mt={2.5} />
                 {!xs && <Author {...media_user} />}
+                {/* Social Buttons */}
                 <Buttons digg_count={digg_count} mt={2.5} mb={3} />
+
+                {/* Mobile Recommend Videos */}
 
                 {smDown && (
                   <>
+                    <Divider />
+                    <Box mt={2.5} />
                     <AutoPlay
                       autoPlay={autoPlay}
                       handleChange={() => setAutoPlay((prev) => !prev)}
                     />
-                    <Box mb={3} />
+                    <Box mb={1.5} />
                     <RecommendedVideos recommendedVideos={recommendedVideos} />
                   </>
                 )}
@@ -246,6 +266,7 @@ function VideoDetailsPage() {
                 <Box mb={8} />
               </Container>
             </Grid>
+            {/* PC only recommend videos */}
             {mdUp && (
               <Grid item md={4}>
                 <AutoPlay
@@ -262,9 +283,10 @@ function VideoDetailsPage() {
   );
 }
 function AutoPlay({ autoPlay, handleChange }) {
+  const classes = useStyles();
   return (
     <Box display="flex" justifyContent="space-between" alignItems="center">
-      <Typography>接下来播放</Typography>
+      <Typography className={classes.playNextTitle}>接下来播放</Typography>
       <SwitchButton autoPlay={autoPlay} handleChange={handleChange} />
     </Box>
   );
@@ -328,7 +350,7 @@ function VideoTitle({
             className={classes.stats}
             display="flex"
             alignItems="center"
-            mt={0.3}
+            mt={0.8}
           >
             {is_original && (
               <>
@@ -348,7 +370,9 @@ function VideoTitle({
       </AccordionSummary>
       <AccordionDetails classes={{ root: classes.accordionDetails }}>
         <Box width="100%">
-          <Typography>{getVideoDetails(content)}</Typography>
+          <Typography className={classes.videoDescription}>
+            {getVideoDetails(content)}
+          </Typography>
           <Box mt={1.5} />
           {xsDown && <Author {...media_user} />}
         </Box>
