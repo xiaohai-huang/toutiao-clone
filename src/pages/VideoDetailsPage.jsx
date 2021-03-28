@@ -61,6 +61,7 @@ const useStyles = makeStyles((theme) => ({
     fontWeight: 400,
     [theme.breakpoints.down("xs")]: {
       "& > *": {
+        fontWeight: 300,
         fontSize: "0.77rem",
         marginRight: "0.25rem",
       },
@@ -153,10 +154,18 @@ function VideoDetailsPage() {
   const smDown = useMediaQuery((theme) => theme.breakpoints.down("sm"));
   const mdUp = useMediaQuery((theme) => theme.breakpoints.up("md"));
   let recommendedVideos = useSelector(selectVideosAfterId(video_id));
-  const { image_url, title, author: preview_author } = getVideoPreviewInfo(
+  let { image_url, title, author: preview_author } = getVideoPreviewInfo(
     video_id,
     recommendedVideos
   );
+  // use preview info to populate video author first
+  if (!media_user) {
+    preview_author = {
+      screen_name: preview_author ? preview_author.name : "作者",
+      ...preview_author,
+    };
+    media_user = preview_author;
+  }
   const [autoPlay, setAutoPlay] = useState(true);
   const videoRef = useRef(null);
   const history = useHistory();
@@ -205,15 +214,7 @@ function VideoDetailsPage() {
                   <LinearProgress />
                   <img src={image_url} alt={title} width="100%" />
                   <Container disableGutters={!xs}>
-                    <VideoTitle
-                      title={title}
-                      media_user={{
-                        screen_name: preview_author
-                          ? preview_author.name
-                          : "作者",
-                        ...preview_author,
-                      }}
-                    />
+                    <VideoTitle title={title} media_user={media_user} />
                   </Container>
                 </>
               ) : (
