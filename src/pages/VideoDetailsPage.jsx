@@ -58,7 +58,7 @@ const useStyles = makeStyles((theme) => ({
   },
   stats: {
     color: "#757575",
-
+    fontWeight: 400,
     [theme.breakpoints.down("xs")]: {
       "& > *": {
         fontSize: "0.77rem",

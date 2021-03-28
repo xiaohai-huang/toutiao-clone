@@ -2,7 +2,7 @@ import { formatDistance, format } from "date-fns";
 import zhlocale from "date-fns/locale/zh-CN";
 
 // publish time precision is 1000 ms level = 1s
-export function timeAgo(publishTime) {
+export function timeAgo(publishTime = 1616881157) {
   let temp = publishTime * 10 ** 3;
   let timeAgo = formatDistance(new Date(temp), new Date(), {
     addSuffix: true,

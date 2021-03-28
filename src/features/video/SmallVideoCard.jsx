@@ -33,7 +33,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 function SmallVideoCard({
   title,
-  author,
+  author = {},
   duration,
   preview_url,
   image_url,
@@ -69,7 +69,11 @@ function SmallVideoCard({
 }
 
 function getPlayCount(stats) {
-  return (stats = stats.split(" ")[0]);
+  if (stats) {
+    return (stats = stats.split(" ")[0]);
+  } else {
+    return "";
+  }
 }
 
 export default SmallVideoCard;
