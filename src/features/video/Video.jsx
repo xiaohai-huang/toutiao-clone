@@ -70,6 +70,7 @@ function Video({
           src={src}
           poster={poster}
           muted={muted}
+          playsInline
           onTouchStart={playPreview}
           onMouseOver={playPreview}
           onMouseOut={resumePreview}
