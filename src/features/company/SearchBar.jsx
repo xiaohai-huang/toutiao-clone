@@ -19,12 +19,7 @@ function SearchBar() {
 
   return (
     <div className={classes.SearchBar}>
-      <Box
-        component="form"
-        display="flex"
-        flexDirection="row"
-        alignItems="center"
-      >
+      <Box component="form" display="flex" flexDirection="row">
         <InputBase
           className={classes.input}
           placeholder="搜索站内资讯、视频或用户"
