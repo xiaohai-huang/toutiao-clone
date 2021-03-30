@@ -151,7 +151,9 @@ newsApi.getNewsById = async (item_id) => {
       });
   }
   // if the news contains video
-  if (data.video_id) {
+  const MOVIE_GROUP = 24;
+  // console.log("data.group_source" + data.group_source);
+  if (data.video_id || data.group_source === MOVIE_GROUP) {
     data.videoUrl = await newsApi.getVideoUrl(item_id);
   }
 

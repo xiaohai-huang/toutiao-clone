@@ -60,12 +60,14 @@ cover image: "https://p6-xg.byteimg.com/" + `image_uri`
 
 ### Video
 
-### 
+group_source:24 // for movie
+group_source:2 // for short videos and news article
+
+###
 
 ```js
 // at news details
 {
-  
 }
 ```
 

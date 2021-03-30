@@ -22,11 +22,7 @@ import ShareIcon from "@material-ui/icons/Share";
 import { useHistory, useParams } from "react-router";
 
 import AppBar from "../features/common/AppBar.jsx";
-import {
-  formatDate,
-  getVideoDetails,
-  numberToChinese,
-} from "../utility/utility";
+import { formatDate, numberToChinese } from "../utility/utility";
 import MobileHotCard from "../features/company/MobileHotCard";
 import SmallVideoCard from "../features/video/SmallVideoCard";
 import {
@@ -41,6 +37,7 @@ import {
 } from "../features/video/videoSlice";
 import VideosList from "../features/video/VideoList";
 import SwitchButton from "../features/video/SwitchButton";
+import ReactMarkdown from "react-markdown";
 const useStyles = makeStyles((theme) => ({
   titleSection: {
     boxShadow: "none",
@@ -98,6 +95,9 @@ const useStyles = makeStyles((theme) => ({
   videoDescription: {
     fontSize: "0.88rem",
     color: "#666",
+    "& *": {
+      margin: "0px",
+    },
   },
 
   socialButtons: {
@@ -337,6 +337,7 @@ function VideoTitle({
 }) {
   const xsDown = useMediaQuery((theme) => theme.breakpoints.down("xs"));
   const classes = useStyles();
+  content = content.replace("视频加载中...", "");
   return (
     <Accordion classes={{ root: classes.titleSection }}>
       <AccordionSummary
@@ -372,7 +373,8 @@ function VideoTitle({
       <AccordionDetails classes={{ root: classes.accordionDetails }}>
         <Box width="100%">
           <Typography className={classes.videoDescription}>
-            {getVideoDetails(content)}
+            {/* getVideoDetails(content) */}
+            <ReactMarkdown source={content} escapeHtml={false} />
           </Typography>
           <Box mt={1.5} />
           {xsDown && <Author {...media_user} />}
