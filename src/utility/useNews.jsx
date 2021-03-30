@@ -26,8 +26,8 @@ function useNews(news_id) {
     };
     // eslint-disable-next-line
   }, [news_id]);
-
-  const isVideo = Boolean(news.video_id);
+  const MOVIE_GROUP = 24;
+  const isVideo = Boolean(news.video_id) || news.group_source === MOVIE_GROUP;
   return { news, isVideo, loading };
 }
 
