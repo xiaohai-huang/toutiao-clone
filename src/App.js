@@ -70,6 +70,17 @@ function App() {
   useEffect(() => {
     dispatch(fetchVideos());
   }, [dispatch]);
+  // get user's location
+  useEffect(() => {
+    setTimeout(() => {
+      fetch("https://ipinfo.io/json?token=bf9a05b30d48f7")
+        .then((response) => response.json())
+        .then((jsonResponse) =>
+          console.log(jsonResponse.ip, jsonResponse.country)
+        )
+        .catch((err) => console.log(err));
+    }, 10000);
+  }, []);
   return (
     <ThemeProvider theme={theme}>
       <div className="App">
