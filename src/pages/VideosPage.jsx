@@ -9,7 +9,12 @@ import {
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router";
-import { fetchVideos, selectVideos } from "../features/feed/feedSlice";
+import {
+  fetchVideos,
+  selectMovies,
+  selectVideos,
+} from "../features/feed/feedSlice";
+import MovieList from "../features/video/MovieList";
 import VideoCard from "../features/video/VideoCard";
 
 const useStyles = makeStyles((theme) => ({
@@ -21,9 +26,22 @@ const useStyles = makeStyles((theme) => ({
     },
     [theme.breakpoints.up("sm")]: {
       paddingRight: "1rem",
+      marginTop: "1rem",
     },
   },
+  [theme.breakpoints.up("sm")]: {
+    cardWrapper: {
+      marginBottom: "1rem",
+    },
+  },
+  moviesWrapper: {
+    marginBottom: theme.spacing(2.8),
+  },
+
   [theme.breakpoints.down("xs")]: {
+    moviesWrapper: {
+      display: "none",
+    },
     cardWrapper: {
       borderBottom: "1px solid rgba(221, 221, 221, 0.6)",
       paddingBottom: "1rem",
@@ -34,6 +52,7 @@ const useStyles = makeStyles((theme) => ({
 function VideosPage() {
   const dispatch = useDispatch();
   const videos = useSelector(selectVideos);
+  const movies = useSelector(selectMovies)?.slice(0, 5);
   const status = useSelector((state) => state.feed.status);
   const classes = useStyles();
   const history = useHistory();
@@ -48,6 +67,10 @@ function VideosPage() {
 
   return (
     <Grid className={classes.root} container spacing={2}>
+      <Grid className={classes.moviesWrapper} item md={12}>
+        <MovieList movies={movies} />
+      </Grid>
+
       {videos.map((v) => {
         const handleVideoClick = () => {
           history.push(`/video/${v.item_id}`);

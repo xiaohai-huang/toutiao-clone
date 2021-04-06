@@ -25,13 +25,14 @@ export const fetchVideos = createAsyncThunk(
       return { news: [], category: "xigua" };
     }
     const videos = await newsApi.getVideos();
-    return { news: videos, category: "xigua" };
+    return videos;
   }
 );
 let initialNews = {
   __all__: [],
   news_hot: [],
   xigua: [],
+  movies: [],
   xiaohai: [],
   news_entertainment: [],
   news_tech: [],
@@ -62,10 +63,10 @@ const feedSlice = createSlice({
     },
   },
   extraReducers: {
-    [fetchNews.fulfilled]: addFullfilledReducer,
+    [fetchNews.fulfilled]: addFulfilledReducer,
     [fetchNews.pending]: pendingReducer,
     [fetchNews.rejected]: rejectedReducer,
-    [fetchVideos.fulfilled]: addFullfilledReducer,
+    [fetchVideos.fulfilled]: addVideosFulfilledReducer,
     [fetchVideos.pending]: pendingReducer,
     [fetchVideos.rejected]: rejectedReducer,
   },
@@ -79,7 +80,7 @@ function rejectedReducer(state, action) {
   state.status = "failed";
 }
 
-function addFullfilledReducer(state, action) {
+function addFulfilledReducer(state, action) {
   const currentCategory = action.payload.category;
   let newNews = action.payload.news;
   let oldNews = state.news[currentCategory];
@@ -106,7 +107,39 @@ function addFullfilledReducer(state, action) {
   state.status = "successed";
 }
 
+function addVideosFulfilledReducer(state, action) {
+  const { shortVideos, movies } = action.payload;
+  if (movies) {
+    state.news.movies.push(...movies);
+  }
+  state.news.movies.sort((a, b) => b?.behot_time - a?.behot_time);
+  if (shortVideos) {
+    state.news.xigua.push(...shortVideos);
+  }
+
+  // remove duplicate objs
+  state.news.xigua = state.news.xigua.filter(
+    (v, i, a) => a.findIndex((t) => t.item_id === v.item_id) === i
+  );
+  state.news.movies = state.news.movies.filter(
+    (v, i, a) => a.findIndex((t) => t.title === v.title) === i
+  );
+  state.news.movies = state.news.movies.map((m) => {
+    m.item_id = m.anchorProps.href.split("/")[1];
+    const imageUri = m.coverURIConfig.uri.split("/")[1];
+    const richPreviewImageUri = m.richPreviewProps.coverURIConfig.uri.split(
+      "/"
+    )[1];
+    m.image_url = `https://p9.bdxiguaimg.com/img/xigua-lvideo-pic/${imageUri}~tplv-xg-center-qs:574:802:q75.webp`;
+    m.richPreviewProps.image_url = `https://p3.bdxiguaimg.com/img/xigua-lvideo-pic/${richPreviewImageUri}~tplv-noop.webp`;
+    return m;
+  });
+
+  state.status = "successed";
+}
+
 export const selectVideos = (state) => state.feed.news.xigua;
+export const selectMovies = (state) => state.feed.news.movies;
 export const selectVideosAfterId = (id, maxCount = 13) => {
   return (state) => {
     const item_index = state.feed.news.xigua.findIndex(

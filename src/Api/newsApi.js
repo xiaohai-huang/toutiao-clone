@@ -67,7 +67,7 @@ newsApi.getVideos = async (channel, count, time) => {
 
   console.log(currentLocation + " = " + TENCENT_SERVER);
   // need refine
-  const local = "/MockData/shortVideos.json";
+  const local = "/MockData/videos.json";
   const test = "http://localhost:4500/tt/videos";
   const production = `${TENCENT_SERVER}/videos`;
 
@@ -75,6 +75,7 @@ newsApi.getVideos = async (channel, count, time) => {
   const remoteData = await fetch(url)
     .then((res) => res.json())
     .catch(() => console.log("Cannot fetch live videos"));
+
   if (remoteData) {
     return remoteData;
   } else {

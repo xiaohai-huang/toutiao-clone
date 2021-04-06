@@ -7,6 +7,7 @@ import { useHistory } from "react-router-dom";
 
 import WeatherPopover from "./WeatherPopover";
 import useMouseOverPopover from "../../utility/useMouseOverPopover";
+import { debounce } from "../../utility/utility";
 import PropductsPopover from "./PropductsPopover";
 import MobileHeader from "./MobileHeader";
 import { deviceUpdated } from "../../app/appSlice";
@@ -161,9 +162,10 @@ function Header() {
 
   const xs = useMediaQuery((theme) => theme.breakpoints.down("xs"));
   const mobile = useMediaQuery((theme) => theme.breakpoints.down("sm"));
-  setTimeout(() => {
+  const debouncedUpdate = debounce(() => {
     dispatch(deviceUpdated(mobile ? "mobile" : "PC"));
-  }, 500);
+  }, 400);
+  debouncedUpdate();
   return xs ? (
     <MobileHeader />
   ) : (
