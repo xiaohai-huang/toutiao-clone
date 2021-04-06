@@ -13,6 +13,7 @@ import React, { useState } from "react";
 import { debounce } from "../../utility/utility";
 import DurationBadge from "../feed/DurationBadge";
 import ScoreBadge from "./ScoreBadge";
+import Video from "./Video";
 
 const useStyles = makeStyles((theme) => ({
   movieCard: {
@@ -150,7 +151,7 @@ function MoviePreview({
     year,
     tagList[0],
   ].join("/");
-  const actorString = actorList.join("、");
+  const actorString = actorList?.join("、");
   return (
     <Box
       height="100%"
@@ -158,7 +159,7 @@ function MoviePreview({
       flexDirection="column"
       justifyContent="space-between"
     >
-      <img src={image_url} alt={title} width="100%" height="auto" />
+      <Video src={videoURL} poster={image_url} alt={title} muted loop />
       <Box
         className={classes.previewInfo}
         display="flex"

@@ -35,6 +35,8 @@ function Video({
   alt,
   poster,
   muted,
+  loop,
+
   classes: external = {},
   children,
   ...rest
@@ -71,6 +73,7 @@ function Video({
           poster={poster}
           muted={muted}
           playsInline
+          loop={loop}
           onTouchStart={playPreview}
           onMouseOver={playPreview}
           onMouseOut={resumePreview}
