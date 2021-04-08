@@ -130,6 +130,7 @@ function MovieCard({
 const albumTypeToString = {
   1: "电影",
   2: "电视剧",
+  4: "综艺",
   13: "儿童",
 };
 
