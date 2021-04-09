@@ -1,11 +1,12 @@
 import { Badge, Box, IconButton, makeStyles } from "@material-ui/core";
-import React from "react";
+import React, { useState } from "react";
 import MailOutlineIcon from "@material-ui/icons/MailOutline";
 import RefreshIcon from "@material-ui/icons/Refresh";
 import SearchIcon from "@material-ui/icons/Search";
 import { useHistory, useLocation } from "react-router-dom";
 import { useSelector } from "react-redux";
 import Channel from "../channel/Channel";
+import MobileSearch from "./MobileSearch";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -33,17 +34,26 @@ const useStyles = makeStyles((theme) => ({
   hide: {
     display: "none !important",
   },
+  search: {
+    position: "absolute",
+    zIndex: theme.zIndex.drawer,
+    backgroundColor: "#d43d3d",
+    color: "white",
+    top: "2px",
+    width: "100%",
+  },
 }));
 function MobileHeader() {
   const classes = useStyles();
   const history = useHistory();
   const location = useLocation();
-  // const currentPosition = useSelector((state) => state.app.currentPosition);
   const pathname = location.pathname;
   const category = useSelector((state) => state.feed.category);
+  const [showSearch, setShowSearch] = useState(false);
   return (
     // <Box className={currentPosition === "video" ? classes.hide : classes.root}>
     <Box className={classes.root}>
+      {/* app bar */}
       <Box
         className={classes.nav}
         display="flex"
@@ -86,10 +96,20 @@ function MobileHeader() {
             <RefreshIcon />
           </IconButton>
         </Box>
-        <IconButton size="small" color="inherit">
+        <IconButton
+          size="small"
+          color="inherit"
+          onClick={() => setShowSearch(true)}
+        >
           <SearchIcon />
         </IconButton>
       </Box>
+      {showSearch && (
+        <MobileSearch
+          className={classes.search}
+          setShowSearch={setShowSearch}
+        />
+      )}
       <Channel className={!isHomePage(pathname) && classes.hide} />
     </Box>
   );

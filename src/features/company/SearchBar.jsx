@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Box, Button, InputBase, makeStyles } from "@material-ui/core";
 import { useHistory } from "react-router";
-import { categoryDeleted, fetchSearchResults } from "../feed/feedSlice";
+import { categoryDeleted } from "../feed/feedSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { searchQueryUpdated, selectSearchQuery } from "../search/searchSlice";
 
@@ -30,7 +30,6 @@ function SearchBar() {
     if (oldQuery !== query) {
       dispatch(categoryDeleted("search_results"));
       dispatch(searchQueryUpdated(query));
-      dispatch(fetchSearchResults(query));
       return;
     }
 
