@@ -11,7 +11,12 @@ import {
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 
-import { newsDeleted, fetchNews, fetchSearchResults } from "./feedSlice";
+import {
+  newsDeleted,
+  fetchNews,
+  fetchSearchResults,
+  categoryDeleted,
+} from "./feedSlice";
 
 import useAlert from "../../utility/useAlert";
 import CardWrapper from "./CardWrapper";
@@ -37,7 +42,6 @@ const useStyles = makeStyles((theme) => ({
 function Feed() {
   const classes = useStyles();
   const xs = useMediaQuery((theme) => theme.breakpoints.down("xs"));
-  // const [news, setNews] = React.useState([]);
   const category = useSelector((state) => state.feed.category);
   const news = useSelector((state) => state.feed.news[category]);
   const status = useSelector((state) => state.feed.status);
@@ -77,16 +81,24 @@ function Feed() {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dispatch, category]);
-  // re-fetch when no new content fetched
+
   React.useEffect(() => {
-    if (status === "failded" && failCount <= 2) {
-      dispatch(fetchNews(category));
+    if (category === "search_results") {
+      dispatch(categoryDeleted("search_results"));
+      dispatch(fetchSearchResults(oldQuery));
     }
-    if (status === "successed") {
-      setFailCount(0);
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [dispatch, status]);
+  }, [dispatch, category, oldQuery]);
+
+  // re-fetch when no new content is fetched
+  // React.useEffect(() => {
+  //   if (status === "failded" && failCount <= 2) {
+  //     dispatch(fetchNews(category));
+  //   }
+  //   if (status === "successed") {
+  //     setFailCount(0);
+  //   }
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, [dispatch, status]);
 
   const handleClick = () => {
     dispatch(fetchNews(category));

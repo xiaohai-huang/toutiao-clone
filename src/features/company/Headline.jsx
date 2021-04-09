@@ -45,6 +45,7 @@ function Headline({
   hotColor,
   hotFontSize,
   spacing = 0.5,
+  onClick,
 }) {
   const classes = useStyles();
   const chineseHotValue = numberToChinese(hot_value);
@@ -54,6 +55,7 @@ function Headline({
       alignItems="center"
       justifyContent="space-between"
       className={classes.headlineRoot}
+      onClick={onClick}
     >
       {/* Left */}
       <Tooltip

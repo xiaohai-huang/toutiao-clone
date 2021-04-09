@@ -1,5 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import newsApi from "../../Api/newsApi";
+import { selectSearchQuery } from "../search/searchSlice";
 
 export const fetchNews = createAsyncThunk(
   "feed/fetchNews",
@@ -35,9 +36,9 @@ export const fetchVideos = createAsyncThunk(
 
 export const fetchSearchResults = createAsyncThunk(
   "feed/fetchSearchResults",
-  async (searchQuery = "深圳", { getState }) => {
-    if (searchQuery === "") {
-      searchQuery = "深圳";
+  async (searchQuery, { getState }) => {
+    if (!searchQuery) {
+      searchQuery = selectSearchQuery(getState());
     }
     const currentLength = selectSearchResults(getState()).length;
     const results = await newsApi.getSearchResults(searchQuery, currentLength);

@@ -3,7 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 const searchSlice = createSlice({
   name: "search",
   initialState: {
-    searchQuery: "",
+    searchQuery: "泉州旅游",
   },
   reducers: {
     searchQueryUpdated: (state, action) => {

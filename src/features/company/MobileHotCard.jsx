@@ -6,8 +6,10 @@ import {
   useMediaQuery,
 } from "@material-ui/core";
 import React from "react";
+import { useDispatch } from "react-redux";
 import { useHistory } from "react-router";
 import useHeadlines from "../../utility/useHeadlines";
+import { searchQueryUpdated } from "../search/searchSlice";
 import Headline from "./Headline";
 
 const useStyles = makeStyles((theme) => ({
@@ -21,6 +23,11 @@ function MobileHotCard() {
   const classes = useStyles();
   const headlines = useHeadlines();
   const history = useHistory();
+  const dispatch = useDispatch();
+  const handleClick = (title) => () => {
+    dispatch(searchQueryUpdated(title));
+    history.push("/search_results");
+  };
   const xs = useMediaQuery((theme) => theme.breakpoints.down("xs"));
   if (!xs) {
     return <></>;
@@ -30,16 +37,19 @@ function MobileHotCard() {
       <Typography className={classes.title} variant="h6">
         实时热榜
       </Typography>
-      {headlines.map((headline, i) => (
-        <Headline
-          key={headline.title}
-          number={i + 1}
-          spacing={1}
-          hotColor="#999"
-          hotFontSize="0.8rem"
-          {...headline}
-        />
-      ))}
+      {headlines.map((headline, i) => {
+        return (
+          <Headline
+            key={headline.title}
+            number={i + 1}
+            spacing={1}
+            hotColor="#999"
+            hotFontSize="0.8rem"
+            onClick={handleClick(headline.title)}
+            {...headline}
+          />
+        );
+      })}
       <Box m={5} />
       <Button
         variant="contained"
