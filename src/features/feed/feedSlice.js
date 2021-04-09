@@ -98,9 +98,21 @@ const feedSlice = createSlice({
     [fetchVideos.pending]: pendingReducer,
     [fetchVideos.rejected]: rejectedReducer,
     [fetchSearchResults.fulfilled]: (state, action) => {
-      let newResults = action.payload;
+      let newNews = action.payload;
+      let oldNews = state.news.search_results;
 
-      state.news.search_results.push(...newResults);
+      if (oldNews && oldNews.length !== 0) {
+        newNews = newNews.filter((nn) => {
+          for (let i = 0; i < oldNews.length; i++) {
+            if (oldNews[i].item_id === nn.item_id) {
+              return false;
+            }
+          }
+          return true;
+        });
+      }
+
+      state.news.search_results.push(...newNews);
       state.status = "successed";
     },
     [fetchSearchResults.pending]: pendingReducer,
