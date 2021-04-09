@@ -150,8 +150,10 @@ function MoviePreview({
     albumTypeToString[albumTypeValueList[0]],
     ...areaList,
     year,
-    tagList[0],
-  ].join("/");
+    tagList ? tagList[0] : null,
+  ]
+    .filter(Boolean)
+    .join("/");
   const actorString = actorList?.join("、");
   return (
     <Box
