@@ -185,6 +185,16 @@ newsApi.getHotboard = async () => {
   }
 };
 
+newsApi.getSearchResults = async (query, offset = 0) => {
+  const production = `${BASE_URL}/news/search?search_query=${query}&offset=${offset}`;
+  const test = `http://localhost:4500/tt/news/search?search_query=${query}&offset=${offset}`;
+  const url = process.env.NODE_ENV === "development" ? test : production;
+
+  let data = await fetch(url).then((res) => res.json());
+
+  return data;
+};
+
 newsApi.getCommentsById = async (news_id, offset) => {
   // const test = "/MockData/comments.json";
   const test = `http://localhost:4500/tt/comments/${news_id}?offset=${offset}`;

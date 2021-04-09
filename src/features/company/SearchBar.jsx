@@ -1,6 +1,9 @@
 import React, { useState } from "react";
 import { Box, Button, InputBase, makeStyles } from "@material-ui/core";
 import { useHistory } from "react-router";
+import { categoryDeleted, fetchSearchResults } from "../feed/feedSlice";
+import { useDispatch, useSelector } from "react-redux";
+import { searchQueryUpdated, selectSearchQuery } from "../search/searchSlice";
 
 const useStyles = makeStyles((theme) => ({
   SearchBar: {},
@@ -18,8 +21,21 @@ const useStyles = makeStyles((theme) => ({
 function SearchBar() {
   const classes = useStyles();
   const [query, setQuery] = useState("");
+  const oldQuery = useSelector(selectSearchQuery);
   const history = useHistory();
-  const handleSubmit = () => history.push(`/news/${query}`);
+  const dispatch = useDispatch();
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    if (oldQuery !== query) {
+      dispatch(categoryDeleted("search_results"));
+      dispatch(searchQueryUpdated(query));
+      dispatch(fetchSearchResults(query));
+      return;
+    }
+
+    history.push("/search_results");
+  };
 
   return (
     <div className={classes.SearchBar}>

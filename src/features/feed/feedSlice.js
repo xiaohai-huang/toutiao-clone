@@ -4,6 +4,10 @@ import newsApi from "../../Api/newsApi";
 export const fetchNews = createAsyncThunk(
   "feed/fetchNews",
   async (category, { getState }) => {
+    // skip search results
+    if (category === "search_results") {
+      return { news: [], category: "" };
+    }
     const oldNews = getState().feed.news[`${category}`];
     const latestNews = oldNews[oldNews.length - 1];
     const latestTime = latestNews?.behot_time;
@@ -28,12 +32,28 @@ export const fetchVideos = createAsyncThunk(
     return videos;
   }
 );
+
+export const fetchSearchResults = createAsyncThunk(
+  "feed/fetchSearchResults",
+  async (searchQuery = "深圳", { getState }) => {
+    if (searchQuery === "") {
+      searchQuery = "深圳";
+    }
+    const currentLength = selectSearchResults(getState()).length;
+    const results = await newsApi.getSearchResults(searchQuery, currentLength);
+    if (!results) {
+      return [];
+    }
+    return results;
+  }
+);
 let initialNews = {
   __all__: [],
   news_hot: [],
   xigua: [],
   movies: [],
   xiaohai: [],
+  search_results: [],
   news_entertainment: [],
   news_tech: [],
   news_military: [],
@@ -61,6 +81,14 @@ const feedSlice = createSlice({
       const category = action.payload;
       state.news[category] = [];
     },
+    newsDeleted: (state, action) => {
+      // only keep the first few news
+      const { category, count } = action.payload;
+      const currentCount = state.news[category].length;
+      if (count < currentCount) {
+        state.news[category] = state.news[category].slice(0, count);
+      }
+    },
   },
   extraReducers: {
     [fetchNews.fulfilled]: addFulfilledReducer,
@@ -69,6 +97,14 @@ const feedSlice = createSlice({
     [fetchVideos.fulfilled]: addVideosFulfilledReducer,
     [fetchVideos.pending]: pendingReducer,
     [fetchVideos.rejected]: rejectedReducer,
+    [fetchSearchResults.fulfilled]: (state, action) => {
+      let newResults = action.payload;
+
+      state.news.search_results.push(...newResults);
+      state.status = "successed";
+    },
+    [fetchSearchResults.pending]: pendingReducer,
+    [fetchSearchResults.rejected]: rejectedReducer,
   },
 });
 
@@ -103,7 +139,7 @@ function addFulfilledReducer(state, action) {
   // sort the news in DESC order
 
   state.news[currentCategory].push(...newNews);
-  state.news[currentCategory].sort((a, b) => b?.behot_time - a?.behot_time);
+  // state.news[currentCategory].sort((a, b) => b?.behot_time - a?.behot_time);
   state.status = "successed";
 }
 
@@ -112,7 +148,7 @@ function addVideosFulfilledReducer(state, action) {
   if (movies) {
     state.news.movies.push(...movies);
   }
-  state.news.movies.sort((a, b) => b?.behot_time - a?.behot_time);
+  // state.news.movies.sort((a, b) => b?.behot_time - a?.behot_time);
   if (shortVideos) {
     state.news.xigua.push(...shortVideos);
   }
@@ -157,6 +193,14 @@ export const selectVideosAfterId = (id, maxCount = 13) => {
   };
 };
 
-export const { categoryUpdated, categoryDeleted } = feedSlice.actions;
+export function selectSearchResults(state) {
+  return state.feed.news.search_results;
+}
+
+export const {
+  categoryUpdated,
+  categoryDeleted,
+  newsDeleted,
+} = feedSlice.actions;
 
 export default feedSlice.reducer;

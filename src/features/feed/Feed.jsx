@@ -11,12 +11,14 @@ import {
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 
-import { fetchNews } from "./feedSlice";
+import { newsDeleted, fetchNews, fetchSearchResults } from "./feedSlice";
+
 import useAlert from "../../utility/useAlert";
 import CardWrapper from "./CardWrapper";
 import MediaCard from "./MediaCard";
 import SimpleContentCard from "./SimpleContentCard";
 import UGCCard from "./UGCCard";
+import { selectSearchQuery } from "../search/searchSlice";
 
 const useStyles = makeStyles((theme) => ({
   feedContainer: {
@@ -39,6 +41,7 @@ function Feed() {
   const category = useSelector((state) => state.feed.category);
   const news = useSelector((state) => state.feed.news[category]);
   const status = useSelector((state) => state.feed.status);
+  const oldQuery = useSelector(selectSearchQuery);
   const dispatch = useDispatch();
 
   const [open, setOpen] = React.useState(true);
@@ -48,15 +51,31 @@ function Feed() {
   // initial fetch
   React.useEffect(() => {
     dispatch(fetchNews(category));
+    // fetch search_results for search category
+    if (category === "search_results") {
+      if (news.length === 0) {
+        dispatch(fetchSearchResults());
+      }
+    }
     const timerId = setTimeout(() => {
       setOpen(false);
     }, 3000);
     return () => clearTimeout(timerId);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
   // fetch when category changes
   React.useEffect(() => {
     dispatch(fetchNews(category));
+    // fetch search_results for search category
+    if (category === "search_results") {
+      if (news.length === 0) {
+        dispatch(fetchSearchResults());
+      } else if (news.length > 40) {
+        dispatch(newsDeleted({ category: "search_results", count: 25 }));
+      }
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dispatch, category]);
   // re-fetch when no new content fetched
   React.useEffect(() => {
@@ -71,10 +90,13 @@ function Feed() {
 
   const handleClick = () => {
     dispatch(fetchNews(category));
+    // fetch more search results
+    if (category === "search_results") {
+      dispatch(fetchSearchResults(oldQuery));
+    }
     if (status === "failed") {
       setFailCount(failCount + 1);
     }
-    // dispatch(fetchNews(nextTime));
   };
 
   return (
@@ -88,6 +110,9 @@ function Feed() {
         {news.map((newsArticle) => {
           // console.log(newsArticle.more_mode);
           // console.log(newsArticle.title);
+          if (!newsArticle.item_id) {
+            return undefined;
+          }
 
           // don't display more mode news on xs screen
           if (newsArticle.article_genre === "ugc" && xs) {
@@ -101,18 +126,19 @@ function Feed() {
               </CardWrapper>
             );
           }
-          if (newsArticle.single_mode) {
+          if (newsArticle.single_mode && newsArticle.image_url) {
             return (
               <CardWrapper key={newsArticle.item_id}>
                 <MediaCard {...newsArticle} />
               </CardWrapper>
             );
+          } else {
+            return (
+              <CardWrapper key={newsArticle.item_id}>
+                <SimpleContentCard key={newsArticle.item_id} {...newsArticle} />
+              </CardWrapper>
+            );
           }
-          return (
-            <CardWrapper key={newsArticle.item_id}>
-              <SimpleContentCard key={newsArticle.item_id} {...newsArticle} />
-            </CardWrapper>
-          );
         })}
       </Grid>
 

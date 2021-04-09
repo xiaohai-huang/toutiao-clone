@@ -62,6 +62,7 @@ const categoryToChinese = {
   xigua: "西瓜视频",
   news_hot: "热点",
   xiaohai: "找工作",
+  search_results: "搜索",
   news_entertainment: "娱乐",
   news_tech: "科技",
   news_military: "军事",
