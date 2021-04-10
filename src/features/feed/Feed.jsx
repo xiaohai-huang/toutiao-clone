@@ -54,13 +54,15 @@ function Feed() {
 
   // initial fetch
   React.useEffect(() => {
-    dispatch(fetchNews(category));
     // fetch search_results for search category
     if (category === "search_results") {
       if (news.length === 0) {
         dispatch(fetchSearchResults());
       }
+    } else {
+      dispatch(fetchNews(category));
     }
+    // close pop up
     const timerId = setTimeout(() => {
       setOpen(false);
     }, 3000);
@@ -70,7 +72,6 @@ function Feed() {
 
   // fetch when category changes
   React.useEffect(() => {
-    dispatch(fetchNews(category));
     // fetch search_results for search category
     if (category === "search_results") {
       if (news.length === 0) {
@@ -78,6 +79,8 @@ function Feed() {
       } else if (news.length > 40) {
         dispatch(newsDeleted({ category: "search_results", count: 25 }));
       }
+    } else {
+      dispatch(fetchNews(category));
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dispatch, category]);
