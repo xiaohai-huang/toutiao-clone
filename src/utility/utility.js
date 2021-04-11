@@ -50,7 +50,7 @@ export function secondsToTimeStr(seconds) {
   // 620 => 10:20
   const mins = Math.floor(seconds / 60);
   const s = seconds - mins * 60;
-  return `${mins}:${s}`;
+  return `${mins}:${s.toString().padStart(2, "0")}`;
 }
 
 // "<p><div class="tt-video-box" tt-videoid='v03004250000c18a1m3ao9dbg8tvqmt0'

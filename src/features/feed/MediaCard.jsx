@@ -33,11 +33,20 @@ const useStyles = makeStyles((theme) => ({
   },
   image: {
     width: "154px",
-    maxHeight: "105px",
+    minHeight: "103px",
     objectFit: "cover",
     [theme.breakpoints.down("sm")]: {
-      width: "113.95px",
+      width: "7rem",
+      minHeight: "4.5rem",
       paddingRight: "0.4rem",
+    },
+  },
+  middle: {
+    [theme.breakpoints.up("sm")]: {
+      padding: theme.spacing(1.3),
+    },
+    [theme.breakpoints.down("sm")]: {
+      padding: theme.spacing(0.3),
     },
   },
 }));
@@ -64,7 +73,7 @@ function MediaCard({ image_url, video_duration_str, ...rest }) {
         <img className={classes.image} alt={rest.title} src={image_url} />
         {video_duration_str && <DurationBadge duration={video_duration_str} />}
       </Box>
-      <Box p={1} />
+      <Box className={classes.middle} />
       <SimpleContentCard {...rest} />
     </Box>
   );
