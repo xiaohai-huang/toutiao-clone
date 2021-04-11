@@ -1,7 +1,8 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+
 import newsApi from "../../Api/newsApi";
 import { selectSearchQuery } from "../search/searchSlice";
-
+import { secondsToTimeStr } from "../../utility/utility";
 export const fetchNews = createAsyncThunk(
   "feed/fetchNews",
   async (category, { getState }) => {
@@ -12,7 +13,27 @@ export const fetchNews = createAsyncThunk(
     const oldNews = getState().feed.news[`${category}`];
     const latestNews = oldNews[oldNews.length - 1];
     const latestTime = latestNews?.behot_time;
-    const news = await newsApi.getNews(latestTime, category);
+    let news = await newsApi.getNews(latestTime, category);
+    // mobile api, comment_count
+    // (use this) pc api , comments_count
+    news = news.map((n) => {
+      if (n.comment_count) {
+        n.comments_count = n.comment_count;
+      }
+      if (n.media_info) {
+        n.media_avatar_url = n.media_info.avatar_url;
+      }
+      if (n.large_mode || n.has_image || n.has_video) {
+        n.single_mode = true;
+        if (n.large_mode) {
+          n.image_url = n.large_image_url;
+        }
+        if (n.has_video && !n.video_duration_str) {
+          n.video_duration_str = secondsToTimeStr(n.video_duration);
+        }
+      }
+      return n;
+    });
 
     return { news, category };
   }
