@@ -30,7 +30,6 @@ function SearchBar() {
     if (oldQuery !== query) {
       dispatch(categoryDeleted("search_results"));
       dispatch(searchQueryUpdated(query));
-      return;
     }
 
     history.push("/search_results");
@@ -45,6 +44,7 @@ function SearchBar() {
         onSubmit={handleSubmit}
       >
         <InputBase
+          component="input"
           className={classes.input}
           placeholder="搜索站内资讯、视频或用户"
           fullWidth
