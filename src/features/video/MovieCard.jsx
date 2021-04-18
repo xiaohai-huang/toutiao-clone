@@ -63,6 +63,11 @@ const useStyles = makeStyles((theme) => ({
     color: "#999",
     fontSize: "0.76rem",
   },
+  types: {
+    whiteSpace: "nowrap",
+    overflow: "hidden",
+    textOverflow: "ellipsis",
+  },
   details: {
     "& > *": {
       fontSize: "0.75rem",
@@ -70,6 +75,9 @@ const useStyles = makeStyles((theme) => ({
   },
   playButton: {
     backgroundImage: "linear-gradient(254deg, #ff3183, #ff102b)",
+  },
+  playLabel: {
+    whiteSpace: "noWrap",
   },
 }));
 function MovieCard({
@@ -206,7 +214,7 @@ function MoviePreview({
 
         <Box display="flex" justifyContent="space-between">
           <Button
-            classes={{ root: classes.playButton }}
+            classes={{ root: classes.playButton, label: classes.playLabel }}
             startIcon={<PlayArrowIcon />}
             variant="contained"
             color="secondary"
