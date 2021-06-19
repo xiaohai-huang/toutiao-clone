@@ -49,7 +49,7 @@ export default function MainPage() {
   }
 
   return (
-    <Container className={classes.root}>
+    <Container className={classes.root} maxWidth="xl">
       <Grid container spacing={1}>
         {/* Channel */}
         {!xs && (

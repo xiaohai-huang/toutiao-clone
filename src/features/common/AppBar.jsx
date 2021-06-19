@@ -50,7 +50,7 @@ function MyAppBar({ children }) {
   return (
     <>
       <FakeAppBar />
-      <Container maxWidth="lg">
+      <Container maxWidth="xl">
         <DetailsPageAppBar />
       </Container>
       {children}

@@ -144,7 +144,7 @@ function NewsDetailsPage({ news, news_id }) {
     .replace("</body></html>", "")
     .replaceAll("<img", ' <img style="width: 100%;" ');
   return (
-    <Container maxWidth="lg">
+    <Container maxWidth="xl">
       <Grid container className={classes.container} spacing={3}>
         {/* left tools */}
         <Grid item md={1} className={classes.leftTools}>

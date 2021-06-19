@@ -154,10 +154,11 @@ function VideoDetailsPage() {
   const smDown = useMediaQuery((theme) => theme.breakpoints.down("sm"));
   const mdUp = useMediaQuery((theme) => theme.breakpoints.up("md"));
   let recommendedVideos = useSelector(selectVideosAfterId(video_id));
-  let { image_url, title, author: preview_author } = getVideoPreviewInfo(
-    video_id,
-    recommendedVideos
-  );
+  let {
+    image_url,
+    title,
+    author: preview_author,
+  } = getVideoPreviewInfo(video_id, recommendedVideos);
   // use preview info to populate video author first
   if (!media_user) {
     preview_author = {
@@ -204,10 +205,10 @@ function VideoDetailsPage() {
   return (
     <AppBar>
       <div className="videoDetailsPage">
-        <Container disableGutters={xs}>
+        <Container disableGutters={xs} maxWidth="xl">
           <Box mt={!xs ? 3 : ""} />
           <Grid container spacing={xs ? 0 : 3}>
-            <Grid item md={8} sm={12} xs={12}>
+            <Grid item lg={9} md={8} sm={12} xs={12}>
               {/* Video */}
               {Object.keys(videoInfo).length === 0 ? (
                 <>
@@ -269,7 +270,7 @@ function VideoDetailsPage() {
             </Grid>
             {/* PC only recommend videos */}
             {mdUp && (
-              <Grid item md={4}>
+              <Grid item lg={3} md={4}>
                 <AutoPlay
                   autoPlay={autoPlay}
                   handleChange={() => setAutoPlay((prev) => !prev)}
