@@ -31,6 +31,8 @@ import AuthorInfoPanel from "../features/feed/AuthorInfoPanel";
 import { categoryDeleted } from "../features/feed/feedSlice";
 import MobileHotCard from "../features/company/MobileHotCard";
 import HotCard from "../features/company/HotCard";
+import useComments from "../utility/useComments.tsx";
+import Comment from "../features/common/Comment.tsx";
 
 const renderers = {
   code: ({ language, value }) => {
@@ -115,6 +117,7 @@ function NewsDetailsPage({ news, news_id }) {
   const history = useHistory();
   const user = useSelector((state) => state.app.user);
   const xs = useMediaQuery((theme) => theme.breakpoints.down("xs"));
+  const { comments } = useComments(news_id);
 
   const handleDelete = async () => {
     await newsApi
@@ -177,6 +180,14 @@ function NewsDetailsPage({ news, news_id }) {
               renderers={renderers}
             />
             {/* Comments */}
+
+            <Typography variant="h4">评论</Typography>
+            <Box mb={2} />
+            {comments?.map((comment) => (
+              <Box mb={3}>
+                <Comment key={comment.id} {...comment} />
+              </Box>
+            ))}
             {/* <Button onClick={handleCommentsUpdate}>More Comments</Button> */}
             {/* Headlines */}
             <Box mt={4} />

@@ -38,6 +38,8 @@ import {
 import VideosList from "../features/video/VideoList";
 import SwitchButton from "../features/video/SwitchButton";
 import ReactMarkdown from "react-markdown";
+import Comment from "../features/common/Comment.tsx";
+import useComments from "../utility/useComments.tsx";
 const useStyles = makeStyles((theme) => ({
   titleSection: {
     boxShadow: "none",
@@ -143,6 +145,7 @@ function VideoDetailsPage() {
   const classes = useStyles();
   const { video_id } = useParams();
   const dispatch = useDispatch();
+  const { comments } = useComments(video_id);
 
   let videoInfo = useSelector(selectVideoDetailsById(video_id));
   if (!videoInfo) {
@@ -179,6 +182,7 @@ function VideoDetailsPage() {
 
   useEffect(() => {
     dispatch(fetchVideoDetails(video_id));
+
     window.scrollTo(0, 0);
   }, [video_id, dispatch]);
 
@@ -247,8 +251,14 @@ function VideoDetailsPage() {
                 <Box mt={2.5} />
                 {!xs && <Author {...media_user} />}
                 {/* Social Buttons */}
-                <Buttons digg_count={digg_count} mt={2.5} mb={3} />
+                <Buttons digg_count={digg_count || 0} mt={2.5} mb={3} />
 
+                {/* Comments */}
+                {comments.map((comment) => (
+                  <Box mb={3}>
+                    <Comment key={comment.id} {...comment} />
+                  </Box>
+                ))}
                 {/* Mobile Recommend Videos */}
 
                 {smDown && (
