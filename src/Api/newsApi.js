@@ -220,6 +220,13 @@ newsApi.getCommentsById = async (news_id, offset) => {
   return data;
 };
 
+newsApi.getCommentReplyListById = (comment_id) => {
+  const test = `http://localhost:4500/tt/reply_list/${comment_id}`;
+  const production = `${BASE_URL}/reply_list/${comment_id}`;
+  const url = process.env.NODE_ENV === "development" ? test : production;
+  return fetch(url).then((res) => res.json());
+};
+
 newsApi.getWeather = async () => {
   // const test = "MockData/weather.json";
   const test = "http://localhost:4500/tt/weather";

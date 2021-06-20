@@ -184,8 +184,8 @@ function NewsDetailsPage({ news, news_id }) {
             <Typography variant="h4">评论</Typography>
             <Box mb={2} />
             {comments?.map((comment) => (
-              <Box mb={3}>
-                <Comment key={comment.id} {...comment} />
+              <Box key={comment.id} mb={3}>
+                <Comment hasReplyList {...comment} />
               </Box>
             ))}
             {/* <Button onClick={handleCommentsUpdate}>More Comments</Button> */}

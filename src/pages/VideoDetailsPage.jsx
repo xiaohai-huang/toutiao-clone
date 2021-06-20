@@ -256,7 +256,7 @@ function VideoDetailsPage() {
                 {/* Comments */}
                 {comments.map((comment) => (
                   <Box mb={3}>
-                    <Comment key={comment.id} {...comment} />
+                    <Comment key={comment.id} hasReplyList {...comment} />
                   </Box>
                 ))}
                 {/* Mobile Recommend Videos */}
