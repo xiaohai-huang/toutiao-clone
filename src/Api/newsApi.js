@@ -1,7 +1,7 @@
 let newsApi = {};
-// const BASE_URL = "https://toutiao-proxy.herokuapp.com/tt";
-const BASE_URL = "https://api.xiaotiao.site:9443/tt";
-let TENCENT_SERVER = "https://api.xiaotiao.site:9443/tt";
+const BASE_URL = "https://toutiao-proxy.herokuapp.com/tt";
+// const BASE_URL = "https://api.xiaotiao.site:9443/tt";
+let TENCENT_SERVER = "https://toutiao-proxy.herokuapp.com/tt";
 
 const getLocation = () => {
   return "CN";
